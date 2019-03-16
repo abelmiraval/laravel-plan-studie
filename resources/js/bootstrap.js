@@ -3,10 +3,11 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
 
-
 window.Vue = require('vue');
 
 Vue.use(Vuetify)
+
+
 
 window._ = require('lodash');
 
@@ -51,3 +52,9 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+
+
+
+
