@@ -6,7 +6,7 @@
 
 require('./bootstrap');
 import { router } from './routes'
-
+import { store } from './store'
 
 
 /**
@@ -34,7 +34,7 @@ Vue.component('sidebar', require('./components/Sidebar.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-    router
-});
+new Vue({
+    router,
+    store,
+}).$mount('#app')

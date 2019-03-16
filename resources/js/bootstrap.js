@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import 'es6-promise/auto'
 import 'vuetify/dist/vuetify.min.css'
 
 
