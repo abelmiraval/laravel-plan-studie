@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 let routes = [
     {
-        path: '/example',
+        path: '/temas',
         component: ExampleComponent
     },
 ];
