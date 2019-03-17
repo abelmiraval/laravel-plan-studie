@@ -1801,6 +1801,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+var _data$watch$computed$;
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1822,13 +1829,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
+
+/* harmony default export */ __webpack_exports__["default"] = (_data$watch$computed$ = {
   data: function data() {
     return {
-      drawer: null
+      state: true,
+      name: ""
     };
+  },
+  watch: {
+    // whenever question changes, this function will run
+    state: function state() {
+      console.log("hola");
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["drawer"]))
+}, _defineProperty(_data$watch$computed$, "watch", {
+  state: function state(val, old) {
+    return this.sendState(val);
   }
-});
+}), _defineProperty(_data$watch$computed$, "methods", _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["modifyDrawer"]), {
+  sendState: function sendState(value) {
+    this.modifyDrawer(value);
+  }
+})), _data$watch$computed$);
 
 /***/ }),
 
@@ -1841,6 +1865,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1856,11 +1885,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      drawer: null,
-      dialog: false,
+      dialog: true,
       items: [{
         icon: "business",
         text: "Temas",
@@ -1876,6 +1905,7 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["drawer"])),
   props: {
     source: String
   }
@@ -21392,8 +21422,15 @@ var render = function() {
             on: {
               click: function($event) {
                 $event.stopPropagation()
-                _vm.drawer = !_vm.drawer
+                _vm.state = !_vm.state
               }
+            },
+            model: {
+              value: _vm.state,
+              callback: function($$v) {
+                _vm.state = $$v
+              },
+              expression: "state"
             }
           }),
           _vm._v(" "),
@@ -21459,13 +21496,11 @@ var render = function() {
   return _c(
     "v-navigation-drawer",
     {
-      attrs: { fixed: "", clipped: _vm.$vuetify.breakpoint.mdAndUp, app: "" },
-      model: {
-        value: _vm.drawer,
-        callback: function($$v) {
-          _vm.drawer = $$v
-        },
-        expression: "drawer"
+      attrs: {
+        fixed: "",
+        clipped: _vm.$vuetify.breakpoint.mdAndUp,
+        app: "",
+        value: _vm.drawer
       }
     },
     [
@@ -63597,6 +63632,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     drawer: true
+  },
+  getters: {
+    getStateDrawer: function getStateDrawer(state) {
+      return state.drawer;
+    }
+  },
+  mutations: {
+    MODIFY_DRAWER: function MODIFY_DRAWER(state, value) {
+      state.drawer = value;
+    }
+  },
+  actions: {
+    modifyDrawer: function modifyDrawer(context, value) {
+      context.commit("MODIFY_DRAWER", value);
+    }
   }
 });
 

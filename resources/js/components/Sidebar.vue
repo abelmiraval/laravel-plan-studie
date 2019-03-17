@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer fixed :clipped="$vuetify.breakpoint.mdAndUp" app v-model="drawer">
+  <v-navigation-drawer fixed :clipped="$vuetify.breakpoint.mdAndUp" app :value="drawer">
     <v-list dense>
       <v-list-tile value="true" v-for="(item, i) in items" :key="i" :to="item.path">
         <v-list-tile-action>
@@ -14,16 +14,22 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-  data: () => ({
-    drawer: null,
-    dialog: false,
-    items: [
-      { icon: "business", text: "Temas", path: "temas" },
-      { icon: "dialpad", text: "Cursos", path: "cursos" },
-      { icon: "content_copy", text: "Plan", path: "plan" }
-    ]
-  }),
+  data() {
+    return {
+      dialog: true,
+      items: [
+        { icon: "business", text: "Temas", path: "temas" },
+        { icon: "dialpad", text: "Cursos", path: "cursos" },
+        { icon: "content_copy", text: "Plan", path: "plan" }
+      ]
+    };
+  },
+  computed: {
+    ...mapState(["drawer"])
+  },
   props: {
     source: String
   }
