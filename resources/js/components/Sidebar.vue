@@ -22,7 +22,7 @@ export default {
       dialog: true,
       items: [
         { icon: "business", text: "Temas", path: "temas" },
-        { icon: "dialpad", text: "Cursos", path: "cursos" },
+        { icon: "dialpad", text: "Curriculo", path: "curriculo" },
         { icon: "content_copy", text: "Plan", path: "plan" }
       ]
     };
