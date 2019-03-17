@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'es6-promise/auto'
 import 'vuetify/dist/vuetify.min.css'
+import vuetifyToast from 'vuetify-toast';
 
 
 window.Vue = require('vue');
@@ -12,6 +13,9 @@ Vue.use(Vuetify)
 
 window._ = require('lodash');
 
+//Notification
+window.notify = vuetifyToast;
+window.notify.showCool = (text) => notify.show({ text, color: 'success' });
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -20,7 +24,6 @@ window._ = require('lodash');
  */
 
 window.axios = require('axios');
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
