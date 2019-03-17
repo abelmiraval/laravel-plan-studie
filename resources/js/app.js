@@ -23,6 +23,7 @@ import { store } from './store'
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('navbar', require('./components/Navbar.vue').default);
 Vue.component('sidebar', require('./components/Sidebar.vue').default);
+Vue.component('topic', require('./components/Topic.vue').default);
 
 
 

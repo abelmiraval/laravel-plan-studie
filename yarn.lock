@@ -5399,6 +5399,10 @@ vue@^2.5.17:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.9.tgz#415c1cc1a5ed00c8f0acdd0a948139d12b7ea6b3"
 
+vuetify-toast@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/vuetify-toast/-/vuetify-toast-0.1.0.tgz#e9b53965747b954a7275c19d38b319165d1a9e78"
+
 vuetify@^1.5.6:
   version "1.5.6"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.5.6.tgz#4f53bd061b3930391088fc2833d7b9ecf43fecf0"
