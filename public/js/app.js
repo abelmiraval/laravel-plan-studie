@@ -2129,8 +2129,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {},
   watch: {},
-  created: function created() {
-    this.initialize();
+  created: function created() {//this.initialize();
   },
   mounted: function mounted() {
     var _this = this;
@@ -2145,18 +2144,24 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    initialize: function initialize() {
-      this.capacities = [{
-        name: "Frozen Yogurt"
-      }, {
-        name: "KitKat"
-      }];
-      this.contents = [{
-        name: "Arror con pollo"
-      }, {
-        name: "Chicharon"
-      }];
-    },
+    // initialize() {
+    //   this.capacities = [
+    //     {
+    //       name: "Frozen Yogurt"
+    //     },
+    //     {
+    //       name: "KitKat"
+    //     }
+    //   ];
+    //   this.contents = [
+    //     {
+    //       name: "Arror con pollo"
+    //     },
+    //     {
+    //       name: "Chicharon"
+    //     }
+    //   ];
+    // },
     deleteItemCapacities: function deleteItemCapacities(item) {
       var index = this.selected_capacities.indexOf(item);
       confirm("Esta seguro de querer eliminar?") && this.selected_capacities.splice(index, 1);
@@ -2174,13 +2179,19 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       var _this2 = this;
 
+      var capacities = this.selected_capacities.map(function (c) {
+        return c.id;
+      });
+      var contents = this.selected_contents.map(function (c) {
+        return c.id;
+      });
       var data = {
         code: this.code,
         name: this.name,
         knowledge: this.knowledge,
         specific: this.specific,
-        capacities: this.selected_capacities,
-        contents: this.selected_contents
+        capacities: capacities,
+        contents: contents
       };
 
       if (!this.code) {
@@ -2221,8 +2232,6 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (response) {
         notify.error("Ocurrio un error");
       });
-      this.reset();
-      console.log(data);
     },
     reset: function reset() {
       this.code = "", this.name = "", this.knowledge = "", this.specific = "", this.selected_capacities = [], this.selected_contents = [];
@@ -22076,7 +22085,7 @@ var render = function() {
                                       _c(
                                         "v-dialog",
                                         {
-                                          attrs: { "max-width": "500px" },
+                                          attrs: { "max-width": "600px" },
                                           scopedSlots: _vm._u([
                                             {
                                               key: "activator",
@@ -22402,7 +22411,7 @@ var render = function() {
                                       _c(
                                         "v-dialog",
                                         {
-                                          attrs: { "max-width": "500px" },
+                                          attrs: { "max-width": "600px" },
                                           scopedSlots: _vm._u([
                                             {
                                               key: "activator",
@@ -22469,7 +22478,7 @@ var render = function() {
                                                     [
                                                       _c("v-data-table", {
                                                         staticClass:
-                                                          "elevation-1",
+                                                          "elevation-1 custom-table",
                                                         attrs: {
                                                           headers:
                                                             _vm.headers_modal,

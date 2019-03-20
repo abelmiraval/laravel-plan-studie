@@ -32,7 +32,7 @@
                     <v-toolbar-title>Capacidades</v-toolbar-title>
                     <v-divider class="mx-2" inset vertical></v-divider>
                     <v-spacer></v-spacer>
-                    <v-dialog v-model="dialog_capacity" max-width="500px">
+                    <v-dialog v-model="dialog_capacity" max-width="600px">
                       <template v-slot:activator="{ on }">
                         <v-btn color="primary" dark class="mb-2" v-on="on">Agregar capacidad</v-btn>
                       </template>
@@ -97,7 +97,7 @@
                     <v-toolbar-title>Contenido</v-toolbar-title>
                     <v-divider class="mx-2" inset vertical></v-divider>
                     <v-spacer></v-spacer>
-                    <v-dialog v-model="dialog_content" max-width="500px">
+                    <v-dialog v-model="dialog_content" max-width="600px">
                       <template v-slot:activator="{ on }">
                         <v-btn color="primary" dark class="mb-2" v-on="on">Agregar contenido</v-btn>
                       </template>
@@ -112,7 +112,7 @@
                               :headers="headers_modal"
                               :items="contents"
                               item-key="name"
-                              class="elevation-1"
+                              class="elevation-1 custom-table"
                             >
                               <template v-slot:items="props">
                                 <td>
@@ -196,7 +196,7 @@ export default {
   watch: {},
 
   created() {
-    this.initialize();
+    //this.initialize();
   },
 
   mounted() {
@@ -209,25 +209,25 @@ export default {
   },
 
   methods: {
-    initialize() {
-      this.capacities = [
-        {
-          name: "Frozen Yogurt"
-        },
-        {
-          name: "KitKat"
-        }
-      ];
+    // initialize() {
+    //   this.capacities = [
+    //     {
+    //       name: "Frozen Yogurt"
+    //     },
+    //     {
+    //       name: "KitKat"
+    //     }
+    //   ];
 
-      this.contents = [
-        {
-          name: "Arror con pollo"
-        },
-        {
-          name: "Chicharon"
-        }
-      ];
-    },
+    //   this.contents = [
+    //     {
+    //       name: "Arror con pollo"
+    //     },
+    //     {
+    //       name: "Chicharon"
+    //     }
+    //   ];
+    // },
 
     deleteItemCapacities(item) {
       const index = this.selected_capacities.indexOf(item);
@@ -249,13 +249,16 @@ export default {
     },
 
     save() {
+      const capacities = this.selected_capacities.map(c => c.id);
+      const contents = this.selected_contents.map(c => c.id);
+
       const data = {
         code: this.code,
         name: this.name,
         knowledge: this.knowledge,
         specific: this.specific,
-        capacities: this.selected_capacities,
-        contents: this.selected_contents
+        capacities: capacities,
+        contents: contents
       };
 
       if (!this.code) {
@@ -294,9 +297,6 @@ export default {
         .catch(response => {
           notify.error("Ocurrio un error");
         });
-
-      this.reset();
-      console.log(data);
     },
     reset() {
       (this.code = ""),
