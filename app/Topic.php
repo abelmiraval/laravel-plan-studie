@@ -3,8 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Capacty;
+use App\Capacity;
 use App\Content;
+use App\Course;
 
 class Topic extends Model
 {
@@ -18,5 +19,10 @@ class Topic extends Model
     public function contents()
     {
         return $this->belongsToMany(Content::class);
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
     }
 }

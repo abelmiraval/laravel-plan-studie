@@ -6,6 +6,7 @@ use App\Course;
 use App\Area;
 use App\Nature;
 use App\Term;
+use App\Topic;
 use App\TopicCourse;
 use App\RequerimentCourse;
 use Illuminate\Http\Request;
@@ -51,12 +52,19 @@ class CourseController extends Controller
         $course->save();
 
 
-        foreach ($request->topics as $topic_id) {
-            $topic_course = new TopicCourse;
-            $topic_course->course_id = $course->id;
-            $topic_course->topic_id = $topic_id;
-            $topic_course->save();
+        $topics = $request->topics;
+        foreach ($topics as $value) {
+            $topic = Topic::find($value);
+            $course->topics()->attach($topic);
         }
+
+        // foreach ($request->topics as $topic_id) {
+        //     $topic_course = new TopicCourse;
+        //     $topic_course->course_id = $course->id;
+        //     $topic_course->topic_id = $topic_id;
+        //     $topic_course->save();
+        // }
+
         foreach ($request->requeriments as $requeriment_id) {
             $requeriment_course = new RequerimentCourse;
             $requeriment_course->course_id = $course->id;

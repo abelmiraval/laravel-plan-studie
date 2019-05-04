@@ -359,9 +359,10 @@ export default {
         .then(({ data }) => {
           notify.showCool(data.message);
           this.getCourses();
-          this.reset();
+          // this.reset();
         })
         .catch(response => {
+          console.log(response);
           notify.error(response.message);
         });
     },

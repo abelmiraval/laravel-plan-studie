@@ -2141,10 +2141,10 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref8.data;
         notify.showCool(data.message);
 
-        _this4.getCourses();
+        _this4.getCourses(); // this.reset();
 
-        _this4.reset();
       }).catch(function (response) {
+        console.log(response);
         notify.error(response.message);
       });
     },
