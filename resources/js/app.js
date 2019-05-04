@@ -24,6 +24,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('navbar', require('./components/Navbar.vue').default);
 Vue.component('sidebar', require('./components/Sidebar.vue').default);
 Vue.component('topic', require('./components/Topic.vue').default);
+Vue.component('course', require('./components/Course.vue').default);
+
 
 
 

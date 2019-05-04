@@ -6,6 +6,8 @@ use App\Topic;
 use App\Capacity;
 use App\Content;
 
+use DB;
+
 
 use Illuminate\Http\Request;
 
@@ -18,7 +20,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        //
+        $topics = DB::table('topics')->select('id', 'name')->get();
+
+        return  $topics;
     }
 
     /**
@@ -50,10 +54,7 @@ class TopicController extends Controller
             $topic->contents()->attach($content);
         }
 
-
         return response()->json(['message' => "Tema creado"], 200);
-
-
     }
 
     /**

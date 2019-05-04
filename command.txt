@@ -1,14 +1,24 @@
 #-----------------COMMAND IN LARAVEL----------------------#
 1. $ php artisan make:model Topic -mcr
-2. php artisan make:migration create_content_topic_table --create=content_product
+2. php artisan make:migration create_content_topic_table --create=content_topic
 3. Puedes ejecutar php artisan migrate:reset para deshacer todas las migraciones.
 4. El comando php artisan migrate:rollback te permite deshacer la última migración ejecutada.
+5. El comando php artisan migrate:fresh borrar todas la tablas y correr todas las migraciones
 
 
 
-#-----------------COMMAND IN GIT----------------------#
+
+#-----------------COMMAND IN GIT-------------------------#
 1.Eliminar archivos sin seguimiento en git
 $ git clean -fd  or git clean -fdx
 -f – fuerza
 -d – directorios también
 -x – elimina los archivos ignorados también (no uses esto si no quieres eliminar los archivos ignorados)
+
+#---------------------RELACIONES-------------------------#
+
+N:M
+
+Topic belongsToMany Capacity.
+Capacity belongsToMany Topic
+
