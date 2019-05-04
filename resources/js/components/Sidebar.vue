@@ -21,6 +21,7 @@ export default {
     return {
       dialog: true,
       items: [
+        { icon: "content_copy", text: "Capacidades", path: "capacidades" },
         { icon: "business", text: "Temas", path: "temas" },
         { icon: "dialpad", text: "Cursos", path: "cursos" },
         { icon: "content_copy", text: "Plan", path: "plan" }

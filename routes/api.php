@@ -29,3 +29,10 @@ Route::post('course/create', 'CourseController@create');
 Route::get('natures', 'NatureController@index');
 Route::get('areas', 'AreaController@index');
 Route::get('terms', 'TermController@index');
+
+//Capacity
+Route::post('capacity/create', 'CapacityController@create');
+Route::put('capacity/update/{capacity}', 'CapacityController@update');
+Route::delete('capacity/delete/{capacity}', 'CapacityController@destroy');
+
+

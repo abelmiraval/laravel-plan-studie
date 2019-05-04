@@ -14,7 +14,7 @@ class CapacityController extends Controller
      */
     public function index()
     {
-        $capacities = DB::table('capacities')->select('id', 'name')->get();
+        $capacities = DB::table('capacities')->where('state','<>', 0)->orderBy('name')->select('id','code', 'name')->get();
 
         return  $capacities;
     }
@@ -24,9 +24,19 @@ class CapacityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $this->validate($request,[
+            'code' => 'required',
+            'name' => 'required'
+        ]);
+        Capacity::create([
+            "code" => $request->code,
+            "name" => $request->name,
+            "state" => 1
+        ]);
+        return response()->json(['message' => "Capacidad creada"], 200);
     }
 
     /**
@@ -72,6 +82,17 @@ class CapacityController extends Controller
     public function update(Request $request, Capacity $capacity)
     {
         //
+        $this->validate($request,[
+            'code' => 'required',
+            'name' => 'required'
+        ]);
+
+        $capacity->code = request('code');
+        $capacity->name = request('name');
+        $capacity->save();
+        return response()->json([
+            'message' => 'Capacidad Actualizada!'
+        ], 200);
     }
 
     /**
@@ -83,5 +104,10 @@ class CapacityController extends Controller
     public function destroy(Capacity $capacity)
     {
         //
+        $capacity->state = 0;
+        $capacity->update();
+        return response()->json([
+            'message' => 'Capacidad eliminada!'
+        ]);
     }
 }

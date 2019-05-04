@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use App\Topic;
 use App\Capacity;
 use App\Content;
-
 use DB;
-
-
 use Illuminate\Http\Request;
 
 class TopicController extends Controller
