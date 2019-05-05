@@ -4,12 +4,12 @@
       <v-flex xs12 sm12 md12>
         <v-card>
           <v-toolbar flat color="white">
-            <v-toolbar-title>CAPACIDADES</v-toolbar-title>
+            <v-toolbar-title>CONTENIDOS</v-toolbar-title>
             <v-divider class="mx-2" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ on }">
-                <v-btn color="primary" dark class="mb-2" v-on="on">Nueva Capacidad</v-btn>
+                <v-btn color="primary" dark class="mb-2" v-on="on">Nuevo Contenido</v-btn>
               </template>
               <v-card>
                 <v-card-title>
@@ -37,7 +37,7 @@
               </v-card>
             </v-dialog>
           </v-toolbar>
-          <v-data-table :headers="headers" :items="capacities" class="elevation-1">
+          <v-data-table :headers="headers" :items="contents" class="elevation-1">
             <template v-slot:items="props">
               <td class="text-xs-center">{{ props.item.code }}</td>
               <td class="text-xs-center">{{ props.item.name }}</td>
@@ -52,7 +52,7 @@
                 color="info"
                 icon="warning"
                 style="margin: 1.5em 0"
-              >Aún no se han agregado capacidades :(</v-alert>
+              >Aún no se han agregado contenidos :(</v-alert>
             </template>
           </v-data-table>
         </v-card>
@@ -70,7 +70,7 @@ export default {
       { text: "Nombre", value: "fat" },
       { text: "Actions", value: "name", sortable: false }
     ],
-    capacities: [],
+    contents: [],
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -84,7 +84,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nueva Capacidad" : "Editar Capacidad";
+      return this.editedIndex === -1 ? "Nueva Contenido" : "Editar Contenido";
     }
   },
 
@@ -99,34 +99,34 @@ export default {
   },
 
   mounted() {
-    axios.get("/api/capacities").then(({ data }) => {
-      this.capacities = data;
+    axios.get("/api/contents").then(({ data }) => {
+      this.contents = data;
     });
   },
   methods: {
     initialize() {
       this.reset();
       this.close();
-      this.getCapacities();
+      this.getcontents();
     },
 
-    getCapacities() {
-      axios.get("/api/capacities").then(({ data }) => {
-        this.capacities = data;
+    getcontents() {
+      axios.get("/api/contents").then(({ data }) => {
+        this.contents = data;
       });
     },
     editItem(item) {
-      this.editedIndex = this.capacities.indexOf(item);
+      this.editedIndex = this.contents.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.capacities.indexOf(item);
+      const index = this.contents.indexOf(item);
       const result = confirm("Estas seguro de querer eliminar este item?");
       if (result) {
         axios
-          .delete("/api/capacity/delete/" + item.id, {})
+          .delete("/api/content/delete/" + item.id, {})
           .then(({ data }) => {
             notify.showCool(data.message);
             this.initialize();
@@ -151,9 +151,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        // Object.assign(this.capacities[this.editedIndex], this.editedItem);
+        // Object.assign(this.contents[this.editedIndex], this.editedItem);
         axios
-          .put("/api/capacity/update/" + this.editedItem.id, {
+          .put("/api/content/update/" + this.editedItem.id, {
             code: this.editedItem.code,
             name: this.editedItem.name
           })
@@ -179,7 +179,7 @@ export default {
           name: this.editedItem.name
         };
         axios
-          .post("/api/capacity/create", data)
+          .post("/api/content/create", data)
           .then(({ data }) => {
             notify.showCool(data.message);
             this.initialize();

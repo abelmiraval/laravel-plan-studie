@@ -8,7 +8,7 @@ use App\Topic;
 class Capacity extends Model
 {
     //
-    public $timestamps = false;
+    // public $timestamps = false;
     protected $guarded = [];
     public function topics()
     {

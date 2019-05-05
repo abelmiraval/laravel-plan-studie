@@ -15,7 +15,7 @@ class ContentController extends Controller
      */
     public function index()
     {
-        $contents = DB::table('contents')->select('id', 'name')->get();
+        $contents = DB::table('contents')->where('state','<>', 0)->orderBy('name')->select('id', 'code', 'name')->get();
 
 
         return  $contents;
@@ -26,9 +26,19 @@ class ContentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request )
     {
         //
+        $this->validate($request,[
+            'code' => 'required',
+            'name' => 'required'
+        ]);
+        Content::create([
+            "code" => $request->code,
+            "name" => $request->name,
+            "state" => 1
+        ]);
+        return response()->json(['message' => "Contenido creado"], 200);
     }
 
     /**
@@ -74,6 +84,17 @@ class ContentController extends Controller
     public function update(Request $request, Content $content)
     {
         //
+        $this->validate($request,[
+            'code' => 'required',
+            'name' => 'required'
+        ]);
+
+        $content->code = request('code');
+        $content->name = request('name');
+        $content->save();
+        return response()->json([
+            'message' => 'Contenido Actualizada!'
+        ], 200);
     }
 
     /**
@@ -85,5 +106,10 @@ class ContentController extends Controller
     public function destroy(Content $content)
     {
         //
+        $content->state = 0;
+        $content->update();
+        return response()->json([
+            'message' => 'Contenido eliminada!'
+        ]);
     }
 }

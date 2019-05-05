@@ -26,6 +26,8 @@ Vue.component('sidebar', require('./components/Sidebar.vue').default);
 Vue.component('topic', require('./components/Topic.vue').default);
 Vue.component('course', require('./components/Course.vue').default);
 Vue.component('capacity', require('./components/Capacity.vue').default);
+Vue.component('contentt', require('./components/Content.vue').default);
+
 
 
 

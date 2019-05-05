@@ -34,5 +34,7 @@ Route::get('terms', 'TermController@index');
 Route::post('capacity/create', 'CapacityController@create');
 Route::put('capacity/update/{capacity}', 'CapacityController@update');
 Route::delete('capacity/delete/{capacity}', 'CapacityController@destroy');
-
-
+//Content
+Route::post('content/create', 'ContentController@create');
+Route::put('content/update/{content}', 'ContentController@update');
+Route::delete('content/delete/{content}', 'ContentController@destroy');
