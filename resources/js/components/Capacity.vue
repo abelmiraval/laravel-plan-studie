@@ -150,6 +150,15 @@ export default {
     },
 
     save() {
+        if (!this.editedItem.code) {
+          notify.error("Ingrese código");
+          return;
+        }
+        if (!this.editedItem.name) {
+          notify.error("Ingrese nombre ");
+          return;
+        }
+
       if (this.editedIndex > -1) {
         // Object.assign(this.capacities[this.editedIndex], this.editedItem);
         axios
@@ -166,14 +175,7 @@ export default {
             notify.error(error.response.data.message);
           });
       } else {
-        if (!this.editedItem.code) {
-          notify.error("Ingrese código");
-          return;
-        }
-        if (!this.editedItem.name) {
-          notify.error("Ingrese nombre ");
-          return;
-        }
+
         const data = {
           code: this.editedItem.code,
           name: this.editedItem.name

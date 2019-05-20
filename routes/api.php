@@ -25,7 +25,9 @@ Route::get('contents', 'ContentController@index');
 
 //api course
 Route::get('courses', 'CourseController@index');
+Route::get('requeriments', 'CourseController@requeriments');
 Route::post('course/create', 'CourseController@create');
+Route::put('course/update/{course}', 'CourseController@update');
 Route::get('natures', 'NatureController@index');
 Route::get('areas', 'AreaController@index');
 Route::get('terms', 'TermController@index');

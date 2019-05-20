@@ -1927,6 +1927,16 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       var _this5 = this;
 
+      if (!this.editedItem.code) {
+        notify.error("Ingrese código");
+        return;
+      }
+
+      if (!this.editedItem.name) {
+        notify.error("Ingrese nombre ");
+        return;
+      }
+
       if (this.editedIndex > -1) {
         // Object.assign(this.capacities[this.editedIndex], this.editedItem);
         axios.put("/api/capacity/update/" + this.editedItem.id, {
@@ -1942,16 +1952,6 @@ __webpack_require__.r(__webpack_exports__);
           notify.error(error.response.data.message);
         });
       } else {
-        if (!this.editedItem.code) {
-          notify.error("Ingrese código");
-          return;
-        }
-
-        if (!this.editedItem.name) {
-          notify.error("Ingrese nombre ");
-          return;
-        }
-
         var data = {
           code: this.editedItem.code,
           name: this.editedItem.name
@@ -2199,6 +2199,86 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2378,40 +2458,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
+      search: "",
+      dialog: false,
       dialog_topic: false,
       mask_theoretical_hours: "##",
       mask_practical_hours: "##",
       mask_credit: "##",
-      mask_level: "####-#",
-      searchRequeriment: "",
-      headers: [{
-        text: "N°",
-        value: "name"
-      }, {
-        text: "Nombre",
-        value: "fat"
-      }, {
-        text: "Actions",
-        value: "name",
-        sortable: false
-      }],
-      headers_modal: [{
-        text: "#",
-        value: "",
-        sortable: false
-      }, {
-        text: "N°",
-        value: "name"
-      }, {
-        text: "Nombre",
-        value: "fat"
-      }],
+      mask_level: "####-#"
+    }, _defineProperty(_ref, "search", ""), _defineProperty(_ref, "headers", [{
+      text: "Código",
+      value: "code"
+    }, {
+      text: "Nombre",
+      value: "name"
+    }, {
+      text: "Área",
+      value: "area"
+    }, {
+      text: "Naturaleza",
+      value: "nature"
+    }, {
+      text: "H.T",
+      value: "ht"
+    }, {
+      text: "H.P",
+      value: "hp"
+    }, {
+      text: "Créditos",
+      value: "credit"
+    }, {
+      text: "Semestre",
+      value: "level"
+    }, {
+      text: "Condición",
+      value: "term"
+    }, {
+      text: "Requisitos",
+      value: "requeriments"
+    }, {
+      text: "Actions",
+      value: "actions",
+      sortable: false
+    }]), _defineProperty(_ref, "headers_topic", [{
+      text: "N°",
+      value: ""
+    }, {
+      text: "Código",
+      value: "code"
+    }, {
+      text: "Nombre",
+      value: "name"
+    }, {
+      text: "Actions",
+      value: "actions",
+      sortable: false
+    }]), _defineProperty(_ref, "headers_modal", [{
+      text: "#",
+      value: "",
+      sortable: false
+    }, {
+      text: "N°",
+      value: "name"
+    }, {
+      text: "Nombre",
+      value: "fat"
+    }]), _defineProperty(_ref, "courses", []), _defineProperty(_ref, "topics_all", []), _defineProperty(_ref, "areas", []), _defineProperty(_ref, "natures", []), _defineProperty(_ref, "terms", []), _defineProperty(_ref, "requeriments_all", []), _defineProperty(_ref, "editedItem", {
       code: "",
       name: "",
       area: {},
       nature: {},
-      condition: {},
+      term: {},
       main_objective: "",
       secondary_objective: "",
       theoretical_hours: "",
@@ -2419,15 +2538,14 @@ __webpack_require__.r(__webpack_exports__);
       credits: "",
       level: "",
       requeriments: [],
-      selected_topics: [],
-      courses: [],
-      topics: [],
-      areas: [],
-      natures: [],
-      terms: []
-    };
+      topics: []
+    }), _defineProperty(_ref, "editedIndex", -1), _ref;
   },
-  computed: {},
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? "Nuevo Curso" : "Editar Curso";
+    }
+  },
   watch: {},
   created: function created() {
     this.initialize();
@@ -2435,169 +2553,190 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    // axios.get("/api/requeriments").then(({ data }) => {
-    //   this.courses = data;
-    // });
-    axios.get("/api/courses").then(function (_ref) {
-      var data = _ref.data;
+    axios.get("/api/requeriments").then(function (_ref2) {
+      var data = _ref2.data;
+      _this.requeriments_all = data;
+    });
+    axios.get("/api/courses").then(function (_ref3) {
+      var data = _ref3.data;
       _this.courses = data;
     });
-    axios.get("/api/topics").then(function (_ref2) {
-      var data = _ref2.data;
-      _this.topics = data;
+    axios.get("/api/topics").then(function (_ref4) {
+      var data = _ref4.data;
+      _this.topics_all = data;
     });
-    axios.get("/api/terms").then(function (_ref3) {
-      var data = _ref3.data;
+    axios.get("/api/terms").then(function (_ref5) {
+      var data = _ref5.data;
       _this.terms = data;
     });
-    axios.get("/api/natures").then(function (_ref4) {
-      var data = _ref4.data;
+    axios.get("/api/natures").then(function (_ref6) {
+      var data = _ref6.data;
       _this.natures = data;
     });
-    axios.get("/api/areas").then(function (_ref5) {
-      var data = _ref5.data;
+    axios.get("/api/areas").then(function (_ref7) {
+      var data = _ref7.data;
       _this.areas = data;
     });
   },
   methods: {
-    initialize: function initialize() {// this.areas = [
-      //   "Formación  General",
-      //   "Formación Específica",
-      //   "Formación Especializada"
-      // ];
-      // this.natures = ["Teórico", "Práctico"];
-      // this.terms = ["Obligatorio", "Electivo"];
-      // this.courses = ["NS-01", "NS-02", "NS-03"];
+    initialize: function initialize() {
+      this.getCourses();
+      this.reset();
     },
     getTopics: function getTopics() {
       var _this2 = this;
 
-      axios.get("/api/topics").then(function (_ref6) {
-        var data = _ref6.data;
-        _this2.topics = data;
+      axios.get("/api/topics").then(function (_ref8) {
+        var data = _ref8.data;
+        _this2.topics_all = data;
       });
     },
     getCourses: function getCourses() {
       var _this3 = this;
 
-      axios.get("/api/courses").then(function (_ref7) {
-        var data = _ref7.data;
+      axios.get("/api/courses").then(function (_ref9) {
+        var data = _ref9.data;
         _this3.courses = data;
       });
     },
     deleteItemtopics: function deleteItemtopics(item) {
-      var index = this.selected_topics.indexOf(item);
-      confirm("Esta seguro de querer eliminar?") && this.selected_topics.splice(index, 1);
+      var index = this.editedItem.topics.indexOf(item);
+      confirm("Esta seguro de querer eliminar?") && this.editedItem.topics.splice(index, 1);
+    },
+    close: function close() {
+      var _this4 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this4.editedItem = Object.assign({}, _this4.defaultItem);
+        _this4.editedIndex = -1;
+      }, 300);
     },
     close_dialog_course: function close_dialog_course() {
       this.dialog_topic = false;
     },
     save: function save() {
-      var _this4 = this;
+      var _this5 = this;
 
-      if (!this.code) {
+      if (!this.editedItem.code) {
         notify.error("Ingrese el codigo del curso");
         return;
       }
 
-      if (!this.name) {
+      if (!this.editedItem.name) {
         notify.error("Ingrese el nombre del curso");
         return;
       }
 
-      if (!this.nature) {
+      if (!this.editedItem.nature) {
         notify.error("Ingrese la naturaleza");
         return;
       }
 
-      if (!this.main_objective) {
+      if (!this.editedItem.main_objective) {
         notify.error("Ingrese el objetivo principal");
         return;
       }
 
-      if (!this.secondary_objective) {
+      if (!this.editedItem.secondary_objective) {
         notify.error("Ingrese el objetivo secundario");
         return;
       }
 
-      if (!this.theoretical_hours) {
+      if (!this.editedItem.theoretical_hours) {
         notify.error("Ingrese horas teóricas");
         return;
       }
 
-      if (!this.practical_hours) {
+      if (!this.editedItem.practical_hours) {
         notify.error("Ingrese horas prácticas");
         return;
       }
 
-      if (!this.credits) {
+      if (!this.editedItem.credits) {
         notify.error("Ingrese créditos");
         return;
       }
 
-      if (!this.level) {
+      if (!this.editedItem.level) {
         notify.error("Ingrese semestre");
         return;
       } else {
-        if (this.level.length < 5) {
+        if (this.editedItem.level.length < 5) {
           notify.error("Ingrese un semestre válido");
           return;
         }
       }
 
-      if (!this.condition) {
+      if (!this.editedItem.term) {
         notify.error("Ingrese condición");
         return;
       }
 
-      if (!this.selected_topics.length === 0) {
+      if (!this.editedItem.topics.length === 0) {
         notify.error("Agregue al menos un tema");
         return;
       }
 
-      if (!this.courses.length === 0) {
-        notify.error("Agregue al menos un requisito");
-        return;
-      }
-
-      var topics = this.selected_topics.map(function (c) {
+      var topics = this.editedItem.topics.map(function (c) {
         return c.id;
       });
-      var level_year = this.level.substring(0, this.level.length - 1);
-      var level_age = this.level.charAt(this.level.length - 1);
-      console.log(level_year);
-      console.log(level_age);
+      var level_year = this.editedItem.level.substring(0, this.editedItem.level.length - 1);
+      var level_age = this.editedItem.level.charAt(this.editedItem.level.length - 1);
+      console.log(this.editedItem.level_year);
+      console.log(this.editedItem.level_age);
       var level = level_year + "-" + level_age;
       var data = {
-        code: this.code,
-        name: this.name,
-        area: this.area,
-        nature: this.nature,
-        main_objective: this.main_objective,
-        secondary_objective: this.secondary_objective,
-        theoretical_hours: this.theoretical_hours,
-        practical_hours: this.practical_hours,
-        credits: this.credits,
+        code: this.editedItem.code,
+        name: this.editedItem.name,
+        area: this.editedItem.area,
+        nature: this.editedItem.nature,
+        main_objective: this.editedItem.main_objective,
+        secondary_objective: this.editedItem.secondary_objective,
+        theoretical_hours: this.editedItem.theoretical_hours,
+        practical_hours: this.editedItem.practical_hours,
+        credits: this.editedItem.credits,
         level: level,
-        condition: this.condition,
+        term: this.editedItem.term,
         topics: topics,
-        requeriments: this.requeriments
+        requeriments: this.editedItem.requeriments
       };
       console.log(data);
-      axios.post("/api/course/create", data).then(function (_ref8) {
-        var data = _ref8.data;
-        notify.showCool(data.message);
 
-        _this4.getCourses();
+      if (this.editedIndex > -1) {
+        axios.put("/api/course/update/" + this.editedItem.id, data).then(function (_ref10) {
+          var data = _ref10.data;
+          notify.showCool(data.message);
 
-        _this4.reset();
-      }).catch(function (response) {
-        console.log(response);
-        notify.error(response.message);
-      });
+          _this5.close();
+
+          _this5.initialize();
+        }).catch(function (error) {
+          console.log(error.response.data.message);
+          notify.error(error.response.data.message);
+        });
+      } else {
+        axios.post("/api/course/create", data).then(function (_ref11) {
+          var data = _ref11.data;
+          notify.showCool(data.message);
+
+          _this5.close();
+
+          _this5.initialize();
+        }).catch(function (response) {
+          console.log(response);
+          notify.error(response.message);
+        });
+      }
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.courses.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      console.log(this.editedItem);
+      this.dialog = true;
     },
     reset: function reset() {
-      this.code = "", this.name = "", this.area = "", this.nature = "", this.main_objective = "", this.secondary_objective = "", this.theoretical_hours = "", this.practical_hours = "", this.credits = "", this.level = "", this.condition = "", this.selected_topics = [], this.requeriments = [];
+      this.editedItem.code = "", this.editedItem.name = "", this.editedItem.area = "", this.editedItem.nature = "", this.editedItem.main_objective = "", this.editedItem.secondary_objective = "", this.editedItem.theoretical_hours = "", this.editedItem.practical_hours = "", this.editedItem.credits = "", this.editedItem.level = "", this.editedItem.term = "", this.editedItem.topics = [], this.editedItem.requeriments = [];
     }
   }
 });
@@ -23478,491 +23617,754 @@ var render = function() {
                 "v-card",
                 [
                   _c(
-                    "v-card-title",
-                    { staticClass: "headline font-weight-regular border-gray" },
-                    [_vm._v("NUEVO CURSO")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-text",
+                    "v-toolbar",
+                    { attrs: { flat: "", color: "white" } },
                     [
+                      _c("v-toolbar-title", [_vm._v("CURSOS")]),
+                      _vm._v(" "),
+                      _c("v-divider", {
+                        staticClass: "mx-2",
+                        attrs: { inset: "", vertical: "" }
+                      }),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          "append-icon": "search",
+                          label: "Search",
+                          "single-line": "",
+                          "hide-details": ""
+                        },
+                        model: {
+                          value: _vm.Buscar,
+                          callback: function($$v) {
+                            _vm.Buscar = $$v
+                          },
+                          expression: "Buscar"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
                       _c(
-                        "v-form",
+                        "v-dialog",
+                        {
+                          attrs: { "max-width": "1200px" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                return [
+                                  _c(
+                                    "v-btn",
+                                    _vm._g(
+                                      {
+                                        staticClass: "mb-10 ml-2",
+                                        attrs: { color: "primary", dark: "" }
+                                      },
+                                      on
+                                    ),
+                                    [_vm._v("Nuevo Curso")]
+                                  )
+                                ]
+                              }
+                            }
+                          ]),
+                          model: {
+                            value: _vm.dialog,
+                            callback: function($$v) {
+                              _vm.dialog = $$v
+                            },
+                            expression: "dialog"
+                          }
+                        },
                         [
-                          _c(
-                            "v-layout",
-                            { attrs: { wrap: "" } },
-                            [
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md2: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: "Código de curso",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.code,
-                                      callback: function($$v) {
-                                        _vm.code = $$v
-                                      },
-                                      expression: "code"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md5: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: "Nombre de curso",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.name,
-                                      callback: function($$v) {
-                                        _vm.name = $$v
-                                      },
-                                      expression: "name"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                {
-                                  attrs: {
-                                    xs12: "",
-                                    sm6: "",
-                                    md3: "",
-                                    "d-flex": ""
-                                  }
-                                },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.areas,
-                                      "item-text": "name",
-                                      "item-value": "id",
-                                      label: "Area"
-                                    },
-                                    model: {
-                                      value: _vm.area,
-                                      callback: function($$v) {
-                                        _vm.area = $$v
-                                      },
-                                      expression: "area"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md2: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.natures,
-                                      "item-text": "name",
-                                      "item-value": "id",
-                                      label: "Naturaleza"
-                                    },
-                                    model: {
-                                      value: _vm.nature,
-                                      callback: function($$v) {
-                                        _vm.nature = $$v
-                                      },
-                                      expression: "nature"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", md6: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: "Objetivo Principal",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.main_objective,
-                                      callback: function($$v) {
-                                        _vm.main_objective = $$v
-                                      },
-                                      expression: "main_objective"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", md6: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: "Objetivo Secundario",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.secondary_objective,
-                                      callback: function($$v) {
-                                        _vm.secondary_objective = $$v
-                                      },
-                                      expression: "secondary_objective"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md2: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      mask: _vm.mask_theoretical_hours,
-                                      label: "Horas Teóricas"
-                                    },
-                                    model: {
-                                      value: _vm.theoretical_hours,
-                                      callback: function($$v) {
-                                        _vm.theoretical_hours = $$v
-                                      },
-                                      expression: "theoretical_hours"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md2: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      mask: _vm.mask_practical_hours,
-                                      label: "Horas Prácticas"
-                                    },
-                                    model: {
-                                      value: _vm.practical_hours,
-                                      callback: function($$v) {
-                                        _vm.practical_hours = $$v
-                                      },
-                                      expression: "practical_hours"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm4: "", md2: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      mask: _vm.mask_credit,
-                                      label: "Créditos",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.credits,
-                                      callback: function($$v) {
-                                        _vm.credits = $$v
-                                      },
-                                      expression: "credits"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm4: "", md3: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      mask: _vm.mask_level,
-                                      label: "Semestre",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.level,
-                                      callback: function($$v) {
-                                        _vm.level = $$v
-                                      },
-                                      expression: "level"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                {
-                                  attrs: {
-                                    xs12: "",
-                                    sm4: "",
-                                    md3: "",
-                                    "d-flex": ""
-                                  }
-                                },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.terms,
-                                      "item-text": "name",
-                                      "item-value": "id",
-                                      label: "Cóndicion"
-                                    },
-                                    model: {
-                                      value: _vm.condition,
-                                      callback: function($$v) {
-                                        _vm.condition = $$v
-                                      },
-                                      expression: "condition"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                {
-                                  attrs: {
-                                    xs12: "",
-                                    sm6: "",
-                                    md4: "",
-                                    "d-flex": ""
-                                  }
-                                },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.courses,
-                                      attach: "",
-                                      chips: "",
-                                      label: "Requsitios",
-                                      "item-text": "name",
-                                      "item-value": "id",
-                                      multiple: ""
-                                    },
-                                    model: {
-                                      value: _vm.requeriments,
-                                      callback: function($$v) {
-                                        _vm.requeriments = $$v
-                                      },
-                                      expression: "requeriments"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
                           _vm._v(" "),
                           _c(
-                            "v-layout",
-                            { attrs: { wrap: "" } },
+                            "v-card",
                             [
+                              _c("v-card-title", [
+                                _c("span", { staticClass: "headline" }, [
+                                  _vm._v(_vm._s(_vm.formTitle))
+                                ])
+                              ]),
+                              _vm._v(" "),
                               _c(
-                                "v-flex",
-                                { attrs: { xs12: "", md12: "" } },
+                                "v-card-text",
                                 [
                                   _c(
-                                    "v-toolbar",
-                                    { attrs: { flat: "", color: "white" } },
+                                    "v-container",
+                                    { attrs: { "grid-list-md": "" } },
                                     [
-                                      _c("v-toolbar-title", [_vm._v("Tema")]),
-                                      _vm._v(" "),
-                                      _c("v-divider", {
-                                        staticClass: "mx-2",
-                                        attrs: { inset: "", vertical: "" }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("v-spacer"),
-                                      _vm._v(" "),
                                       _c(
-                                        "v-dialog",
-                                        {
-                                          attrs: { "max-width": "600px" },
-                                          scopedSlots: _vm._u([
-                                            {
-                                              key: "activator",
-                                              fn: function(ref) {
-                                                var on = ref.on
-                                                return [
-                                                  _c(
-                                                    "v-btn",
-                                                    _vm._g(
-                                                      {
-                                                        staticClass: "mb-2",
-                                                        attrs: {
-                                                          color: "primary",
-                                                          dark: ""
-                                                        },
-                                                        on: {
-                                                          click: _vm.getTopics
-                                                        }
-                                                      },
-                                                      on
-                                                    ),
-                                                    [_vm._v("Agregar tema")]
-                                                  )
-                                                ]
-                                              }
-                                            }
-                                          ]),
-                                          model: {
-                                            value: _vm.dialog_topic,
-                                            callback: function($$v) {
-                                              _vm.dialog_topic = $$v
-                                            },
-                                            expression: "dialog_topic"
-                                          }
-                                        },
+                                        "v-layout",
+                                        { attrs: { wrap: "" } },
                                         [
+                                          _c(
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                sm6: "",
+                                                md2: ""
+                                              }
+                                            },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Código de curso",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.editedItem.code,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "code",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "editedItem.code"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
                                           _vm._v(" "),
                                           _c(
-                                            "v-card",
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                sm6: "",
+                                                md5: ""
+                                              }
+                                            },
                                             [
-                                              _c("v-card-title", [
-                                                _c(
-                                                  "span",
-                                                  { staticClass: "headline" },
-                                                  [_vm._v("Seleccionar Tema")]
-                                                )
-                                              ]),
-                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Nombre de curso",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.editedItem.name,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "name",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "editedItem.name"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                sm6: "",
+                                                md3: "",
+                                                "d-flex": ""
+                                              }
+                                            },
+                                            [
+                                              _c("v-select", {
+                                                attrs: {
+                                                  items: _vm.areas,
+                                                  "item-text": "name",
+                                                  "item-value": "id",
+                                                  label: "Area"
+                                                },
+                                                model: {
+                                                  value: _vm.editedItem.area,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "area",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "editedItem.area"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                sm6: "",
+                                                md2: ""
+                                              }
+                                            },
+                                            [
+                                              _c("v-select", {
+                                                attrs: {
+                                                  items: _vm.natures,
+                                                  "item-text": "name",
+                                                  "item-value": "id",
+                                                  label: "Naturaleza"
+                                                },
+                                                model: {
+                                                  value: _vm.editedItem.nature,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "nature",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "editedItem.nature"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "", md6: "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Objetivo Principal",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.editedItem
+                                                      .main_objective,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "main_objective",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "editedItem.main_objective"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "", md6: "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Objetivo Secundario",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.editedItem
+                                                      .secondary_objective,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "secondary_objective",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "editedItem.secondary_objective"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                sm6: "",
+                                                md2: ""
+                                              }
+                                            },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  mask:
+                                                    _vm.mask_theoretical_hours,
+                                                  label: "Horas Teóricas"
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.editedItem
+                                                      .theoretical_hours,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "theoretical_hours",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "editedItem.theoretical_hours"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                sm6: "",
+                                                md2: ""
+                                              }
+                                            },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  mask:
+                                                    _vm.mask_practical_hours,
+                                                  label: "Horas Prácticas"
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.editedItem
+                                                      .practical_hours,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "practical_hours",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "editedItem.practical_hours"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                sm4: "",
+                                                md2: ""
+                                              }
+                                            },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  mask: _vm.mask_credit,
+                                                  label: "Créditos",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.editedItem.credits,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "credits",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "editedItem.credits"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                sm4: "",
+                                                md3: ""
+                                              }
+                                            },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  mask: _vm.mask_level,
+                                                  label: "Semestre",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.editedItem.level,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "level",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "editedItem.level"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                sm4: "",
+                                                md3: "",
+                                                "d-flex": ""
+                                              }
+                                            },
+                                            [
+                                              _c("v-select", {
+                                                attrs: {
+                                                  items: _vm.terms,
+                                                  "item-text": "name",
+                                                  "item-value": "id",
+                                                  label: "Cóndicion"
+                                                },
+                                                model: {
+                                                  value: _vm.editedItem.term,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "term",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "editedItem.term"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            {
+                                              attrs: {
+                                                xs12: "",
+                                                sm6: "",
+                                                md4: "",
+                                                "d-flex": ""
+                                              }
+                                            },
+                                            [
+                                              _c("v-select", {
+                                                attrs: {
+                                                  items: _vm.requeriments_all,
+                                                  attach: "",
+                                                  chips: "",
+                                                  label: "Requsitios",
+                                                  "item-text": "name",
+                                                  "item-value": "id",
+                                                  multiple: ""
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.editedItem.requeriments,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "requeriments",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "editedItem.requeriments"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-layout",
+                                        { attrs: { wrap: "" } },
+                                        [
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "", md12: "" } },
+                                            [
                                               _c(
-                                                "v-card-text",
+                                                "v-toolbar",
+                                                {
+                                                  attrs: {
+                                                    flat: "",
+                                                    color: "white"
+                                                  }
+                                                },
                                                 [
+                                                  _c("v-toolbar-title", [
+                                                    _vm._v("Tema")
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("v-divider", {
+                                                    staticClass: "mx-2",
+                                                    attrs: {
+                                                      inset: "",
+                                                      vertical: ""
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c("v-spacer"),
+                                                  _vm._v(" "),
                                                   _c(
-                                                    "v-container",
+                                                    "v-dialog",
                                                     {
                                                       attrs: {
-                                                        "grid-list-md": ""
+                                                        "max-width": "600px"
+                                                      },
+                                                      scopedSlots: _vm._u([
+                                                        {
+                                                          key: "activator",
+                                                          fn: function(ref) {
+                                                            var on = ref.on
+                                                            return [
+                                                              _c(
+                                                                "v-btn",
+                                                                _vm._g(
+                                                                  {
+                                                                    staticClass:
+                                                                      "mb-2",
+                                                                    attrs: {
+                                                                      color:
+                                                                        "primary",
+                                                                      dark: ""
+                                                                    },
+                                                                    on: {
+                                                                      click:
+                                                                        _vm.getTopics
+                                                                    }
+                                                                  },
+                                                                  on
+                                                                ),
+                                                                [
+                                                                  _vm._v(
+                                                                    "Agregar tema"
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ]
+                                                          }
+                                                        }
+                                                      ]),
+                                                      model: {
+                                                        value: _vm.dialog_topic,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.dialog_topic = $$v
+                                                        },
+                                                        expression:
+                                                          "dialog_topic"
                                                       }
                                                     },
                                                     [
-                                                      _c("v-data-table", {
-                                                        staticClass:
-                                                          "elevation-1 custom-table",
-                                                        attrs: {
-                                                          headers:
-                                                            _vm.headers_modal,
-                                                          items: _vm.topics,
-                                                          "item-key": "name"
-                                                        },
-                                                        scopedSlots: _vm._u([
-                                                          {
-                                                            key: "items",
-                                                            fn: function(
-                                                              props
-                                                            ) {
-                                                              return [
-                                                                _c(
-                                                                  "td",
-                                                                  [
-                                                                    _c(
-                                                                      "v-checkbox",
-                                                                      {
-                                                                        attrs: {
-                                                                          primary:
-                                                                            "",
-                                                                          "hide-details":
-                                                                            ""
-                                                                        },
-                                                                        model: {
-                                                                          value:
-                                                                            props.selected,
-                                                                          callback: function(
-                                                                            $$v
-                                                                          ) {
-                                                                            _vm.$set(
-                                                                              props,
-                                                                              "selected",
-                                                                              $$v
-                                                                            )
-                                                                          },
-                                                                          expression:
-                                                                            "props.selected"
-                                                                        }
-                                                                      }
-                                                                    )
-                                                                  ],
-                                                                  1
-                                                                ),
-                                                                _vm._v(" "),
-                                                                _c(
-                                                                  "td",
-                                                                  {
-                                                                    staticClass:
-                                                                      "text-xs-center"
-                                                                  },
-                                                                  [
-                                                                    _vm._v(
-                                                                      _vm._s(
-                                                                        props.index +
-                                                                          1
-                                                                      )
-                                                                    )
-                                                                  ]
-                                                                ),
-                                                                _vm._v(" "),
-                                                                _c(
-                                                                  "td",
-                                                                  {
-                                                                    staticClass:
-                                                                      "text-xs-center"
-                                                                  },
-                                                                  [
-                                                                    _vm._v(
-                                                                      _vm._s(
-                                                                        props
-                                                                          .item
-                                                                          .name
-                                                                      )
-                                                                    )
-                                                                  ]
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-card",
+                                                        [
+                                                          _c("v-card-title", [
+                                                            _c(
+                                                              "span",
+                                                              {
+                                                                staticClass:
+                                                                  "headline"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Seleccionar Tema"
                                                                 )
                                                               ]
-                                                            }
-                                                          }
-                                                        ]),
-                                                        model: {
-                                                          value:
-                                                            _vm.selected_topics,
-                                                          callback: function(
-                                                            $$v
-                                                          ) {
-                                                            _vm.selected_topics = $$v
-                                                          },
-                                                          expression:
-                                                            "selected_topics"
-                                                        }
-                                                      })
+                                                            )
+                                                          ]),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-card-text",
+                                                            [
+                                                              _c(
+                                                                "v-container",
+                                                                {
+                                                                  attrs: {
+                                                                    "grid-list-md":
+                                                                      ""
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _c(
+                                                                    "v-data-table",
+                                                                    {
+                                                                      staticClass:
+                                                                        "elevation-1 custom-table",
+                                                                      attrs: {
+                                                                        headers:
+                                                                          _vm.headers_modal,
+                                                                        items:
+                                                                          _vm.topics_all,
+                                                                        "item-key":
+                                                                          "name"
+                                                                      },
+                                                                      scopedSlots: _vm._u(
+                                                                        [
+                                                                          {
+                                                                            key:
+                                                                              "items",
+                                                                            fn: function(
+                                                                              props
+                                                                            ) {
+                                                                              return [
+                                                                                _c(
+                                                                                  "td",
+                                                                                  [
+                                                                                    _c(
+                                                                                      "v-checkbox",
+                                                                                      {
+                                                                                        attrs: {
+                                                                                          primary:
+                                                                                            "",
+                                                                                          "hide-details":
+                                                                                            ""
+                                                                                        },
+                                                                                        model: {
+                                                                                          value:
+                                                                                            props.selected,
+                                                                                          callback: function(
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.$set(
+                                                                                              props,
+                                                                                              "selected",
+                                                                                              $$v
+                                                                                            )
+                                                                                          },
+                                                                                          expression:
+                                                                                            "props.selected"
+                                                                                        }
+                                                                                      }
+                                                                                    )
+                                                                                  ],
+                                                                                  1
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "td",
+                                                                                  {
+                                                                                    staticClass:
+                                                                                      "text-xs-right"
+                                                                                  },
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      _vm._s(
+                                                                                        props.index +
+                                                                                          1
+                                                                                      )
+                                                                                    )
+                                                                                  ]
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "td",
+                                                                                  {
+                                                                                    staticClass:
+                                                                                      "text-xs-right"
+                                                                                  },
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      _vm._s(
+                                                                                        props
+                                                                                          .item
+                                                                                          .name
+                                                                                      )
+                                                                                    )
+                                                                                  ]
+                                                                                )
+                                                                              ]
+                                                                            }
+                                                                          }
+                                                                        ]
+                                                                      ),
+                                                                      model: {
+                                                                        value:
+                                                                          _vm
+                                                                            .editedItem
+                                                                            .topics,
+                                                                        callback: function(
+                                                                          $$v
+                                                                        ) {
+                                                                          _vm.$set(
+                                                                            _vm.editedItem,
+                                                                            "topics",
+                                                                            $$v
+                                                                          )
+                                                                        },
+                                                                        expression:
+                                                                          "editedItem.topics"
+                                                                      }
+                                                                    }
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            ],
+                                                            1
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-card-actions",
+                                                            [
+                                                              _c("v-spacer"),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "v-btn",
+                                                                {
+                                                                  attrs: {
+                                                                    color:
+                                                                      "error darken-1",
+                                                                    flat: ""
+                                                                  },
+                                                                  on: {
+                                                                    click:
+                                                                      _vm.close_dialog_course
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "Cerrar"
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ],
+                                                            1
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
                                                     ],
                                                     1
                                                   )
@@ -23971,26 +24373,135 @@ var render = function() {
                                               ),
                                               _vm._v(" "),
                                               _c(
-                                                "v-card-actions",
+                                                "v-data-table",
+                                                {
+                                                  staticClass:
+                                                    "elevation-1 custom-table",
+                                                  attrs: {
+                                                    headers: _vm.headers_topic,
+                                                    items:
+                                                      _vm.editedItem.topics,
+                                                    "hide-actions": true
+                                                  },
+                                                  scopedSlots: _vm._u([
+                                                    {
+                                                      key: "items",
+                                                      fn: function(props) {
+                                                        return [
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "text-xs-right"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.index +
+                                                                    1
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "text-xs-right"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .code
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "text-xs-right"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .name
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "justify-center layout px-0"
+                                                            },
+                                                            [
+                                                              _c(
+                                                                "v-icon",
+                                                                {
+                                                                  attrs: {
+                                                                    small: ""
+                                                                  },
+                                                                  on: {
+                                                                    click: function(
+                                                                      $event
+                                                                    ) {
+                                                                      return _vm.deleteItemtopics(
+                                                                        props.item
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "delete"
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ],
+                                                            1
+                                                          )
+                                                        ]
+                                                      }
+                                                    }
+                                                  ])
+                                                },
                                                 [
-                                                  _c("v-spacer"),
                                                   _vm._v(" "),
                                                   _c(
-                                                    "v-btn",
-                                                    {
-                                                      attrs: {
-                                                        color: "blue darken-1",
-                                                        flat: ""
-                                                      },
-                                                      on: {
-                                                        click:
-                                                          _vm.close_dialog_course
-                                                      }
-                                                    },
-                                                    [_vm._v("Cerrar")]
+                                                    "template",
+                                                    { slot: "no-data" },
+                                                    [
+                                                      _c(
+                                                        "v-alert",
+                                                        {
+                                                          staticStyle: {
+                                                            margin: "1.5em 0"
+                                                          },
+                                                          attrs: {
+                                                            value: true,
+                                                            color: "info",
+                                                            icon: "warning"
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Aún no se han agregado temas"
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
                                                   )
                                                 ],
-                                                1
+                                                2
                                               )
                                             ],
                                             1
@@ -24000,106 +24511,38 @@ var render = function() {
                                       )
                                     ],
                                     1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-actions",
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "error darken-1",
+                                        flat: ""
+                                      },
+                                      on: { click: _vm.close }
+                                    },
+                                    [_vm._v("Cancel")]
                                   ),
                                   _vm._v(" "),
                                   _c(
-                                    "v-data-table",
+                                    "v-btn",
                                     {
-                                      staticClass: "elevation-1 custom-table",
                                       attrs: {
-                                        headers: _vm.headers,
-                                        items: _vm.selected_topics,
-                                        "hide-actions": true
+                                        color: "blue darken-1",
+                                        flat: ""
                                       },
-                                      scopedSlots: _vm._u([
-                                        {
-                                          key: "items",
-                                          fn: function(props) {
-                                            return [
-                                              _c(
-                                                "td",
-                                                {
-                                                  staticClass: "text-md-center"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(props.index + 1)
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "td",
-                                                {
-                                                  staticClass: "text-md-center"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(props.item.name)
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "td",
-                                                {
-                                                  staticClass:
-                                                    "justify-center layout px-0"
-                                                },
-                                                [
-                                                  _c(
-                                                    "v-icon",
-                                                    {
-                                                      attrs: { small: "" },
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.deleteItemtopics(
-                                                            props.item
-                                                          )
-                                                        }
-                                                      }
-                                                    },
-                                                    [_vm._v("delete")]
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ])
+                                      on: { click: _vm.save }
                                     },
-                                    [
-                                      _vm._v(" "),
-                                      _c(
-                                        "template",
-                                        { slot: "no-data" },
-                                        [
-                                          _c(
-                                            "v-alert",
-                                            {
-                                              staticStyle: {
-                                                margin: "1.5em 0"
-                                              },
-                                              attrs: {
-                                                value: true,
-                                                color: "info",
-                                                icon: "warning"
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "Aún no se han agregado temas"
-                                              )
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    2
+                                    [_vm._v("Guardar Curso")]
                                   )
                                 ],
                                 1
@@ -24115,13 +24558,115 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "v-btn",
+                    "v-data-table",
                     {
-                      staticStyle: { margin: "1.2em 0" },
-                      attrs: { color: "success darken-1", dark: "" },
-                      on: { click: _vm.save }
+                      staticClass: "elevation-1",
+                      attrs: {
+                        headers: _vm.headers,
+                        items: _vm.courses,
+                        search: _vm.search
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "items",
+                          fn: function(props) {
+                            return [
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.code))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.name))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.area.name))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.nature.name))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.theoretical_hours))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.practical_hours))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.credits))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.level))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.term.name))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    props.item.requeriments
+                                      .map(function(r) {
+                                        return " " + r.course.name
+                                      })
+                                      .toString()
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "justify-center layout px-0" },
+                                [
+                                  _c(
+                                    "v-icon",
+                                    {
+                                      staticClass: "mr-2",
+                                      attrs: { small: "" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.editItem(props.item)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("edit")]
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          }
+                        }
+                      ])
                     },
-                    [_vm._v("Guardar Curso")]
+                    [
+                      _vm._v(" "),
+                      _c(
+                        "template",
+                        { slot: "no-data" },
+                        [
+                          _c(
+                            "v-alert",
+                            {
+                              staticStyle: { margin: "1.5em 0" },
+                              attrs: {
+                                value: true,
+                                color: "info",
+                                icon: "warning"
+                              }
+                            },
+                            [_vm._v("Aún no se han agregado cursos :(")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    2
                   )
                 ],
                 1

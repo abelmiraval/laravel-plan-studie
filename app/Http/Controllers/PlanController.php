@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Plan;
+use App\Course;
+
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
@@ -55,23 +57,26 @@ class PlanController extends Controller
 
     }
 
-    public function storePlan($course_id, $level){
+    public function storePlan($course_id,$course_name, $level){
 
         $plan = new Plan;
         $plan->course_id = $course_id;
-        $number_times = $this->numberOfTimesInCurriculum($course_id);
+        $number_times = $this->numberOfTimesInCurriculum($course_name);
         $plan->number_times = $number_times;
         if($number_times > 0){
-            $course = Course::find($course_id);
-            $plan->curriculum = $course->level;
+            $courses = Course::where('name','=',$course_name)->get();
+            $course_first = $courses->first();
+            $plan->curriculum = $course_first->level;
+        }else{
+            $plan->curriculum = $level;
         }
         // $fecha = Carbon::now();
-        $plan->curriculum = $level;
         $plan->save();
     }
 
-    public function numberOfTimesInCurriculum($course_id){
-        $number_times = DB::table('plans')->where('course_id',$course_id)->count();
+    public function numberOfTimesInCurriculum($course_name){
+        $number_times = DB::table('plans')->join('courses','plans.course_id','=','courses.id')
+                                          ->where('courses.name',$course_name)->count();
         return $number_times;
     }
 

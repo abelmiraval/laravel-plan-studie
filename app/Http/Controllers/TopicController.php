@@ -17,7 +17,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = DB::table('topics')->select('id', 'name')->get();
+        $topics = DB::table('topics')->select('id', 'name')->orderBy('nombre')->get();
 
         return  $topics;
     }

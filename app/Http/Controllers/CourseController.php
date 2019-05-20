@@ -27,6 +27,13 @@ class CourseController extends Controller
     public function index()
     {
         //
+        $courses = Course::with(['area','nature','term','requeriments.course','topics'])->orderBy('name')->get();
+        return  $courses;
+    }
+
+    public function requeriments()
+    {
+        //
         $courses = DB::table('courses')->select('id', 'name')->get();
         return  $courses;
     }
@@ -43,10 +50,10 @@ class CourseController extends Controller
         $course->name = $request->name;
         $area = Area::find($request->area);
         $nature = Nature::find($request->nature);
-        $condition = Term::find($request->condition);
+        $term = Term::find($request->term);
         $course->area_id = $area->id;
         $course->nature_id = $nature->id;
-        $course->term_id = $condition->id;
+        $course->term_id = $term->id;
 
         $course->main_objective = $request->main_objective;
         $course->secondary_objective = $request->secondary_objective;
@@ -69,15 +76,17 @@ class CourseController extends Controller
         //     $topic_course->topic_id = $topic_id;
         //     $topic_course->save();
         // }
-
-        foreach ($request->requeriments as $requeriment_id) {
-            $requeriment_course = new RequerimentCourse;
-            $requeriment_course->course_id = $course->id;
-            $requeriment_course->course_requeriment_id = $requeriment_id;
-            $requeriment_course->save();
+        if ($request->requeriments){
+            foreach ($request->requeriments as $requeriment_id) {
+                $requeriment_course = new RequerimentCourse;
+                $requeriment_course->course_id = $course->id;
+                $requeriment_course->course_requeriment_id = $requeriment_id;
+                $requeriment_course->save();
+            }
         }
+
         $plan_controller = new PlanController();
-        $plan_controller->storePlan($course->id,$course->level);
+        $plan_controller->storePlan($course->id,$course->name,$course->level);
 
         return response()->json(['message' => "Curso creado"], 200);
     }
@@ -124,7 +133,7 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+
     }
 
     /**
