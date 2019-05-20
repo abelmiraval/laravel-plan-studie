@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Area;
 use App\Nature;
+use App\Plan;
 use App\Term;
 use App\Topic;
 
@@ -25,9 +26,17 @@ class Course extends Model
     {
         return $this->belongsTo(Term::class);
     }
+    public function plans()
+    {
+        return $this->hasMany(Plan::class);
+    }
     public function topics()
     {
         return $this->belongsToMany(Topic::class);
+    }
+    public function courses()
+    {
+        return $this->hasMany(RequerimentCourse::class);
     }
 
 }

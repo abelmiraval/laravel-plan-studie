@@ -27,6 +27,8 @@ Vue.component('topic', require('./components/Topic.vue').default);
 Vue.component('course', require('./components/Course.vue').default);
 Vue.component('capacity', require('./components/Capacity.vue').default);
 Vue.component('contentt', require('./components/Content.vue').default);
+Vue.component('plan', require('./components/Plan.vue').default);
+
 
 
 

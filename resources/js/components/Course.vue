@@ -66,7 +66,7 @@
                 </v-flex>
 
                 <v-flex xs12 sm4 md3>
-                  <v-text-field v-model="level" label="Semestre" required></v-text-field>
+                  <v-text-field v-model="level" :mask="mask_level" label="Semestre" required></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 sm4 md3 d-flex>
@@ -182,6 +182,8 @@ export default {
     mask_theoretical_hours: "##",
     mask_practical_hours: "##",
     mask_credit: "##",
+    mask_level: "####-#",
+
     searchRequeriment: "",
     headers: [
       { text: "N°", value: "name" },
@@ -317,6 +319,11 @@ export default {
       if (!this.level) {
         notify.error("Ingrese semestre");
         return;
+      } else {
+        if (this.level.length < 5) {
+          notify.error("Ingrese un semestre válido");
+          return;
+        }
       }
 
       if (!this.condition) {
@@ -335,6 +342,12 @@ export default {
       }
 
       const topics = this.selected_topics.map(c => c.id);
+      const level_year = this.level.substring(0, this.level.length - 1);
+      const level_age = this.level.charAt(this.level.length - 1);
+
+      console.log(level_year);
+      console.log(level_age);
+      const level = level_year + "-" + level_age;
 
       const data = {
         code: this.code,
@@ -346,7 +359,7 @@ export default {
         theoretical_hours: this.theoretical_hours,
         practical_hours: this.practical_hours,
         credits: this.credits,
-        level: this.level,
+        level: level,
         condition: this.condition,
         topics: topics,
         requeriments: this.requeriments
@@ -359,7 +372,7 @@ export default {
         .then(({ data }) => {
           notify.showCool(data.message);
           this.getCourses();
-          // this.reset();
+          this.reset();
         })
         .catch(response => {
           console.log(response);

@@ -38,3 +38,5 @@ Route::delete('capacity/delete/{capacity}', 'CapacityController@destroy');
 Route::post('content/create', 'ContentController@create');
 Route::put('content/update/{content}', 'ContentController@update');
 Route::delete('content/delete/{content}', 'ContentController@destroy');
+//Plan
+Route::get('plans', 'PlanController@index');

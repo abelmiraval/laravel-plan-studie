@@ -11,9 +11,14 @@ use App\TopicCourse;
 use App\RequerimentCourse;
 use Illuminate\Http\Request;
 use DB;
+use App\Http\Controllers\PlanControler;
 
 class CourseController extends Controller
 {
+
+    public function __construct(){
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -71,6 +76,8 @@ class CourseController extends Controller
             $requeriment_course->course_requeriment_id = $requeriment_id;
             $requeriment_course->save();
         }
+        $plan_controller = new PlanController();
+        $plan_controller->storePlan($course->id,$course->level);
 
         return response()->json(['message' => "Curso creado"], 200);
     }

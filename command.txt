@@ -1,9 +1,9 @@
 #-----------------COMMAND IN LARAVEL----------------------#
 1. $ php artisan make:model Topic -mcr
-2. php artisan make:migration create_content_topic_table --create=content_topic
-3. Puedes ejecutar php artisan migrate:reset para deshacer todas las migraciones.
-4. El comando php artisan migrate:rollback te permite deshacer la última migración ejecutada.
-5. El comando php artisan migrate:fresh borrar todas la tablas y correr todas las migraciones
+2. $ php artisan make:migration create_content_topic_table --create=content_topic
+3. $ php artisan migrate:reset para deshacer todas las migraciones.
+4. $ php artisan migrate:rollback te permite deshacer la última migración ejecutada.
+5. $ php artisan migrate:fresh borrar todas la tablas y correr todas las migraciones
 
 
 

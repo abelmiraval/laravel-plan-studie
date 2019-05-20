@@ -3,14 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Course;
 
-class RequerimentCourse extends Model
+
+class Plan extends Model
 {
     //
-    protected $table = 'requeriment_course';
+    protected $guarded = [];
 
     public function course()
     {
         return $this->belongsTo(Course::class);
     }
+
 }
