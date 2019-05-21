@@ -34,7 +34,7 @@ class CourseController extends Controller
     public function requeriments()
     {
         //
-        $courses = DB::table('courses')->select('id', 'name')->get();
+        $courses = DB::table('courses')->select('id', 'name')->orderBy('name')->get();
         return  $courses;
     }
 

@@ -4,7 +4,9 @@
 3. $ php artisan migrate:reset para deshacer todas las migraciones.
 4. $ php artisan migrate:rollback te permite deshacer la última migración ejecutada.
 5. $ php artisan migrate:fresh borrar todas la tablas y correr todas las migraciones
-
+6. $ php artisan make:seeder AreaTableSeeder permite crear seeders.
+7. $ php artisan db:seed ejecutar los seeders.
+8. $ php artisan migrate:fresh -seed borrar,correr y correr los seeders
 
 
 

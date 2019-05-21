@@ -23734,7 +23734,7 @@ var render = function() {
                       _c("v-text-field", {
                         attrs: {
                           "append-icon": "search",
-                          label: "Search",
+                          label: "Buscar",
                           "single-line": "",
                           "hide-details": ""
                         },
@@ -25685,7 +25685,7 @@ var render = function() {
                                                                 {
                                                                   attrs: {
                                                                     color:
-                                                                      "blue darken-1",
+                                                                      "error darken-1",
                                                                     flat: ""
                                                                   },
                                                                   on: {
@@ -26070,7 +26070,7 @@ var render = function() {
                                                                 {
                                                                   attrs: {
                                                                     color:
-                                                                      "blue darken-1",
+                                                                      "error darken-1",
                                                                     flat: ""
                                                                   },
                                                                   on: {
