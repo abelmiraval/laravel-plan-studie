@@ -104,7 +104,34 @@ class TopicController extends Controller
      */
     public function update(Request $request, Topic $topic)
     {
-        //
+        $this->validate($request,[
+            'code' => 'required',
+            'name' => 'required'
+        ]);
+
+        $topic->code = $request->code;
+        $topic->name = $request->name;
+        $topic->knowledge = $request->knowledge;
+        $topic->specific = $request->specific;
+
+        $capacities = $request->capacities;
+        $contents = $request->contents;
+
+
+        foreach ($capacities as $key => $value) {
+            $capacity = Capacity::find($value);
+            $topic->capacities()->sync($capacity,false);
+        }
+
+        foreach ($contents as $key => $value) {
+            $content = Content::find($value);
+            $topic->contents()->sync($content,false);
+        }
+
+        $topic->save();
+        return response()->json([
+            'message' => 'Tema Actualizadp!'
+        ], 200);
     }
 
     /**

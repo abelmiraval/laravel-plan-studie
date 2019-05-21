@@ -16,7 +16,7 @@ class AreaController extends Controller
     public function index()
     {
 
-        $areas = DB::table('areas')->select('id', 'name')->get();
+        $areas = DB::table('areas')->select('id', 'name')->orderBy('name')->get();
 
         return  $areas;
     }

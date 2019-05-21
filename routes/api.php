@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //api topic
 Route::post('topic/create', 'TopicController@create');
 Route::get('topics', 'TopicController@index');
+Route::put('topic/update/{topic}', 'TopicController@update');
+
 Route::get('capacities', 'CapacityController@index');
 Route::get('contents', 'ContentController@index');
 

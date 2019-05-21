@@ -2909,7 +2909,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3304,6 +3303,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3358,7 +3369,7 @@ __webpack_require__.r(__webpack_exports__);
         name: "",
         knowledge: "",
         specific: "",
-        topics: [],
+        contents: [],
         capacities: []
       },
       topics: [],
@@ -3393,12 +3404,28 @@ __webpack_require__.r(__webpack_exports__);
       this.getTopics();
       this.reset();
     },
-    getTopics: function getTopics() {
+    getCapacities: function getCapacities() {
       var _this2 = this;
 
-      axios.get("/api/topics").then(function (_ref3) {
+      axios.get("/api/capacities").then(function (_ref3) {
         var data = _ref3.data;
-        _this2.topics = data;
+        _this2.capacities_all = data;
+      });
+    },
+    getContents: function getContents() {
+      var _this3 = this;
+
+      axios.get("/api/contents").then(function (_ref4) {
+        var data = _ref4.data;
+        _this3.contents_all = data;
+      });
+    },
+    getTopics: function getTopics() {
+      var _this4 = this;
+
+      axios.get("/api/topics").then(function (_ref5) {
+        var data = _ref5.data;
+        _this4.topics = data;
       });
     },
     deleteItemCapacities: function deleteItemCapacities(item) {
@@ -3416,7 +3443,7 @@ __webpack_require__.r(__webpack_exports__);
       this.dialog_content = false;
     },
     save: function save() {
-      var _this3 = this;
+      var _this5 = this;
 
       var capacities = this.editedItem.capacities.map(function (c) {
         return c.id;
@@ -3463,21 +3490,41 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      axios.post("/api/topic/create", data).then(function (_ref4) {
-        var data = _ref4.data;
-        notify.showCool(data.message);
+      if (this.editedIndex > -1) {
+        axios.put("/api/topic/update/" + this.editedItem.id, data).then(function (_ref6) {
+          var data = _ref6.data;
+          notify.showCool(data.message);
 
-        _this3.reset();
-      }).catch(function (response) {
-        notify.error("Ocurrio un error");
-      });
+          _this5.initialize();
+
+          _this5.close();
+        }).catch(function (error) {
+          console.log(error.response.data.message);
+          notify.error(error.response.data.message);
+        });
+      } else {
+        axios.post("/api/topic/create", data).then(function (_ref7) {
+          var data = _ref7.data;
+          notify.showCool(data.message);
+
+          _this5.initialize();
+
+          _this5.close();
+        }).catch(function (response) {
+          notify.error("Ocurrio un error");
+        });
+      }
     },
     reset: function reset() {
       this.editedItem.code = "", this.editedItem.name = "", this.editedItem.knowledge = "", this.editedItem.specific = "", this.editedItem.capacities = [], this.editedItem.contents = [];
     },
     close: function close() {
+      var _this6 = this;
+
       this.dialog = false;
-      setTimeout(function () {}, 300);
+      setTimeout(function () {
+        _this6.editedIndex = -1;
+      }, 300);
     },
     editItem: function editItem(item) {
       this.editedIndex = this.topics.indexOf(item);
@@ -25070,7 +25117,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "Ninguna registro coincide con la búsqueda :("
+                                    "Ningún registro coincide con la búsqueda :("
                                   )
                                 ]
                               )
@@ -25467,6 +25514,10 @@ var render = function() {
                                                                       color:
                                                                         "primary",
                                                                       dark: ""
+                                                                    },
+                                                                    on: {
+                                                                      click:
+                                                                        _vm.getCapacities
                                                                     }
                                                                   },
                                                                   on
@@ -25852,6 +25903,10 @@ var render = function() {
                                                                       color:
                                                                         "primary",
                                                                       dark: ""
+                                                                    },
+                                                                    on: {
+                                                                      click:
+                                                                        _vm.getContents
                                                                     }
                                                                   },
                                                                   on

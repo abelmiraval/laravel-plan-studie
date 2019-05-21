@@ -28,10 +28,12 @@ class PlanController extends Controller
     public function find($search){
         if($search) {
             return Plan::where('curriculum', 'like', "%$search%")
+                ->orderBy('id','desc')
                 ->with(['course','course.term','course.courses.course'])
                 ->paginate(10);
         }
         return Plan::with(['course','course.term','course.courses.course'])
+                ->orderBy('id','desc')
                 ->paginate(10);
     }
 

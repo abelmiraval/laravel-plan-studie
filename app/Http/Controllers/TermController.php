@@ -15,7 +15,7 @@ class TermController extends Controller
      */
     public function index()
     {
-        $terms = DB::table('terms')->select('id', 'name')->get();
+        $terms = DB::table('terms')->select('id', 'name')->orderBy('name')->get();
 
         return  $terms;
     }

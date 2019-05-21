@@ -16,7 +16,7 @@ class NatureController extends Controller
     public function index()
     {
 
-        $natures = DB::table('natures')->select('id', 'name')->get();
+        $natures = DB::table('natures')->select('id', 'name')->orderBy('name')->get();
 
         return  $natures;
     }

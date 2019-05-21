@@ -60,7 +60,13 @@
                           <v-spacer></v-spacer>
                           <v-dialog v-model="dialog_capacity" max-width="600px">
                             <template v-slot:activator="{ on }">
-                              <v-btn color="primary" dark class="mb-2" v-on="on">Agregar capacidad</v-btn>
+                              <v-btn
+                                color="primary"
+                                dark
+                                class="mb-2"
+                                v-on="on"
+                                @click="getCapacities"
+                              >Agregar capacidad</v-btn>
                             </template>
                             <v-card>
                               <v-card-title>
@@ -129,7 +135,13 @@
                           <v-spacer></v-spacer>
                           <v-dialog v-model="dialog_content" max-width="600px">
                             <template v-slot:activator="{ on }">
-                              <v-btn color="primary" dark class="mb-2" v-on="on">Agregar contenido</v-btn>
+                              <v-btn
+                                color="primary"
+                                dark
+                                class="mb-2"
+                                v-on="on"
+                                @click="getContents"
+                              >Agregar contenido</v-btn>
                             </template>
                             <v-card>
                               <v-card-title>
@@ -263,7 +275,7 @@ export default {
       name: "",
       knowledge: "",
       specific: "",
-      topics: [],
+      contents: [],
       capacities: []
     },
     topics: [],
@@ -299,6 +311,16 @@ export default {
       this.reset();
     },
 
+    getCapacities() {
+      axios.get("/api/capacities").then(({ data }) => {
+        this.capacities_all = data;
+      });
+    },
+    getContents() {
+      axios.get("/api/contents").then(({ data }) => {
+        this.contents_all = data;
+      });
+    },
     getTopics() {
       axios.get("/api/topics").then(({ data }) => {
         this.topics = data;
@@ -364,15 +386,30 @@ export default {
         return;
       }
 
-      axios
-        .post("/api/topic/create", data)
-        .then(({ data }) => {
-          notify.showCool(data.message);
-          this.reset();
-        })
-        .catch(response => {
-          notify.error("Ocurrio un error");
-        });
+      if (this.editedIndex > -1) {
+        axios
+          .put("/api/topic/update/" + this.editedItem.id, data)
+          .then(({ data }) => {
+            notify.showCool(data.message);
+            this.initialize();
+            this.close();
+          })
+          .catch(error => {
+            console.log(error.response.data.message);
+            notify.error(error.response.data.message);
+          });
+      } else {
+        axios
+          .post("/api/topic/create", data)
+          .then(({ data }) => {
+            notify.showCool(data.message);
+            this.initialize();
+            this.close();
+          })
+          .catch(response => {
+            notify.error("Ocurrio un error");
+          });
+      }
     },
     reset() {
       (this.editedItem.code = ""),
@@ -384,7 +421,9 @@ export default {
     },
     close() {
       this.dialog = false;
-      setTimeout(() => {}, 300);
+      setTimeout(() => {
+        this.editedIndex = -1;
+      }, 300);
     },
     editItem(item) {
       this.editedIndex = this.topics.indexOf(item);

@@ -23,7 +23,7 @@
                 color="error"
                 icon="warning"
                 v-if="!loading"
-              >Ninguna registro coincide con la búsqueda :(</v-alert>
+              >Ningún registro coincide con la búsqueda :(</v-alert>
             </template>
             <template v-slot:items="props">
               <td class="text-xs-center">{{ props.item.course.code }}</td>
@@ -39,7 +39,6 @@
               <td class="text-xs-center">{{ props.item.course.term.name }}</td>
               <td class="text-xs-center">{{ props.item.curriculum }}</td>
             </template>
-
           </v-data-table>
           <div class="text-xs-center pt-2">
             <v-pagination
