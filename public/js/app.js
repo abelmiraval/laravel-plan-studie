@@ -2910,13 +2910,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -25077,32 +25070,11 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "Ninguna proforma coincide con las fechas :("
+                                    "Ninguna registro coincide con la búsqueda :("
                                   )
                                 ]
                               )
                             : _vm._e()
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _vm._v(" "),
-                      _c(
-                        "template",
-                        { slot: "no-data" },
-                        [
-                          _c(
-                            "v-alert",
-                            {
-                              staticStyle: { margin: "1.5em 0" },
-                              attrs: {
-                                value: true,
-                                color: "info",
-                                icon: "warning"
-                              }
-                            },
-                            [_vm._v("No hay ningún registro :(")]
-                          )
                         ],
                         1
                       )

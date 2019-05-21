@@ -23,7 +23,7 @@
                 color="error"
                 icon="warning"
                 v-if="!loading"
-              >Ninguna proforma coincide con las fechas :(</v-alert>
+              >Ninguna registro coincide con la búsqueda :(</v-alert>
             </template>
             <template v-slot:items="props">
               <td class="text-xs-center">{{ props.item.course.code }}</td>
@@ -39,14 +39,7 @@
               <td class="text-xs-center">{{ props.item.course.term.name }}</td>
               <td class="text-xs-center">{{ props.item.curriculum }}</td>
             </template>
-            <template slot="no-data">
-              <v-alert
-                :value="true"
-                color="info"
-                icon="warning"
-                style="margin: 1.5em 0"
-              >No hay ningún registro :(</v-alert>
-            </template>
+
           </v-data-table>
           <div class="text-xs-center pt-2">
             <v-pagination
