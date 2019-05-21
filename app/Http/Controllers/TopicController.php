@@ -15,9 +15,17 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $topics = DB::table('topics')->select('id', 'name')->orderBy('nombre')->get();
+        $topics = Topic::where('state','=','1')->with(['capacities','contents'])->orderBy('name')->get();
+
+        return  $topics;
+    }
+
+    public function topics()
+    {
+        $topics = DB::table('topics')->select('id', 'name')->orderBy('name')->get();
 
         return  $topics;
     }

@@ -3,163 +3,230 @@
     <v-layout row wrap>
       <v-flex xs12 sm12 md12>
         <v-card>
-          <v-card-title class="headline font-weight-regular border-gray">NUEVO TEMA</v-card-title>
-          <v-card-text>
-            <v-form>
-              <!-- <v-container> -->
-              <!-- wrap -->
-              <v-layout wrap>
-                <v-flex xs12 md2>
-                  <v-text-field v-model="code" label="Código de tema" required></v-text-field>
-                </v-flex>
+          <v-toolbar flat color="white">
+            <v-toolbar-title>Temas</v-toolbar-title>
+            <v-divider class="mx-2" inset vertical></v-divider>
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Buscar"
+              single-line
+              hide-details
+            ></v-text-field>
+            <v-spacer></v-spacer>
+            <v-dialog v-model="dialog" max-width="1200px">
+              <template v-slot:activator="{ on }">
+                <v-btn color="primary" dark class="mb-10 ml-2" v-on="on">Nuevo Tema</v-btn>
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span class="headline">{{ formTitle }}</span>
+                </v-card-title>
 
-                <v-flex xs12 md5>
-                  <v-text-field v-model="name" label="Nombre de tema" required></v-text-field>
-                </v-flex>
+                <v-card-text>
+                  <v-container grid-list-md>
+                    <v-layout wrap>
+                      <v-flex xs12 md2>
+                        <v-text-field v-model="editedItem.code" label="Código de tema" required></v-text-field>
+                      </v-flex>
 
-                <v-flex xs12 md5>
-                  <v-text-field v-model="knowledge" label="Área de conocimiento" required></v-text-field>
-                </v-flex>
+                      <v-flex xs12 md5>
+                        <v-text-field v-model="editedItem.name" label="Nombre de tema" required></v-text-field>
+                      </v-flex>
 
-                <v-flex xs12 md5>
-                  <v-text-field v-model="specific" label="Área especifica" required></v-text-field>
-                </v-flex>
-              </v-layout>
-              <!-- </v-container> -->
-              <v-layout wrap>
-                <v-flex xs12 md6>
-                  <v-toolbar flat color="white">
-                    <v-toolbar-title>Capacidades</v-toolbar-title>
-                    <v-divider class="mx-2" inset vertical></v-divider>
-                    <v-spacer></v-spacer>
-                    <v-dialog v-model="dialog_capacity" max-width="600px">
-                      <template v-slot:activator="{ on }">
-                        <v-btn color="primary" dark class="mb-2" v-on="on">Agregar capacidad</v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-title>
-                          <span class="headline">Seleccionar Capacidad</span>
-                        </v-card-title>
-                        <v-card-text>
-                          <v-container grid-list-md>
-                            <v-data-table
-                              v-model="selected_capacities"
-                              :headers="headers_modal"
-                              :items="capacities"
-                              item-key="name"
-                              class="elevation-1"
-                            >
-                              <template v-slot:items="props">
-                                <td>
-                                  <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
-                                </td>
-                                <td class="text-xs-center">{{ props.index + 1}}</td>
-                                <td class="text-xs-center">{{ props.item.name }}</td>
-                              </template>
-                            </v-data-table>
-                          </v-container>
-                        </v-card-text>
+                      <v-flex xs12 md5>
+                        <v-text-field
+                          v-model="editedItem.knowledge"
+                          label="Área de conocimiento"
+                          required
+                        ></v-text-field>
+                      </v-flex>
 
-                        <v-card-actions>
+                      <v-flex xs12 md5>
+                        <v-text-field
+                          v-model="editedItem.specific"
+                          label="Área especifica"
+                          required
+                        ></v-text-field>
+                      </v-flex>
+                    </v-layout>
+
+                    <v-layout wrap>
+                      <v-flex xs12 md6>
+                        <v-toolbar flat color="white">
+                          <v-toolbar-title>Capacidades</v-toolbar-title>
+                          <v-divider class="mx-2" inset vertical></v-divider>
                           <v-spacer></v-spacer>
-                          <v-btn color="blue darken-1" flat @click="close_dialog_capacity">Cerrar</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </v-toolbar>
+                          <v-dialog v-model="dialog_capacity" max-width="600px">
+                            <template v-slot:activator="{ on }">
+                              <v-btn color="primary" dark class="mb-2" v-on="on">Agregar capacidad</v-btn>
+                            </template>
+                            <v-card>
+                              <v-card-title>
+                                <span class="headline">Seleccionar Capacidad</span>
+                              </v-card-title>
+                              <v-card-text>
+                                <v-container grid-list-md>
+                                  <v-data-table
+                                    v-model="editedItem.capacities"
+                                    :headers="headers_modal"
+                                    :items="capacities_all"
+                                    item-key="name"
+                                    class="elevation-1"
+                                  >
+                                    <template v-slot:items="props">
+                                      <td>
+                                        <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
+                                      </td>
+                                      <td class="text-xs-center">{{ props.index + 1}}</td>
+                                      <td class="text-xs-center">{{ props.item.name }}</td>
+                                    </template>
+                                  </v-data-table>
+                                </v-container>
+                              </v-card-text>
 
-                  <v-data-table
-                    :headers="headers"
-                    :items="selected_capacities"
-                    :hide-actions="true"
-                    class="elevation-1 custom-table"
-                  >
-                    <template v-slot:items="props">
-                      <td class="text-md-center">{{ props.index + 1}}</td>
-                      <td class="text-md-center">{{ props.item.name }}</td>
-                      <td class="justify-center layout px-0">
-                        <v-icon small @click="deleteItemCapacities(props.item)">delete</v-icon>
-                      </td>
-                    </template>
-                    <template slot="no-data">
-                      <v-alert
-                        :value="true"
-                        color="info"
-                        icon="warning"
-                        style="margin: 1.5em 0"
-                      >Aún no se han agregado capacidades</v-alert>
-                    </template>
-                  </v-data-table>
-                </v-flex>
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                  color="blue darken-1"
+                                  flat
+                                  @click="close_dialog_capacity"
+                                >Cerrar</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-dialog>
+                        </v-toolbar>
 
-                <v-flex xs12 md6>
-                  <v-toolbar flat color="white">
-                    <v-toolbar-title>Contenido</v-toolbar-title>
-                    <v-divider class="mx-2" inset vertical></v-divider>
-                    <v-spacer></v-spacer>
-                    <v-dialog v-model="dialog_content" max-width="600px">
-                      <template v-slot:activator="{ on }">
-                        <v-btn color="primary" dark class="mb-2" v-on="on">Agregar contenido</v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-title>
-                          <span class="headline">Seleccionar Contenido</span>
-                        </v-card-title>
-                        <v-card-text>
-                          <v-container grid-list-md>
-                            <v-data-table
-                              v-model="selected_contents"
-                              :headers="headers_modal"
-                              :items="contents"
-                              item-key="name"
-                              class="elevation-1 custom-table"
-                            >
-                              <template v-slot:items="props">
-                                <td>
-                                  <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
-                                </td>
-                                <td class="text-xs-center">{{props.index + 1}}</td>
-                                <td class="text-xs-center">{{ props.item.name }}</td>
-                              </template>
-                            </v-data-table>
-                          </v-container>
-                        </v-card-text>
+                        <v-data-table
+                          :headers="headers"
+                          :items="editedItem.capacities"
+                          :hide-actions="true"
+                          class="elevation-1 custom-table"
+                        >
+                          <template v-slot:items="props">
+                            <td class="text-md-center">{{ props.index + 1}}</td>
+                            <td class="text-md-center">{{ props.item.name }}</td>
+                            <td class="justify-center layout px-0">
+                              <v-icon small @click="deleteItemCapacities(props.item)">delete</v-icon>
+                            </td>
+                          </template>
+                          <template slot="no-data">
+                            <v-alert
+                              :value="true"
+                              color="info"
+                              icon="warning"
+                              style="margin: 1.5em 0"
+                            >Aún no se han agregado capacidades</v-alert>
+                          </template>
+                        </v-data-table>
+                      </v-flex>
 
-                        <v-card-actions>
+                      <v-flex xs12 md6>
+                        <v-toolbar flat color="white">
+                          <v-toolbar-title>Contenido</v-toolbar-title>
+                          <v-divider class="mx-2" inset vertical></v-divider>
                           <v-spacer></v-spacer>
-                          <v-btn color="blue darken-1" flat @click="close_dialog_content">Cerrar</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </v-toolbar>
+                          <v-dialog v-model="dialog_content" max-width="600px">
+                            <template v-slot:activator="{ on }">
+                              <v-btn color="primary" dark class="mb-2" v-on="on">Agregar contenido</v-btn>
+                            </template>
+                            <v-card>
+                              <v-card-title>
+                                <span class="headline">Seleccionar Contenido</span>
+                              </v-card-title>
+                              <v-card-text>
+                                <v-container grid-list-md>
+                                  <v-data-table
+                                    v-model="editedItem.contents"
+                                    :headers="headers_modal"
+                                    :items="contents_all"
+                                    item-key="name"
+                                    class="elevation-1 custom-table"
+                                  >
+                                    <template v-slot:items="props">
+                                      <td>
+                                        <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
+                                      </td>
+                                      <td class="text-xs-center">{{props.index + 1}}</td>
+                                      <td class="text-xs-center">{{ props.item.name }}</td>
+                                    </template>
+                                  </v-data-table>
+                                </v-container>
+                              </v-card-text>
 
-                  <v-data-table
-                    :headers="headers"
-                    :items="selected_contents"
-                    class="elevation-1 custom-table"
-                    :hide-actions="true"
-                  >
-                    <template v-slot:items="props">
-                      <td class="text-md-center">{{ props.index + 1}}</td>
-                      <td class="text-md-center">{{ props.item.name }}</td>
-                      <td class="justify-center layout px-0">
-                        <v-icon small @click="deleteItemContents(props.item)">delete</v-icon>
-                      </td>
-                    </template>
-                    <template slot="no-data">
-                      <v-alert
-                        :value="true"
-                        color="info"
-                        icon="warning"
-                        style="margin: 1.5em 0"
-                      >Aún no se han agregado contenido</v-alert>
-                    </template>
-                  </v-data-table>
-                </v-flex>
-              </v-layout>
-            </v-form>
-          </v-card-text>
-          <v-btn color="success darken-1" dark @click="save" style="margin: 1.2em 0;">Guardar Tema</v-btn>
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                  color="blue darken-1"
+                                  flat
+                                  @click="close_dialog_content"
+                                >Cerrar</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-dialog>
+                        </v-toolbar>
+
+                        <v-data-table
+                          :headers="headers"
+                          :items="editedItem.contents"
+                          class="elevation-1 custom-table"
+                          :hide-actions="true"
+                        >
+                          <template v-slot:items="props">
+                            <td class="text-md-center">{{ props.index + 1}}</td>
+                            <td class="text-md-center">{{ props.item.name }}</td>
+                            <td class="justify-center layout px-0">
+                              <v-icon small @click="deleteItemContents(props.item)">delete</v-icon>
+                            </td>
+                          </template>
+                          <template slot="no-data">
+                            <v-alert
+                              :value="true"
+                              color="info"
+                              icon="warning"
+                              style="margin: 1.5em 0"
+                            >Aún no se han agregado contenido</v-alert>
+                          </template>
+                        </v-data-table>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="error darken-1" flat @click="close">Cancel</v-btn>
+                  <v-btn color="blue darken-1" flat @click="save">Guardar Tema</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-toolbar>
+          <v-data-table
+            :headers="headers_topics"
+            :items="topics"
+            :search="search"
+            class="elevation-1"
+          >
+            <template v-slot:items="props">
+              <td class="text-xs-center">{{ props.index + 1 }}</td>
+              <td class="text-xs-center">{{ props.item.code }}</td>
+              <td class="text-xs-center">{{ props.item.name }}</td>
+              <td class="text-xs-center">{{ props.item.knowledge }}</td>
+              <td class="text-xs-center">{{ props.item.specific }}</td>
+              <td class="justify-center layout px-0">
+                <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
+              </td>
+            </template>
+            <template slot="no-data">
+              <v-alert
+                :value="true"
+                color="info"
+                icon="warning"
+                style="margin: 1.5em 0"
+              >Aún no se han agregado cursos :(</v-alert>
+            </template>
+          </v-data-table>
         </v-card>
       </v-flex>
     </v-layout>
@@ -169,6 +236,8 @@
 <script>
 export default {
   data: () => ({
+    search: "",
+    dialog: false,
     dialog_content: false,
     dialog_capacity: false,
     headers: [
@@ -181,64 +250,71 @@ export default {
       { text: "N°", value: "name" },
       { text: "Nombre", value: "fat" }
     ],
-    code: "",
-    name: "",
-    knowledge: "",
-    specific: "",
-    capacities: [],
-    selected_capacities: [],
-    contents: [],
-    selected_contents: []
+    headers_topics: [
+      { text: "N°", value: "number" },
+      { text: "Code", value: "code" },
+      { text: "Nombre", value: "name" },
+      { text: "Área de conocimiento", value: "knowledge" },
+      { text: "Área de específica", value: "specific" },
+      { text: "Actions", value: "name", sortable: false }
+    ],
+    editedItem: {
+      code: "",
+      name: "",
+      knowledge: "",
+      specific: "",
+      topics: [],
+      capacities: []
+    },
+    topics: [],
+    capacities_all: [],
+    contents_all: [],
+    editedIndex: -1
   }),
 
-  computed: {},
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "Nuevo Tema" : "Editar Tema";
+    }
+  },
 
   watch: {},
 
   created() {
-    //this.initialize();
+    this.initialize();
   },
 
   mounted() {
     axios.get("/api/capacities").then(({ data }) => {
-      this.capacities = data;
+      this.capacities_all = data;
     });
     axios.get("/api/contents").then(({ data }) => {
-      this.contents = data;
+      this.contents_all = data;
     });
   },
 
   methods: {
-    // initialize() {
-    //   this.capacities = [
-    //     {
-    //       name: "Frozen Yogurt"
-    //     },
-    //     {
-    //       name: "KitKat"
-    //     }
-    //   ];
+    initialize() {
+      this.getTopics();
+      this.reset();
+    },
 
-    //   this.contents = [
-    //     {
-    //       name: "Arror con pollo"
-    //     },
-    //     {
-    //       name: "Chicharon"
-    //     }
-    //   ];
-    // },
+    getTopics() {
+      axios.get("/api/topics").then(({ data }) => {
+        this.topics = data;
+      });
+    },
 
     deleteItemCapacities(item) {
-      const index = this.selected_capacities.indexOf(item);
+      const index = this.editedItem.capacities.indexOf(item);
       confirm("Esta seguro de querer eliminar?") &&
-        this.selected_capacities.splice(index, 1);
+        this.editedItem.capacities.splice(index, 1);
     },
 
     deleteItemContents(item) {
-      const index = this.selected_contents.indexOf(item);
+      const index = this.editedItem.contents.indexOf(item);
       confirm("Esta seguro de querer eliminar?") &&
-        this.selected_contents.splice(index, 1);
+        this.editedItem.contents.splice(index, 1);
     },
 
     close_dialog_capacity() {
@@ -249,41 +325,41 @@ export default {
     },
 
     save() {
-      const capacities = this.selected_capacities.map(c => c.id);
-      const contents = this.selected_contents.map(c => c.id);
+      const capacities = this.editedItem.capacities.map(c => c.id);
+      const contents = this.editedItem.contents.map(c => c.id);
 
       const data = {
-        code: this.code,
-        name: this.name,
-        knowledge: this.knowledge,
-        specific: this.specific,
+        code: this.editedItem.code,
+        name: this.editedItem.name,
+        knowledge: this.editedItem.knowledge,
+        specific: this.editedItem.specific,
         capacities: capacities,
         contents: contents
       };
 
-      if (!this.code) {
+      if (!this.editedItem.code) {
         notify.error("Ingrese el codigo de tema");
         return;
       }
-      if (!this.name) {
+      if (!this.editedItem.name) {
         notify.error("Ingrese el nombre del tema");
         return;
       }
-      if (!this.knowledge) {
+      if (!this.editedItem.knowledge) {
         notify.error("Ingrese el área de conocimiento");
         return;
       }
-      if (!this.specific) {
+      if (!this.editedItem.specific) {
         notify.error("Ingrese el área específica");
         return;
       }
 
-      if (this.selected_capacities.length === 0) {
+      if (this.editedItem.capacities.length === 0) {
         notify.error("Agregue al menos una capacidad");
         return;
       }
 
-      if (this.selected_contents.length === 0) {
+      if (this.editedItem.contents.length === 0) {
         notify.error("Agregue al menos un contenido");
         return;
       }
@@ -299,12 +375,22 @@ export default {
         });
     },
     reset() {
-      (this.code = ""),
-        (this.name = ""),
-        (this.knowledge = ""),
-        (this.specific = ""),
-        (this.selected_capacities = []),
-        (this.selected_contents = []);
+      (this.editedItem.code = ""),
+        (this.editedItem.name = ""),
+        (this.editedItem.knowledge = ""),
+        (this.editedItem.specific = ""),
+        (this.editedItem.capacities = []),
+        (this.editedItem.contents = []);
+    },
+    close() {
+      this.dialog = false;
+      setTimeout(() => {}, 300);
+    },
+    editItem(item) {
+      this.editedIndex = this.topics.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      console.log(this.editedItem);
+      this.dialog = true;
     }
   }
 };

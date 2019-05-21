@@ -8,7 +8,7 @@
             <v-divider class="mx-2" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-text-field
-              v-model="Buscar"
+              v-model="search"
               append-icon="search"
               label="Search"
               single-line

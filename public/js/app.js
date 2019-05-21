@@ -3244,9 +3244,78 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      search: "",
+      dialog: false,
       dialog_content: false,
       dialog_capacity: false,
       headers: [{
@@ -3271,58 +3340,81 @@ __webpack_require__.r(__webpack_exports__);
         text: "Nombre",
         value: "fat"
       }],
-      code: "",
-      name: "",
-      knowledge: "",
-      specific: "",
-      capacities: [],
-      selected_capacities: [],
-      contents: [],
-      selected_contents: []
+      headers_topics: [{
+        text: "N°",
+        value: "number"
+      }, {
+        text: "Code",
+        value: "code"
+      }, {
+        text: "Nombre",
+        value: "name"
+      }, {
+        text: "Área de conocimiento",
+        value: "knowledge"
+      }, {
+        text: "Área de específica",
+        value: "specific"
+      }, {
+        text: "Actions",
+        value: "name",
+        sortable: false
+      }],
+      editedItem: {
+        code: "",
+        name: "",
+        knowledge: "",
+        specific: "",
+        topics: [],
+        capacities: []
+      },
+      topics: [],
+      capacities_all: [],
+      contents_all: [],
+      editedIndex: -1
     };
   },
-  computed: {},
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? "Nuevo Tema" : "Editar Tema";
+    }
+  },
   watch: {},
-  created: function created() {//this.initialize();
+  created: function created() {
+    this.initialize();
   },
   mounted: function mounted() {
     var _this = this;
 
     axios.get("/api/capacities").then(function (_ref) {
       var data = _ref.data;
-      _this.capacities = data;
+      _this.capacities_all = data;
     });
     axios.get("/api/contents").then(function (_ref2) {
       var data = _ref2.data;
-      _this.contents = data;
+      _this.contents_all = data;
     });
   },
   methods: {
-    // initialize() {
-    //   this.capacities = [
-    //     {
-    //       name: "Frozen Yogurt"
-    //     },
-    //     {
-    //       name: "KitKat"
-    //     }
-    //   ];
-    //   this.contents = [
-    //     {
-    //       name: "Arror con pollo"
-    //     },
-    //     {
-    //       name: "Chicharon"
-    //     }
-    //   ];
-    // },
+    initialize: function initialize() {
+      this.getTopics();
+      this.reset();
+    },
+    getTopics: function getTopics() {
+      var _this2 = this;
+
+      axios.get("/api/topics").then(function (_ref3) {
+        var data = _ref3.data;
+        _this2.topics = data;
+      });
+    },
     deleteItemCapacities: function deleteItemCapacities(item) {
-      var index = this.selected_capacities.indexOf(item);
-      confirm("Esta seguro de querer eliminar?") && this.selected_capacities.splice(index, 1);
+      var index = this.editedItem.capacities.indexOf(item);
+      confirm("Esta seguro de querer eliminar?") && this.editedItem.capacities.splice(index, 1);
     },
     deleteItemContents: function deleteItemContents(item) {
-      var index = this.selected_contents.indexOf(item);
-      confirm("Esta seguro de querer eliminar?") && this.selected_contents.splice(index, 1);
+      var index = this.editedItem.contents.indexOf(item);
+      confirm("Esta seguro de querer eliminar?") && this.editedItem.contents.splice(index, 1);
     },
     close_dialog_capacity: function close_dialog_capacity() {
       this.dialog_capacity = false;
@@ -3331,64 +3423,74 @@ __webpack_require__.r(__webpack_exports__);
       this.dialog_content = false;
     },
     save: function save() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var capacities = this.selected_capacities.map(function (c) {
+      var capacities = this.editedItem.capacities.map(function (c) {
         return c.id;
       });
-      var contents = this.selected_contents.map(function (c) {
+      var contents = this.editedItem.contents.map(function (c) {
         return c.id;
       });
       var data = {
-        code: this.code,
-        name: this.name,
-        knowledge: this.knowledge,
-        specific: this.specific,
+        code: this.editedItem.code,
+        name: this.editedItem.name,
+        knowledge: this.editedItem.knowledge,
+        specific: this.editedItem.specific,
         capacities: capacities,
         contents: contents
       };
 
-      if (!this.code) {
+      if (!this.editedItem.code) {
         notify.error("Ingrese el codigo de tema");
         return;
       }
 
-      if (!this.name) {
+      if (!this.editedItem.name) {
         notify.error("Ingrese el nombre del tema");
         return;
       }
 
-      if (!this.knowledge) {
+      if (!this.editedItem.knowledge) {
         notify.error("Ingrese el área de conocimiento");
         return;
       }
 
-      if (!this.specific) {
+      if (!this.editedItem.specific) {
         notify.error("Ingrese el área específica");
         return;
       }
 
-      if (this.selected_capacities.length === 0) {
+      if (this.editedItem.capacities.length === 0) {
         notify.error("Agregue al menos una capacidad");
         return;
       }
 
-      if (this.selected_contents.length === 0) {
+      if (this.editedItem.contents.length === 0) {
         notify.error("Agregue al menos un contenido");
         return;
       }
 
-      axios.post("/api/topic/create", data).then(function (_ref3) {
-        var data = _ref3.data;
+      axios.post("/api/topic/create", data).then(function (_ref4) {
+        var data = _ref4.data;
         notify.showCool(data.message);
 
-        _this2.reset();
+        _this3.reset();
       }).catch(function (response) {
         notify.error("Ocurrio un error");
       });
     },
     reset: function reset() {
-      this.code = "", this.name = "", this.knowledge = "", this.specific = "", this.selected_capacities = [], this.selected_contents = [];
+      this.editedItem.code = "", this.editedItem.name = "", this.editedItem.knowledge = "", this.editedItem.specific = "", this.editedItem.capacities = [], this.editedItem.contents = [];
+    },
+    close: function close() {
+      this.dialog = false;
+      setTimeout(function () {}, 300);
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.topics.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      console.log(this.editedItem);
+      this.dialog = true;
     }
   }
 });
@@ -23637,11 +23739,11 @@ var render = function() {
                           "hide-details": ""
                         },
                         model: {
-                          value: _vm.Buscar,
+                          value: _vm.search,
                           callback: function($$v) {
-                            _vm.Buscar = $$v
+                            _vm.search = $$v
                           },
-                          expression: "Buscar"
+                          expression: "search"
                         }
                       }),
                       _vm._v(" "),
@@ -25148,296 +25250,461 @@ var render = function() {
                 "v-card",
                 [
                   _c(
-                    "v-card-title",
-                    { staticClass: "headline font-weight-regular border-gray" },
-                    [_vm._v("NUEVO TEMA")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-text",
+                    "v-toolbar",
+                    { attrs: { flat: "", color: "white" } },
                     [
+                      _c("v-toolbar-title", [_vm._v("Temas")]),
+                      _vm._v(" "),
+                      _c("v-divider", {
+                        staticClass: "mx-2",
+                        attrs: { inset: "", vertical: "" }
+                      }),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          "append-icon": "search",
+                          label: "Buscar",
+                          "single-line": "",
+                          "hide-details": ""
+                        },
+                        model: {
+                          value: _vm.search,
+                          callback: function($$v) {
+                            _vm.search = $$v
+                          },
+                          expression: "search"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
                       _c(
-                        "v-form",
+                        "v-dialog",
+                        {
+                          attrs: { "max-width": "1200px" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                return [
+                                  _c(
+                                    "v-btn",
+                                    _vm._g(
+                                      {
+                                        staticClass: "mb-10 ml-2",
+                                        attrs: { color: "primary", dark: "" }
+                                      },
+                                      on
+                                    ),
+                                    [_vm._v("Nuevo Tema")]
+                                  )
+                                ]
+                              }
+                            }
+                          ]),
+                          model: {
+                            value: _vm.dialog,
+                            callback: function($$v) {
+                              _vm.dialog = $$v
+                            },
+                            expression: "dialog"
+                          }
+                        },
                         [
-                          _c(
-                            "v-layout",
-                            { attrs: { wrap: "" } },
-                            [
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", md2: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: "Código de tema",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.code,
-                                      callback: function($$v) {
-                                        _vm.code = $$v
-                                      },
-                                      expression: "code"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", md5: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: "Nombre de tema",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.name,
-                                      callback: function($$v) {
-                                        _vm.name = $$v
-                                      },
-                                      expression: "name"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", md5: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: "Área de conocimiento",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.knowledge,
-                                      callback: function($$v) {
-                                        _vm.knowledge = $$v
-                                      },
-                                      expression: "knowledge"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", md5: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: "Área especifica",
-                                      required: ""
-                                    },
-                                    model: {
-                                      value: _vm.specific,
-                                      callback: function($$v) {
-                                        _vm.specific = $$v
-                                      },
-                                      expression: "specific"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
                           _vm._v(" "),
                           _c(
-                            "v-layout",
-                            { attrs: { wrap: "" } },
+                            "v-card",
                             [
+                              _c("v-card-title", [
+                                _c("span", { staticClass: "headline" }, [
+                                  _vm._v(_vm._s(_vm.formTitle))
+                                ])
+                              ]),
+                              _vm._v(" "),
                               _c(
-                                "v-flex",
-                                { attrs: { xs12: "", md6: "" } },
+                                "v-card-text",
                                 [
                                   _c(
-                                    "v-toolbar",
-                                    { attrs: { flat: "", color: "white" } },
+                                    "v-container",
+                                    { attrs: { "grid-list-md": "" } },
                                     [
-                                      _c("v-toolbar-title", [
-                                        _vm._v("Capacidades")
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("v-divider", {
-                                        staticClass: "mx-2",
-                                        attrs: { inset: "", vertical: "" }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("v-spacer"),
-                                      _vm._v(" "),
                                       _c(
-                                        "v-dialog",
-                                        {
-                                          attrs: { "max-width": "600px" },
-                                          scopedSlots: _vm._u([
-                                            {
-                                              key: "activator",
-                                              fn: function(ref) {
-                                                var on = ref.on
-                                                return [
-                                                  _c(
-                                                    "v-btn",
-                                                    _vm._g(
-                                                      {
-                                                        staticClass: "mb-2",
-                                                        attrs: {
-                                                          color: "primary",
-                                                          dark: ""
-                                                        }
-                                                      },
-                                                      on
-                                                    ),
-                                                    [
-                                                      _vm._v(
-                                                        "Agregar capacidad"
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              }
-                                            }
-                                          ]),
-                                          model: {
-                                            value: _vm.dialog_capacity,
-                                            callback: function($$v) {
-                                              _vm.dialog_capacity = $$v
-                                            },
-                                            expression: "dialog_capacity"
-                                          }
-                                        },
+                                        "v-layout",
+                                        { attrs: { wrap: "" } },
                                         [
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "", md2: "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Código de tema",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.editedItem.code,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "code",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "editedItem.code"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
                                           _vm._v(" "),
                                           _c(
-                                            "v-card",
+                                            "v-flex",
+                                            { attrs: { xs12: "", md5: "" } },
                                             [
-                                              _c("v-card-title", [
-                                                _c(
-                                                  "span",
-                                                  { staticClass: "headline" },
-                                                  [
-                                                    _vm._v(
-                                                      "Seleccionar Capacidad"
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Nombre de tema",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.editedItem.name,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "name",
+                                                      $$v
                                                     )
-                                                  ]
-                                                )
-                                              ]),
-                                              _vm._v(" "),
+                                                  },
+                                                  expression: "editedItem.name"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "", md5: "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Área de conocimiento",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.editedItem.knowledge,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "knowledge",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "editedItem.knowledge"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "", md5: "" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Área especifica",
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.editedItem.specific,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.editedItem,
+                                                      "specific",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "editedItem.specific"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-layout",
+                                        { attrs: { wrap: "" } },
+                                        [
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "", md6: "" } },
+                                            [
                                               _c(
-                                                "v-card-text",
+                                                "v-toolbar",
+                                                {
+                                                  attrs: {
+                                                    flat: "",
+                                                    color: "white"
+                                                  }
+                                                },
                                                 [
+                                                  _c("v-toolbar-title", [
+                                                    _vm._v("Capacidades")
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("v-divider", {
+                                                    staticClass: "mx-2",
+                                                    attrs: {
+                                                      inset: "",
+                                                      vertical: ""
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c("v-spacer"),
+                                                  _vm._v(" "),
                                                   _c(
-                                                    "v-container",
+                                                    "v-dialog",
                                                     {
                                                       attrs: {
-                                                        "grid-list-md": ""
+                                                        "max-width": "600px"
+                                                      },
+                                                      scopedSlots: _vm._u([
+                                                        {
+                                                          key: "activator",
+                                                          fn: function(ref) {
+                                                            var on = ref.on
+                                                            return [
+                                                              _c(
+                                                                "v-btn",
+                                                                _vm._g(
+                                                                  {
+                                                                    staticClass:
+                                                                      "mb-2",
+                                                                    attrs: {
+                                                                      color:
+                                                                        "primary",
+                                                                      dark: ""
+                                                                    }
+                                                                  },
+                                                                  on
+                                                                ),
+                                                                [
+                                                                  _vm._v(
+                                                                    "Agregar capacidad"
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ]
+                                                          }
+                                                        }
+                                                      ]),
+                                                      model: {
+                                                        value:
+                                                          _vm.dialog_capacity,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.dialog_capacity = $$v
+                                                        },
+                                                        expression:
+                                                          "dialog_capacity"
                                                       }
                                                     },
                                                     [
-                                                      _c("v-data-table", {
-                                                        staticClass:
-                                                          "elevation-1",
-                                                        attrs: {
-                                                          headers:
-                                                            _vm.headers_modal,
-                                                          items: _vm.capacities,
-                                                          "item-key": "name"
-                                                        },
-                                                        scopedSlots: _vm._u([
-                                                          {
-                                                            key: "items",
-                                                            fn: function(
-                                                              props
-                                                            ) {
-                                                              return [
-                                                                _c(
-                                                                  "td",
-                                                                  [
-                                                                    _c(
-                                                                      "v-checkbox",
-                                                                      {
-                                                                        attrs: {
-                                                                          primary:
-                                                                            "",
-                                                                          "hide-details":
-                                                                            ""
-                                                                        },
-                                                                        model: {
-                                                                          value:
-                                                                            props.selected,
-                                                                          callback: function(
-                                                                            $$v
-                                                                          ) {
-                                                                            _vm.$set(
-                                                                              props,
-                                                                              "selected",
-                                                                              $$v
-                                                                            )
-                                                                          },
-                                                                          expression:
-                                                                            "props.selected"
-                                                                        }
-                                                                      }
-                                                                    )
-                                                                  ],
-                                                                  1
-                                                                ),
-                                                                _vm._v(" "),
-                                                                _c(
-                                                                  "td",
-                                                                  {
-                                                                    staticClass:
-                                                                      "text-xs-center"
-                                                                  },
-                                                                  [
-                                                                    _vm._v(
-                                                                      _vm._s(
-                                                                        props.index +
-                                                                          1
-                                                                      )
-                                                                    )
-                                                                  ]
-                                                                ),
-                                                                _vm._v(" "),
-                                                                _c(
-                                                                  "td",
-                                                                  {
-                                                                    staticClass:
-                                                                      "text-xs-center"
-                                                                  },
-                                                                  [
-                                                                    _vm._v(
-                                                                      _vm._s(
-                                                                        props
-                                                                          .item
-                                                                          .name
-                                                                      )
-                                                                    )
-                                                                  ]
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-card",
+                                                        [
+                                                          _c("v-card-title", [
+                                                            _c(
+                                                              "span",
+                                                              {
+                                                                staticClass:
+                                                                  "headline"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Seleccionar Capacidad"
                                                                 )
                                                               ]
-                                                            }
-                                                          }
-                                                        ]),
-                                                        model: {
-                                                          value:
-                                                            _vm.selected_capacities,
-                                                          callback: function(
-                                                            $$v
-                                                          ) {
-                                                            _vm.selected_capacities = $$v
-                                                          },
-                                                          expression:
-                                                            "selected_capacities"
-                                                        }
-                                                      })
+                                                            )
+                                                          ]),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-card-text",
+                                                            [
+                                                              _c(
+                                                                "v-container",
+                                                                {
+                                                                  attrs: {
+                                                                    "grid-list-md":
+                                                                      ""
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _c(
+                                                                    "v-data-table",
+                                                                    {
+                                                                      staticClass:
+                                                                        "elevation-1",
+                                                                      attrs: {
+                                                                        headers:
+                                                                          _vm.headers_modal,
+                                                                        items:
+                                                                          _vm.capacities_all,
+                                                                        "item-key":
+                                                                          "name"
+                                                                      },
+                                                                      scopedSlots: _vm._u(
+                                                                        [
+                                                                          {
+                                                                            key:
+                                                                              "items",
+                                                                            fn: function(
+                                                                              props
+                                                                            ) {
+                                                                              return [
+                                                                                _c(
+                                                                                  "td",
+                                                                                  [
+                                                                                    _c(
+                                                                                      "v-checkbox",
+                                                                                      {
+                                                                                        attrs: {
+                                                                                          primary:
+                                                                                            "",
+                                                                                          "hide-details":
+                                                                                            ""
+                                                                                        },
+                                                                                        model: {
+                                                                                          value:
+                                                                                            props.selected,
+                                                                                          callback: function(
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.$set(
+                                                                                              props,
+                                                                                              "selected",
+                                                                                              $$v
+                                                                                            )
+                                                                                          },
+                                                                                          expression:
+                                                                                            "props.selected"
+                                                                                        }
+                                                                                      }
+                                                                                    )
+                                                                                  ],
+                                                                                  1
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "td",
+                                                                                  {
+                                                                                    staticClass:
+                                                                                      "text-xs-center"
+                                                                                  },
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      _vm._s(
+                                                                                        props.index +
+                                                                                          1
+                                                                                      )
+                                                                                    )
+                                                                                  ]
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "td",
+                                                                                  {
+                                                                                    staticClass:
+                                                                                      "text-xs-center"
+                                                                                  },
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      _vm._s(
+                                                                                        props
+                                                                                          .item
+                                                                                          .name
+                                                                                      )
+                                                                                    )
+                                                                                  ]
+                                                                                )
+                                                                              ]
+                                                                            }
+                                                                          }
+                                                                        ]
+                                                                      ),
+                                                                      model: {
+                                                                        value:
+                                                                          _vm
+                                                                            .editedItem
+                                                                            .capacities,
+                                                                        callback: function(
+                                                                          $$v
+                                                                        ) {
+                                                                          _vm.$set(
+                                                                            _vm.editedItem,
+                                                                            "capacities",
+                                                                            $$v
+                                                                          )
+                                                                        },
+                                                                        expression:
+                                                                          "editedItem.capacities"
+                                                                      }
+                                                                    }
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            ],
+                                                            1
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-card-actions",
+                                                            [
+                                                              _c("v-spacer"),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "v-btn",
+                                                                {
+                                                                  attrs: {
+                                                                    color:
+                                                                      "blue darken-1",
+                                                                    flat: ""
+                                                                  },
+                                                                  on: {
+                                                                    click:
+                                                                      _vm.close_dialog_capacity
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "Cerrar"
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ],
+                                                            1
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
                                                     ],
                                                     1
                                                   )
@@ -25446,26 +25713,504 @@ var render = function() {
                                               ),
                                               _vm._v(" "),
                                               _c(
-                                                "v-card-actions",
+                                                "v-data-table",
+                                                {
+                                                  staticClass:
+                                                    "elevation-1 custom-table",
+                                                  attrs: {
+                                                    headers: _vm.headers,
+                                                    items:
+                                                      _vm.editedItem.capacities,
+                                                    "hide-actions": true
+                                                  },
+                                                  scopedSlots: _vm._u([
+                                                    {
+                                                      key: "items",
+                                                      fn: function(props) {
+                                                        return [
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "text-md-center"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.index +
+                                                                    1
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "text-md-center"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .name
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "justify-center layout px-0"
+                                                            },
+                                                            [
+                                                              _c(
+                                                                "v-icon",
+                                                                {
+                                                                  attrs: {
+                                                                    small: ""
+                                                                  },
+                                                                  on: {
+                                                                    click: function(
+                                                                      $event
+                                                                    ) {
+                                                                      return _vm.deleteItemCapacities(
+                                                                        props.item
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "delete"
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ],
+                                                            1
+                                                          )
+                                                        ]
+                                                      }
+                                                    }
+                                                  ])
+                                                },
                                                 [
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "template",
+                                                    { slot: "no-data" },
+                                                    [
+                                                      _c(
+                                                        "v-alert",
+                                                        {
+                                                          staticStyle: {
+                                                            margin: "1.5em 0"
+                                                          },
+                                                          attrs: {
+                                                            value: true,
+                                                            color: "info",
+                                                            icon: "warning"
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Aún no se han agregado capacidades"
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                2
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-flex",
+                                            { attrs: { xs12: "", md6: "" } },
+                                            [
+                                              _c(
+                                                "v-toolbar",
+                                                {
+                                                  attrs: {
+                                                    flat: "",
+                                                    color: "white"
+                                                  }
+                                                },
+                                                [
+                                                  _c("v-toolbar-title", [
+                                                    _vm._v("Contenido")
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("v-divider", {
+                                                    staticClass: "mx-2",
+                                                    attrs: {
+                                                      inset: "",
+                                                      vertical: ""
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
                                                   _c("v-spacer"),
                                                   _vm._v(" "),
                                                   _c(
-                                                    "v-btn",
+                                                    "v-dialog",
                                                     {
                                                       attrs: {
-                                                        color: "blue darken-1",
-                                                        flat: ""
+                                                        "max-width": "600px"
                                                       },
-                                                      on: {
-                                                        click:
-                                                          _vm.close_dialog_capacity
+                                                      scopedSlots: _vm._u([
+                                                        {
+                                                          key: "activator",
+                                                          fn: function(ref) {
+                                                            var on = ref.on
+                                                            return [
+                                                              _c(
+                                                                "v-btn",
+                                                                _vm._g(
+                                                                  {
+                                                                    staticClass:
+                                                                      "mb-2",
+                                                                    attrs: {
+                                                                      color:
+                                                                        "primary",
+                                                                      dark: ""
+                                                                    }
+                                                                  },
+                                                                  on
+                                                                ),
+                                                                [
+                                                                  _vm._v(
+                                                                    "Agregar contenido"
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ]
+                                                          }
+                                                        }
+                                                      ]),
+                                                      model: {
+                                                        value:
+                                                          _vm.dialog_content,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.dialog_content = $$v
+                                                        },
+                                                        expression:
+                                                          "dialog_content"
                                                       }
                                                     },
-                                                    [_vm._v("Cerrar")]
+                                                    [
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-card",
+                                                        [
+                                                          _c("v-card-title", [
+                                                            _c(
+                                                              "span",
+                                                              {
+                                                                staticClass:
+                                                                  "headline"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Seleccionar Contenido"
+                                                                )
+                                                              ]
+                                                            )
+                                                          ]),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-card-text",
+                                                            [
+                                                              _c(
+                                                                "v-container",
+                                                                {
+                                                                  attrs: {
+                                                                    "grid-list-md":
+                                                                      ""
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _c(
+                                                                    "v-data-table",
+                                                                    {
+                                                                      staticClass:
+                                                                        "elevation-1 custom-table",
+                                                                      attrs: {
+                                                                        headers:
+                                                                          _vm.headers_modal,
+                                                                        items:
+                                                                          _vm.contents_all,
+                                                                        "item-key":
+                                                                          "name"
+                                                                      },
+                                                                      scopedSlots: _vm._u(
+                                                                        [
+                                                                          {
+                                                                            key:
+                                                                              "items",
+                                                                            fn: function(
+                                                                              props
+                                                                            ) {
+                                                                              return [
+                                                                                _c(
+                                                                                  "td",
+                                                                                  [
+                                                                                    _c(
+                                                                                      "v-checkbox",
+                                                                                      {
+                                                                                        attrs: {
+                                                                                          primary:
+                                                                                            "",
+                                                                                          "hide-details":
+                                                                                            ""
+                                                                                        },
+                                                                                        model: {
+                                                                                          value:
+                                                                                            props.selected,
+                                                                                          callback: function(
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.$set(
+                                                                                              props,
+                                                                                              "selected",
+                                                                                              $$v
+                                                                                            )
+                                                                                          },
+                                                                                          expression:
+                                                                                            "props.selected"
+                                                                                        }
+                                                                                      }
+                                                                                    )
+                                                                                  ],
+                                                                                  1
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "td",
+                                                                                  {
+                                                                                    staticClass:
+                                                                                      "text-xs-center"
+                                                                                  },
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      _vm._s(
+                                                                                        props.index +
+                                                                                          1
+                                                                                      )
+                                                                                    )
+                                                                                  ]
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "td",
+                                                                                  {
+                                                                                    staticClass:
+                                                                                      "text-xs-center"
+                                                                                  },
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      _vm._s(
+                                                                                        props
+                                                                                          .item
+                                                                                          .name
+                                                                                      )
+                                                                                    )
+                                                                                  ]
+                                                                                )
+                                                                              ]
+                                                                            }
+                                                                          }
+                                                                        ]
+                                                                      ),
+                                                                      model: {
+                                                                        value:
+                                                                          _vm
+                                                                            .editedItem
+                                                                            .contents,
+                                                                        callback: function(
+                                                                          $$v
+                                                                        ) {
+                                                                          _vm.$set(
+                                                                            _vm.editedItem,
+                                                                            "contents",
+                                                                            $$v
+                                                                          )
+                                                                        },
+                                                                        expression:
+                                                                          "editedItem.contents"
+                                                                      }
+                                                                    }
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            ],
+                                                            1
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-card-actions",
+                                                            [
+                                                              _c("v-spacer"),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "v-btn",
+                                                                {
+                                                                  attrs: {
+                                                                    color:
+                                                                      "blue darken-1",
+                                                                    flat: ""
+                                                                  },
+                                                                  on: {
+                                                                    click:
+                                                                      _vm.close_dialog_content
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "Cerrar"
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ],
+                                                            1
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ],
+                                                    1
                                                   )
                                                 ],
                                                 1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-data-table",
+                                                {
+                                                  staticClass:
+                                                    "elevation-1 custom-table",
+                                                  attrs: {
+                                                    headers: _vm.headers,
+                                                    items:
+                                                      _vm.editedItem.contents,
+                                                    "hide-actions": true
+                                                  },
+                                                  scopedSlots: _vm._u([
+                                                    {
+                                                      key: "items",
+                                                      fn: function(props) {
+                                                        return [
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "text-md-center"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.index +
+                                                                    1
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "text-md-center"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .name
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "justify-center layout px-0"
+                                                            },
+                                                            [
+                                                              _c(
+                                                                "v-icon",
+                                                                {
+                                                                  attrs: {
+                                                                    small: ""
+                                                                  },
+                                                                  on: {
+                                                                    click: function(
+                                                                      $event
+                                                                    ) {
+                                                                      return _vm.deleteItemContents(
+                                                                        props.item
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "delete"
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ],
+                                                            1
+                                                          )
+                                                        ]
+                                                      }
+                                                    }
+                                                  ])
+                                                },
+                                                [
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "template",
+                                                    { slot: "no-data" },
+                                                    [
+                                                      _c(
+                                                        "v-alert",
+                                                        {
+                                                          staticStyle: {
+                                                            margin: "1.5em 0"
+                                                          },
+                                                          attrs: {
+                                                            value: true,
+                                                            color: "info",
+                                                            icon: "warning"
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Aún no se han agregado contenido"
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                2
                                               )
                                             ],
                                             1
@@ -25475,432 +26220,38 @@ var render = function() {
                                       )
                                     ],
                                     1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-data-table",
-                                    {
-                                      staticClass: "elevation-1 custom-table",
-                                      attrs: {
-                                        headers: _vm.headers,
-                                        items: _vm.selected_capacities,
-                                        "hide-actions": true
-                                      },
-                                      scopedSlots: _vm._u([
-                                        {
-                                          key: "items",
-                                          fn: function(props) {
-                                            return [
-                                              _c(
-                                                "td",
-                                                {
-                                                  staticClass: "text-md-center"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(props.index + 1)
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "td",
-                                                {
-                                                  staticClass: "text-md-center"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(props.item.name)
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "td",
-                                                {
-                                                  staticClass:
-                                                    "justify-center layout px-0"
-                                                },
-                                                [
-                                                  _c(
-                                                    "v-icon",
-                                                    {
-                                                      attrs: { small: "" },
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.deleteItemCapacities(
-                                                            props.item
-                                                          )
-                                                        }
-                                                      }
-                                                    },
-                                                    [_vm._v("delete")]
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ])
-                                    },
-                                    [
-                                      _vm._v(" "),
-                                      _c(
-                                        "template",
-                                        { slot: "no-data" },
-                                        [
-                                          _c(
-                                            "v-alert",
-                                            {
-                                              staticStyle: {
-                                                margin: "1.5em 0"
-                                              },
-                                              attrs: {
-                                                value: true,
-                                                color: "info",
-                                                icon: "warning"
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "Aún no se han agregado capacidades"
-                                              )
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    2
                                   )
                                 ],
                                 1
                               ),
                               _vm._v(" "),
                               _c(
-                                "v-flex",
-                                { attrs: { xs12: "", md6: "" } },
+                                "v-card-actions",
                                 [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
                                   _c(
-                                    "v-toolbar",
-                                    { attrs: { flat: "", color: "white" } },
-                                    [
-                                      _c("v-toolbar-title", [
-                                        _vm._v("Contenido")
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("v-divider", {
-                                        staticClass: "mx-2",
-                                        attrs: { inset: "", vertical: "" }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("v-spacer"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-dialog",
-                                        {
-                                          attrs: { "max-width": "600px" },
-                                          scopedSlots: _vm._u([
-                                            {
-                                              key: "activator",
-                                              fn: function(ref) {
-                                                var on = ref.on
-                                                return [
-                                                  _c(
-                                                    "v-btn",
-                                                    _vm._g(
-                                                      {
-                                                        staticClass: "mb-2",
-                                                        attrs: {
-                                                          color: "primary",
-                                                          dark: ""
-                                                        }
-                                                      },
-                                                      on
-                                                    ),
-                                                    [
-                                                      _vm._v(
-                                                        "Agregar contenido"
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              }
-                                            }
-                                          ]),
-                                          model: {
-                                            value: _vm.dialog_content,
-                                            callback: function($$v) {
-                                              _vm.dialog_content = $$v
-                                            },
-                                            expression: "dialog_content"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-card",
-                                            [
-                                              _c("v-card-title", [
-                                                _c(
-                                                  "span",
-                                                  { staticClass: "headline" },
-                                                  [
-                                                    _vm._v(
-                                                      "Seleccionar Contenido"
-                                                    )
-                                                  ]
-                                                )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-card-text",
-                                                [
-                                                  _c(
-                                                    "v-container",
-                                                    {
-                                                      attrs: {
-                                                        "grid-list-md": ""
-                                                      }
-                                                    },
-                                                    [
-                                                      _c("v-data-table", {
-                                                        staticClass:
-                                                          "elevation-1 custom-table",
-                                                        attrs: {
-                                                          headers:
-                                                            _vm.headers_modal,
-                                                          items: _vm.contents,
-                                                          "item-key": "name"
-                                                        },
-                                                        scopedSlots: _vm._u([
-                                                          {
-                                                            key: "items",
-                                                            fn: function(
-                                                              props
-                                                            ) {
-                                                              return [
-                                                                _c(
-                                                                  "td",
-                                                                  [
-                                                                    _c(
-                                                                      "v-checkbox",
-                                                                      {
-                                                                        attrs: {
-                                                                          primary:
-                                                                            "",
-                                                                          "hide-details":
-                                                                            ""
-                                                                        },
-                                                                        model: {
-                                                                          value:
-                                                                            props.selected,
-                                                                          callback: function(
-                                                                            $$v
-                                                                          ) {
-                                                                            _vm.$set(
-                                                                              props,
-                                                                              "selected",
-                                                                              $$v
-                                                                            )
-                                                                          },
-                                                                          expression:
-                                                                            "props.selected"
-                                                                        }
-                                                                      }
-                                                                    )
-                                                                  ],
-                                                                  1
-                                                                ),
-                                                                _vm._v(" "),
-                                                                _c(
-                                                                  "td",
-                                                                  {
-                                                                    staticClass:
-                                                                      "text-xs-center"
-                                                                  },
-                                                                  [
-                                                                    _vm._v(
-                                                                      _vm._s(
-                                                                        props.index +
-                                                                          1
-                                                                      )
-                                                                    )
-                                                                  ]
-                                                                ),
-                                                                _vm._v(" "),
-                                                                _c(
-                                                                  "td",
-                                                                  {
-                                                                    staticClass:
-                                                                      "text-xs-center"
-                                                                  },
-                                                                  [
-                                                                    _vm._v(
-                                                                      _vm._s(
-                                                                        props
-                                                                          .item
-                                                                          .name
-                                                                      )
-                                                                    )
-                                                                  ]
-                                                                )
-                                                              ]
-                                                            }
-                                                          }
-                                                        ]),
-                                                        model: {
-                                                          value:
-                                                            _vm.selected_contents,
-                                                          callback: function(
-                                                            $$v
-                                                          ) {
-                                                            _vm.selected_contents = $$v
-                                                          },
-                                                          expression:
-                                                            "selected_contents"
-                                                        }
-                                                      })
-                                                    ],
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-card-actions",
-                                                [
-                                                  _c("v-spacer"),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-btn",
-                                                    {
-                                                      attrs: {
-                                                        color: "blue darken-1",
-                                                        flat: ""
-                                                      },
-                                                      on: {
-                                                        click:
-                                                          _vm.close_dialog_content
-                                                      }
-                                                    },
-                                                    [_vm._v("Cerrar")]
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "error darken-1",
+                                        flat: ""
+                                      },
+                                      on: { click: _vm.close }
+                                    },
+                                    [_vm._v("Cancel")]
                                   ),
                                   _vm._v(" "),
                                   _c(
-                                    "v-data-table",
+                                    "v-btn",
                                     {
-                                      staticClass: "elevation-1 custom-table",
                                       attrs: {
-                                        headers: _vm.headers,
-                                        items: _vm.selected_contents,
-                                        "hide-actions": true
+                                        color: "blue darken-1",
+                                        flat: ""
                                       },
-                                      scopedSlots: _vm._u([
-                                        {
-                                          key: "items",
-                                          fn: function(props) {
-                                            return [
-                                              _c(
-                                                "td",
-                                                {
-                                                  staticClass: "text-md-center"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(props.index + 1)
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "td",
-                                                {
-                                                  staticClass: "text-md-center"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(props.item.name)
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "td",
-                                                {
-                                                  staticClass:
-                                                    "justify-center layout px-0"
-                                                },
-                                                [
-                                                  _c(
-                                                    "v-icon",
-                                                    {
-                                                      attrs: { small: "" },
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.deleteItemContents(
-                                                            props.item
-                                                          )
-                                                        }
-                                                      }
-                                                    },
-                                                    [_vm._v("delete")]
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ])
+                                      on: { click: _vm.save }
                                     },
-                                    [
-                                      _vm._v(" "),
-                                      _c(
-                                        "template",
-                                        { slot: "no-data" },
-                                        [
-                                          _c(
-                                            "v-alert",
-                                            {
-                                              staticStyle: {
-                                                margin: "1.5em 0"
-                                              },
-                                              attrs: {
-                                                value: true,
-                                                color: "info",
-                                                icon: "warning"
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "Aún no se han agregado contenido"
-                                              )
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    2
+                                    [_vm._v("Guardar Tema")]
                                   )
                                 ],
                                 1
@@ -25916,13 +26267,87 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "v-btn",
+                    "v-data-table",
                     {
-                      staticStyle: { margin: "1.2em 0" },
-                      attrs: { color: "success darken-1", dark: "" },
-                      on: { click: _vm.save }
+                      staticClass: "elevation-1",
+                      attrs: {
+                        headers: _vm.headers_topics,
+                        items: _vm.topics,
+                        search: _vm.search
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "items",
+                          fn: function(props) {
+                            return [
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.index + 1))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.code))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.name))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.knowledge))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.specific))
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "justify-center layout px-0" },
+                                [
+                                  _c(
+                                    "v-icon",
+                                    {
+                                      staticClass: "mr-2",
+                                      attrs: { small: "" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.editItem(props.item)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("edit")]
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          }
+                        }
+                      ])
                     },
-                    [_vm._v("Guardar Tema")]
+                    [
+                      _vm._v(" "),
+                      _c(
+                        "template",
+                        { slot: "no-data" },
+                        [
+                          _c(
+                            "v-alert",
+                            {
+                              staticStyle: { margin: "1.5em 0" },
+                              attrs: {
+                                value: true,
+                                color: "info",
+                                icon: "warning"
+                              }
+                            },
+                            [_vm._v("Aún no se han agregado cursos :(")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    2
                   )
                 ],
                 1
