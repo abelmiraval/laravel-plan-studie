@@ -13,4 +13,8 @@ class RequerimentCourse extends Model
     {
         return $this->belongsTo(Course::class);
     }
+    public function requeriment()
+    {
+        return $this->belongsTo(Course::class,'course_id_requeriment','id');
+    }
 }

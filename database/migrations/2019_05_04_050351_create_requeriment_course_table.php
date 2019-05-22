@@ -16,7 +16,7 @@ class CreateRequerimentCourseTable extends Migration
         Schema::create('requeriment_course', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('course_id')->unsigned();
-            $table->integer('course_requeriment_id')->unsigned();
+            $table->integer('course_id_requeriment')->unsigned();
             $table->timestamps();
         });
     }

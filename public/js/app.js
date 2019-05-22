@@ -2599,24 +2599,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this3.courses = data;
       });
     },
+    getRequerimentsAll: function getRequerimentsAll() {
+      var _this4 = this;
+
+      axios.get("/api/requeriments").then(function (_ref10) {
+        var data = _ref10.data;
+        _this4.requeriments_all = data;
+      });
+    },
     deleteItemtopics: function deleteItemtopics(item) {
       var index = this.editedItem.topics.indexOf(item);
       confirm("Esta seguro de querer eliminar?") && this.editedItem.topics.splice(index, 1);
     },
     close: function close() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.dialog = false;
       setTimeout(function () {
-        _this4.editedItem = Object.assign({}, _this4.defaultItem);
-        _this4.editedIndex = -1;
+        _this5.editedItem = Object.assign({}, _this5.defaultItem);
+        _this5.editedIndex = -1;
       }, 300);
     },
     close_dialog_course: function close_dialog_course() {
       this.dialog_topic = false;
     },
     save: function save() {
-      var _this5 = this;
+      var _this6 = this;
 
       if (!this.editedItem.code) {
         notify.error("Ingrese el codigo del curso");
@@ -2683,46 +2691,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       var level_year = this.editedItem.level.substring(0, this.editedItem.level.length - 1);
       var level_age = this.editedItem.level.charAt(this.editedItem.level.length - 1);
-      console.log(this.editedItem.level_year);
-      console.log(this.editedItem.level_age);
+      console.log(level_year);
+      console.log(level_age);
       var level = level_year + "-" + level_age;
-      var data = {
-        code: this.editedItem.code,
-        name: this.editedItem.name,
-        area: this.editedItem.area,
-        nature: this.editedItem.nature,
-        main_objective: this.editedItem.main_objective,
-        secondary_objective: this.editedItem.secondary_objective,
-        theoretical_hours: this.editedItem.theoretical_hours,
-        practical_hours: this.editedItem.practical_hours,
-        credits: this.editedItem.credits,
-        level: level,
-        term: this.editedItem.term,
-        topics: topics,
-        requeriments: this.editedItem.requeriments
-      };
-      console.log(data);
 
       if (this.editedIndex > -1) {
-        axios.put("/api/course/update/" + this.editedItem.id, data).then(function (_ref10) {
-          var data = _ref10.data;
+        var requeriments = this.editedItem.requeriments;
+        var editedData = {
+          code: this.editedItem.code,
+          name: this.editedItem.name,
+          area: this.editedItem.area.id,
+          nature: this.editedItem.nature.id,
+          main_objective: this.editedItem.main_objective,
+          secondary_objective: this.editedItem.secondary_objective,
+          theoretical_hours: this.editedItem.theoretical_hours,
+          practical_hours: this.editedItem.practical_hours,
+          credits: this.editedItem.credits,
+          level: level,
+          term: this.editedItem.term.id,
+          topics: topics,
+          requeriments: requeriments
+        };
+        console.log(editedData);
+        axios.put("/api/course/update/" + this.editedItem.id, editedData).then(function (_ref11) {
+          var data = _ref11.data;
           notify.showCool(data.message);
 
-          _this5.close();
+          _this6.close();
 
-          _this5.initialize();
+          _this6.initialize();
+
+          _this6.getRequerimentsAll();
         }).catch(function (error) {
           console.log(error.response.data.message);
           notify.error(error.response.data.message);
         });
       } else {
-        axios.post("/api/course/create", data).then(function (_ref11) {
-          var data = _ref11.data;
+        var data = {
+          code: this.editedItem.code,
+          name: this.editedItem.name,
+          area: this.editedItem.area,
+          nature: this.editedItem.nature,
+          main_objective: this.editedItem.main_objective,
+          secondary_objective: this.editedItem.secondary_objective,
+          theoretical_hours: this.editedItem.theoretical_hours,
+          practical_hours: this.editedItem.practical_hours,
+          credits: this.editedItem.credits,
+          level: level,
+          term: this.editedItem.term,
+          topics: topics,
+          requeriments: this.editedItem.requeriments
+        };
+        axios.post("/api/course/create", data).then(function (_ref12) {
+          var data = _ref12.data;
           notify.showCool(data.message);
 
-          _this5.close();
+          _this6.close();
 
-          _this5.initialize();
+          _this6.initialize();
+
+          _this6.getRequerimentsAll();
         }).catch(function (response) {
           console.log(response);
           notify.error(response.message);
@@ -2732,6 +2760,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     editItem: function editItem(item) {
       this.editedIndex = this.courses.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      this.editedItem.requeriments = item.requeriments.map(function (r) {
+        return r.course_id_requeriment;
+      });
       console.log(this.editedItem);
       this.dialog = true;
     },
@@ -24754,7 +24785,7 @@ var render = function() {
                                   _vm._s(
                                     props.item.requeriments
                                       .map(function(r) {
-                                        return " " + r.course.name
+                                        return " " + r.requeriment.name
                                       })
                                       .toString()
                                   )
@@ -69072,7 +69103,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\Laravel\plan-studies\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\plan-studies\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

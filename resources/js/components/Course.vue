@@ -232,7 +232,7 @@
               <td class="text-xs-center">{{ props.item.term.name }}</td>
               <td
                 class="text-xs-center"
-              >{{ props.item.requeriments.map(r => " " + r.course.name).toString() }}</td>
+              >{{ props.item.requeriments.map(r => " " + r.requeriment.name).toString() }}</td>
 
               <td class="justify-center layout px-0">
                 <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
@@ -367,6 +367,11 @@ export default {
       });
     },
 
+    getRequerimentsAll() {
+      axios.get("/api/requeriments").then(({ data }) => {
+        this.requeriments_all = data;
+      });
+    },
     deleteItemtopics(item) {
       const index = this.editedItem.topics.indexOf(item);
       confirm("Esta seguro de querer eliminar?") &&
@@ -446,46 +451,64 @@ export default {
         this.editedItem.level.length - 1
       );
 
-      console.log(this.editedItem.level_year);
-      console.log(this.editedItem.level_age);
+      console.log(level_year);
+      console.log(level_age);
       const level = level_year + "-" + level_age;
 
-      const data = {
-        code: this.editedItem.code,
-        name: this.editedItem.name,
-        area: this.editedItem.area,
-        nature: this.editedItem.nature,
-        main_objective: this.editedItem.main_objective,
-        secondary_objective: this.editedItem.secondary_objective,
-        theoretical_hours: this.editedItem.theoretical_hours,
-        practical_hours: this.editedItem.practical_hours,
-        credits: this.editedItem.credits,
-        level: level,
-        term: this.editedItem.term,
-        topics: topics,
-        requeriments: this.editedItem.requeriments
-      };
-
-      console.log(data);
       if (this.editedIndex > -1) {
+        const requeriments = this.editedItem.requeriments;
+        const editedData = {
+          code: this.editedItem.code,
+          name: this.editedItem.name,
+          area: this.editedItem.area.id,
+          nature: this.editedItem.nature.id,
+          main_objective: this.editedItem.main_objective,
+          secondary_objective: this.editedItem.secondary_objective,
+          theoretical_hours: this.editedItem.theoretical_hours,
+          practical_hours: this.editedItem.practical_hours,
+          credits: this.editedItem.credits,
+          level: level,
+          term: this.editedItem.term.id,
+          topics: topics,
+          requeriments: requeriments
+        };
+        console.log(editedData);
         axios
-          .put("/api/course/update/" + this.editedItem.id, data)
+          .put("/api/course/update/" + this.editedItem.id, editedData)
           .then(({ data }) => {
             notify.showCool(data.message);
             this.close();
             this.initialize();
+            this.getRequerimentsAll();
           })
           .catch(error => {
             console.log(error.response.data.message);
             notify.error(error.response.data.message);
           });
       } else {
+        const data = {
+          code: this.editedItem.code,
+          name: this.editedItem.name,
+          area: this.editedItem.area,
+          nature: this.editedItem.nature,
+          main_objective: this.editedItem.main_objective,
+          secondary_objective: this.editedItem.secondary_objective,
+          theoretical_hours: this.editedItem.theoretical_hours,
+          practical_hours: this.editedItem.practical_hours,
+          credits: this.editedItem.credits,
+          level: level,
+          term: this.editedItem.term,
+          topics: topics,
+          requeriments: this.editedItem.requeriments
+        };
+
         axios
           .post("/api/course/create", data)
           .then(({ data }) => {
             notify.showCool(data.message);
             this.close();
             this.initialize();
+            this.getRequerimentsAll();
           })
           .catch(response => {
             console.log(response);
@@ -497,6 +520,9 @@ export default {
     editItem(item) {
       this.editedIndex = this.courses.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      this.editedItem.requeriments = item.requeriments.map(
+        r => r.course_id_requeriment
+      );
       console.log(this.editedItem);
       this.dialog = true;
     },

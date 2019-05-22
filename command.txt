@@ -24,3 +24,29 @@ N:M
 Topic belongsToMany Capacity.
 Capacity belongsToMany Topic
 
+1. Example
+store
+id(pk)
+
+library
+id(pk)
+store_id(fk)
+
+store:library
+1:M
+
+Store model:
+
+-Implicitamente
+public function libraries()
+{
+    return $this->hasMany('App\Library');
+}
+-Explicitamente
+public function libraries(){
+    return $this->hasMany('App\Library', 'store_id','id');
+}
+
+$store->libraries() or $library->store().
+
+
