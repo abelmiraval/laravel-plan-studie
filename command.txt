@@ -6,7 +6,7 @@
 5. $ php artisan migrate:fresh borrar todas la tablas y correr todas las migraciones
 6. $ php artisan make:seeder AreaTableSeeder permite crear seeders.
 7. $ php artisan db:seed ejecutar los seeders.
-8. $ php artisan migrate:fresh -seed borrar,correr y correr los seeders
+8. $ php artisan migrate:fresh --seed borrar,correr y correr los seeders
 
 
 
