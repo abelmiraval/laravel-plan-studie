@@ -50,3 +50,16 @@ public function libraries(){
 $store->libraries() or $library->store().
 
 
+#-----------------------DEPLOY IN HEROKU----------------------------------
+1. wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+2. heroku login
+3. configurate .zshrc => add heroku
+4. git clone  https://github.com/AbelSaul/plan-studies.git
+4. cd plans-studies;
+5. git init
+6. heroku git:remote -a plan-studies;
+7. Congigurate secure_asset  in app.blade.php (js,css)
+8. git add .
+9. git commit -am "First commit"
+10. git push heroku master
+11. heroku run php artisan migrate
