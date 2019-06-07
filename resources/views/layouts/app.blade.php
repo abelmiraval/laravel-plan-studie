@@ -27,6 +27,6 @@
                     <navbar></navbar>
             </v-app>
         </div>
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset_secure('js/app.js') }}"></script>
     </body>
 </html>
