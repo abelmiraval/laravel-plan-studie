@@ -66,9 +66,9 @@ export default {
   data: () => ({
     dialog: false,
     headers: [
-      { text: "Código", value: "calories" },
-      { text: "Nombre", value: "fat" },
-      { text: "Actions", value: "name", sortable: false }
+      { text: "Código", value: "code" },
+      { text: "Nombre", value: "name" },
+      { text: "Actions", value: "actions", sortable: false }
     ],
     contents: [],
     editedIndex: -1,

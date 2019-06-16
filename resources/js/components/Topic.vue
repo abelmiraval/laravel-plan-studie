@@ -50,15 +50,25 @@
                           required
                         ></v-text-field>
                       </v-flex>
+
+                      <v-flex xs12 md7>
+                        <v-textarea
+                          auto-grow
+                          rows="1"
+                          label="Contenido"
+                          v-model="editedItem.content"
+                          required
+                        ></v-textarea>
+                      </v-flex>
                     </v-layout>
 
                     <v-layout wrap>
-                      <v-flex xs12 md6>
+                      <v-flex xs12 md12>
                         <v-toolbar flat color="white">
                           <v-toolbar-title>Capacidades</v-toolbar-title>
                           <v-divider class="mx-2" inset vertical></v-divider>
                           <v-spacer></v-spacer>
-                          <v-dialog v-model="dialog_capacity" max-width="600px">
+                          <v-dialog v-model="dialog_capacity" max-width="700px">
                             <template v-slot:activator="{ on }">
                               <v-btn
                                 color="primary"
@@ -85,8 +95,8 @@
                                       <td>
                                         <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
                                       </td>
-                                      <td class="text-xs-center">{{ props.index + 1}}</td>
-                                      <td class="text-xs-center">{{ props.item.name }}</td>
+                                      <td class="text-xs-left">{{ props.index + 1}}</td>
+                                      <td class="text-xs-left">{{ props.item.name }}</td>
                                     </template>
                                   </v-data-table>
                                 </v-container>
@@ -108,11 +118,11 @@
                           :headers="headers"
                           :items="editedItem.capacities"
                           :hide-actions="true"
-                          class="elevation-1 custom-table"
+                          class="elevation-1"
                         >
                           <template v-slot:items="props">
-                            <td class="text-md-center">{{ props.index + 1}}</td>
-                            <td class="text-md-center">{{ props.item.name }}</td>
+                            <td class="text-md-left">{{ props.index + 1}}</td>
+                            <td class="text-md-left">{{ props.item.name }}</td>
                             <td class="justify-center layout px-0">
                               <v-icon small @click="deleteItemCapacities(props.item)">delete</v-icon>
                             </td>
@@ -127,7 +137,7 @@
                           </template>
                         </v-data-table>
                       </v-flex>
-
+                      <!--
                       <v-flex xs12 md6>
                         <v-toolbar flat color="white">
                           <v-toolbar-title>Contenido</v-toolbar-title>
@@ -201,7 +211,7 @@
                             >Aún no se han agregado contenido</v-alert>
                           </template>
                         </v-data-table>
-                      </v-flex>
+                      </v-flex>-->
                     </v-layout>
                   </v-container>
                 </v-card-text>
@@ -221,11 +231,12 @@
             class="elevation-1"
           >
             <template v-slot:items="props">
-              <td class="text-xs-center">{{ props.index + 1 }}</td>
-              <td class="text-xs-center">{{ props.item.code }}</td>
-              <td class="text-xs-center">{{ props.item.name }}</td>
-              <td class="text-xs-center">{{ props.item.knowledge }}</td>
-              <td class="text-xs-center">{{ props.item.specific }}</td>
+              <td class="text-xs-left">{{ props.index + 1 }}</td>
+              <td class="text-xs-left">{{ props.item.code }}</td>
+              <td class="text-xs-left">{{ props.item.name }}</td>
+              <td class="text-xs-left">{{ props.item.knowledge }}</td>
+              <td class="text-xs-left">{{ props.item.specific }}</td>
+              <td class="text-xs-left">{{ props.item.content }}</td>
               <td class="justify-center layout px-0">
                 <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
               </td>
@@ -253,21 +264,22 @@ export default {
     dialog_content: false,
     dialog_capacity: false,
     headers: [
-      { text: "N°", value: "name" },
-      { text: "Nombre", value: "fat" },
-      { text: "Actions", value: "name", sortable: false }
+      { text: "N°", value: "index", sortable: false },
+      { text: "Nombre", value: "name" },
+      { text: "Actions", value: "actions", sortable: false }
     ],
     headers_modal: [
       { text: "#", value: "", sortable: false },
-      { text: "N°", value: "name" },
-      { text: "Nombre", value: "fat" }
+      { text: "N°", value: "index", sortable: false },
+      { text: "Nombre", value: "name" }
     ],
     headers_topics: [
-      { text: "N°", value: "number" },
+      { text: "N°", value: "index", sortable: false },
       { text: "Code", value: "code" },
       { text: "Nombre", value: "name" },
       { text: "Área de conocimiento", value: "knowledge" },
       { text: "Área de específica", value: "specific" },
+      { text: "Contenido", value: "content" },
       { text: "Actions", value: "name", sortable: false }
     ],
     editedItem: {
@@ -333,11 +345,11 @@ export default {
         this.editedItem.capacities.splice(index, 1);
     },
 
-    deleteItemContents(item) {
-      const index = this.editedItem.contents.indexOf(item);
-      confirm("Esta seguro de querer eliminar?") &&
-        this.editedItem.contents.splice(index, 1);
-    },
+    // deleteItemContents(item) {
+    //   const index = this.editedItem.contents.indexOf(item);
+    //   confirm("Esta seguro de querer eliminar?") &&
+    //     this.editedItem.contents.splice(index, 1);
+    // },
 
     close_dialog_capacity() {
       this.dialog_capacity = false;
@@ -348,7 +360,7 @@ export default {
 
     save() {
       const capacities = this.editedItem.capacities.map(c => c.id);
-      const contents = this.editedItem.contents.map(c => c.id);
+      // const contents = this.editedItem.contents.map(c => c.id);
 
       const data = {
         code: this.editedItem.code,
@@ -356,7 +368,7 @@ export default {
         knowledge: this.editedItem.knowledge,
         specific: this.editedItem.specific,
         capacities: capacities,
-        contents: contents
+        content: this.editedItem.content
       };
 
       if (!this.editedItem.code) {
@@ -381,8 +393,8 @@ export default {
         return;
       }
 
-      if (this.editedItem.contents.length === 0) {
-        notify.error("Agregue al menos un contenido");
+      if (!this.editedItem.content) {
+        notify.error("Agregue contenido");
         return;
       }
 
@@ -417,7 +429,7 @@ export default {
         (this.editedItem.knowledge = ""),
         (this.editedItem.specific = ""),
         (this.editedItem.capacities = []),
-        (this.editedItem.contents = []);
+        (this.editedItem.content = "");
     },
     close() {
       this.dialog = false;

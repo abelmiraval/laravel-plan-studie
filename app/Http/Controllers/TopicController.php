@@ -43,10 +43,11 @@ class TopicController extends Controller
         $topic->name = $request->name;
         $topic->knowledge = $request->knowledge;
         $topic->specific = $request->specific;
+        $topic->content = $request->content;
         $topic->save();
 
         $capacities = $request->capacities;
-        $contents = $request->contents;
+        // $contents = $request->contents;
 
 
         foreach ($capacities as $key => $value) {
@@ -54,10 +55,10 @@ class TopicController extends Controller
             $topic->capacities()->attach($capacity);
         }
 
-        foreach ($contents as $key => $value) {
-            $content = Content::find($value);
-            $topic->contents()->attach($content);
-        }
+        // foreach ($contents as $key => $value) {
+        //     $content = Content::find($value);
+        //     $topic->contents()->attach($content);
+        // }
 
         return response()->json(['message' => "Tema creado"], 200);
     }
@@ -113,9 +114,11 @@ class TopicController extends Controller
         $topic->name = $request->name;
         $topic->knowledge = $request->knowledge;
         $topic->specific = $request->specific;
+        $topic->content = $request->content;
+
 
         $capacities = $request->capacities;
-        $contents = $request->contents;
+        // $contents = $request->contents;
 
 
         foreach ($capacities as $key => $value) {
@@ -123,10 +126,10 @@ class TopicController extends Controller
             $topic->capacities()->sync($capacity,false);
         }
 
-        foreach ($contents as $key => $value) {
-            $content = Content::find($value);
-            $topic->contents()->sync($content,false);
-        }
+        // foreach ($contents as $key => $value) {
+        //     $content = Content::find($value);
+        //     $topic->contents()->sync($content,false);
+        // }
 
         $topic->save();
         return response()->json([

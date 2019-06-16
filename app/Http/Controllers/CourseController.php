@@ -143,9 +143,12 @@ class CourseController extends Controller
             $area = Area::find($request->area);
             $nature = Nature::find($request->nature);
             $term = Term::find($request->term);
-            $course->area_id = $area->id;
-            $course->nature_id = $nature->id;
-            $course->term_id = $term->id;
+            $area_first = $area->first();
+            $course->area_id = $area_first->id;
+            $nature_first = $area->first();
+            $course->nature_id = $nature_first->id;
+            $term_first = $term->first();
+            $course->term_id = $term_first->id;
 
             $course->main_objective = $request->main_objective;
             $course->secondary_objective = $request->secondary_objective;
@@ -158,7 +161,7 @@ class CourseController extends Controller
             $topics = $request->topics;
             foreach ($topics as $value) {
                 $topic = Topic::find($value);
-                $course->topics()->sync($topic,false);
+                $course->topics()->sync($topic->id);
             }
 
             // $requerimentIdFunc = function($requeriment){
