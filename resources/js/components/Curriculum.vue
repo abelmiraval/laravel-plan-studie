@@ -4,7 +4,7 @@
       <h5>
         UNIVERSIDAD NACIONAL AGRARIA DE LA SELVA - FACULTAD DE INGENIERIA EN INFORMATICA Y SISTEMAS
         <br>
-        <br>PLAN DE ESTUDIOS
+        <br>CURRICULO GENERAL
       </h5>
     </div>
     <br>
@@ -35,13 +35,12 @@
               >Ningún registro coincide con la búsqueda :(</v-alert>
             </template>
             <template v-slot:items="props">
-              <td class="text-xs-left">{{ props.item.level }}</td>
+              <td class="text-xs-left">{{ props.item.area }}</td>
               <td class="text-xs-left">{{ props.item.code }}</td>
               <td class="text-xs-left">{{ props.item.name }}</td>
-              <td class="text-xs-left">{{ props.item.theoretical_hours }}</td>
-              <td class="text-xs-left">{{ props.item.practical_hours }}</td>
-              <td class="text-xs-left">{{ props.item.credits }}</td>
-              <td class="text-xs-left">{{ props.item.requeriments }}</td>
+              <td class="text-xs-left">{{ props.item.content }}</td>
+              <td class="text-xs-left">{{ props.item.main_objective }}</td>
+              <td class="text-xs-left">{{ props.item.secondary_objective }}</td>
             </template>
           </v-data-table>
           <!-- <div class="text-xs-center pt-2">
@@ -61,17 +60,12 @@
 export default {
   data: () => ({
     headers: [
-      { text: "Semestre", value: "level" },
+      { text: "Área", value: "area" },
       { text: "Código", value: "code" },
       { text: "Nombre", value: "name" },
-      { text: "Horas Teoricas", value: "theoretical_hours" },
-      { text: "Horas practicas", value: "practical_hours" },
-      { text: "Creditos", value: "credits" },
-      { text: "Requerimientos", value: "requeriments" }
-
-      // { text: "N° veces en curricula", value: "number_times" },
-      // { text: "Cóndicion", value: "name" },
-      // { text: "Curricula", value: "curriculum" }
+      { text: "Contenido", value: "content" },
+      { text: "Ojetivo Principal", value: "main_objective" },
+      { text: "Ojbetivo Secundario", value: "secondary_objective" }
     ],
     search: "",
     plans: [],
@@ -103,7 +97,7 @@ export default {
         page: this.pagination.current
       };
       axios
-        .get(`/api/plans`, { params })
+        .get(`/api/curriculum`, { params })
         .then(({ data }) => {
           console.log(data);
           this.plans = data;

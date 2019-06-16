@@ -7,7 +7,7 @@
             <v-toolbar-title>CAPACIDADES</v-toolbar-title>
             <v-divider class="mx-2" inset vertical></v-divider>
             <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" max-width="500px">
+            <v-dialog v-model="dialog" max-width="800px">
               <template v-slot:activator="{ on }">
                 <v-btn color="primary" dark class="mb-2" v-on="on">Nueva Capacidad</v-btn>
               </template>
@@ -23,7 +23,7 @@
                         <v-text-field v-model="editedItem.code" label="Código"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm8 md8>
-                        <v-text-field v-model="editedItem.name" label="Nombre"></v-text-field>
+                        <v-textarea auto-grow rows="1" label="Nombre" v-model="editedItem.name"></v-textarea>
                       </v-flex>
                     </v-layout>
                   </v-container>
@@ -39,9 +39,9 @@
           </v-toolbar>
           <v-data-table :headers="headers" :items="capacities" class="elevation-1">
             <template v-slot:items="props">
-              <td class="text-xs-center">{{ props.item.code }}</td>
-              <td class="text-xs-center">{{ props.item.name }}</td>
-              <td class="justify-center layout px-0">
+              <td class="text-xs-left">{{ props.item.code }}</td>
+              <td class="text-xs-left">{{ props.item.name }}</td>
+              <td class="justify-right layout px-0">
                 <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
                 <v-icon small @click="deleteItem(props.item)">delete</v-icon>
               </td>
@@ -66,9 +66,9 @@ export default {
   data: () => ({
     dialog: false,
     headers: [
-      { text: "Código", value: "calories" },
-      { text: "Nombre", value: "fat" },
-      { text: "Actions", value: "name", sortable: false }
+      { text: "Código", value: "code" },
+      { text: "Nombre", value: "name" },
+      { text: "Actions", value: "actions", sortable: false }
     ],
     capacities: [],
     editedIndex: -1,
@@ -150,14 +150,14 @@ export default {
     },
 
     save() {
-        if (!this.editedItem.code) {
-          notify.error("Ingrese código");
-          return;
-        }
-        if (!this.editedItem.name) {
-          notify.error("Ingrese nombre ");
-          return;
-        }
+      if (!this.editedItem.code) {
+        notify.error("Ingrese código");
+        return;
+      }
+      if (!this.editedItem.name) {
+        notify.error("Ingrese nombre ");
+        return;
+      }
 
       if (this.editedIndex > -1) {
         // Object.assign(this.capacities[this.editedIndex], this.editedItem);
@@ -175,7 +175,6 @@ export default {
             notify.error(error.response.data.message);
           });
       } else {
-
         const data = {
           code: this.editedItem.code,
           name: this.editedItem.name

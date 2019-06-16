@@ -43,4 +43,7 @@ Route::post('content/create', 'ContentController@create');
 Route::put('content/update/{content}', 'ContentController@update');
 Route::delete('content/delete/{content}', 'ContentController@destroy');
 //Plan
-Route::get('plans', 'PlanController@index');
+Route::get('plans', 'PlanController@plan');
+Route::get('curriculum', 'PlanController@curriculum');
+
+

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Plan;
 use App\Course;
-
+use App\Custom\PlanViewModel;
+use App\Custom\CurriculumViewModel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
+
 
 class PlanController extends Controller
 {
@@ -29,11 +31,10 @@ class PlanController extends Controller
         if($search) {
             return Plan::where('curriculum', 'like', "%$search%")
                 ->orderBy('id','desc')
-                ->with(['course','course.term','course.courses.course'])
+                ->with(['course','course.term','course.requeriments.requeriment'])
                 ->paginate(10);
         }
-        return Plan::with(['course','course.term','course.courses.course'])
-                ->orderBy('id','desc')
+        return Plan::with(['course','course.term','course.requeriments.requeriment'])
                 ->paginate(10);
     }
 
@@ -126,5 +127,67 @@ class PlanController extends Controller
     public function destroy(Plan $plan)
     {
         //
+    }
+
+    public function plan(Request $request){
+        $search = $request->search;
+        $plans = $this->findPlan($search);
+        $listPlanViewModel = array();
+
+        foreach ($plans as $plan) {
+            $requerimets = $plan->course->requeriments;
+            $allRequeriments = "";
+            foreach ($requerimets as $requeriment) {
+                $allRequeriments .= "-{$requeriment->requeriment->name} " ;
+
+            }
+            $level = $plan->course->level;
+            $code = $plan->course->code;
+            $name = $plan->course->name;
+            $theoretical_hours  = $plan->course->theoretical_hours;
+            $practical_hours = $plan->course->practical_hours;
+            $credits = $plan->course->credits;
+
+            array_push($listPlanViewModel, new PlanViewModel($level,$code,$name,$theoretical_hours,$practical_hours,$credits,$allRequeriments));
+        }
+
+        return $listPlanViewModel;
+    }
+
+    public function findPlan($search){
+        if($search) {
+            return Plan::where('curriculum', 'like', "%$search%")
+                ->orderBy('id','desc')
+                ->with(['course','course.requeriments.requeriment'])
+                ->get();
+        }
+        return Plan::with(['course','course.requeriments.requeriment'])
+                ->get();
+    }
+
+    public function curriculum(Request $request){
+        $plans = Plan::with(['course','course.area','course.topics','course.requeriments.requeriment'])->get();
+
+        $listCurriculumViewModel = array();
+        $allTopics  = "";
+        foreach ($plans as $plan) {
+            $area = $plan->course->area->name;
+            $code = $plan->course->code;
+            $name = $plan->course->name;
+
+
+            $topics = $plan->course->topics;
+            $this->allTopics = "";
+            foreach ($topics as $topic) {
+                $this->allTopics .= "-{$topic->name} " ;
+
+            }
+
+            $main_objective = $plan->course->main_objective;
+            $secondary_objective = $plan->course->secondary_objective;
+            array_push($listCurriculumViewModel, new CurriculumViewModel($area,$code,$name,$this->allTopics,$main_objective,$secondary_objective));
+        }
+
+        return $listCurriculumViewModel;
     }
 }

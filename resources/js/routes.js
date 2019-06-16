@@ -6,6 +6,8 @@ import Course from './components/Course.vue';
 import Capacity from './components/Capacity.vue';
 import Content from './components/Content.vue';
 import Plan from './components/Plan.vue';
+import Curriculum from './components/Curriculum.vue';
+
 
 
 
@@ -37,6 +39,10 @@ let routes = [
     {
         path: '/plan',
         component: Plan
+    },
+    {
+        path: '/curriculo',
+        component: Curriculum
     },
 ];
 
