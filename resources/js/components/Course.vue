@@ -97,12 +97,7 @@
                       </v-flex>
 
                       <v-flex xs12 sm4 md3>
-                        <v-text-field
-                          v-model="editedItem.level"
-                          :mask="mask_level"
-                          label="Semestre"
-                          required
-                        ></v-text-field>
+                        <v-text-field v-model="editedItem.level" label="Semestre" required></v-text-field>
                       </v-flex>
 
                       <v-flex xs12 sm4 md3 d-flex>
@@ -157,14 +152,14 @@
                                     :headers="headers_modal"
                                     :items="topics_all"
                                     item-key="name"
-                                    class="elevation-1 custom-table"
+                                    class="elevation-1"
                                   >
                                     <template v-slot:items="props">
                                       <td>
                                         <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
                                       </td>
-                                      <td class="text-xs-right">{{props.index + 1}}</td>
-                                      <td class="text-xs-right">{{ props.item.name }}</td>
+                                      <td class="text-xs-left">{{props.index + 1}}</td>
+                                      <td class="text-xs-left">{{ props.item.name }}</td>
                                     </template>
                                   </v-data-table>
                                 </v-container>
@@ -185,13 +180,13 @@
                         <v-data-table
                           :headers="headers_topic"
                           :items="editedItem.topics"
-                          class="elevation-1 custom-table"
+                          class="elevation-1"
                           :hide-actions="true"
                         >
                           <template v-slot:items="props">
-                            <td class="text-xs-right">{{ props.index + 1}}</td>
-                            <td class="text-xs-right">{{ props.item.code }}</td>
-                            <td class="text-xs-right">{{ props.item.name }}</td>
+                            <td class="text-xs-left">{{ props.index + 1}}</td>
+                            <td class="text-xs-left">{{ props.item.code }}</td>
+                            <td class="text-xs-left">{{ props.item.name }}</td>
                             <td class="justify-center layout px-0">
                               <v-icon small @click="deleteItemtopics(props.item)">delete</v-icon>
                             </td>
@@ -221,15 +216,15 @@
 
           <v-data-table :headers="headers" :items="courses" :search="search" class="elevation-1">
             <template v-slot:items="props">
-              <td class="text-xs-center">{{ props.item.code }}</td>
-              <td class="text-xs-center">{{ props.item.name }}</td>
-              <td class="text-xs-center">{{ props.item.area.name }}</td>
-              <td class="text-xs-center">{{ props.item.nature.name }}</td>
-              <td class="text-xs-center">{{ props.item.theoretical_hours }}</td>
-              <td class="text-xs-center">{{ props.item.practical_hours }}</td>
-              <td class="text-xs-center">{{ props.item.credits }}</td>
-              <td class="text-xs-center">{{ props.item.level }}</td>
-              <td class="text-xs-center">{{ props.item.term.name }}</td>
+              <td class="text-xs-left">{{ props.item.code }}</td>
+              <td class="text-xs-left">{{ props.item.name }}</td>
+              <td class="text-xs-left">{{ props.item.area.name }}</td>
+              <td class="text-xs-left">{{ props.item.nature.name }}</td>
+              <td class="text-xs-left">{{ props.item.theoretical_hours }}</td>
+              <td class="text-xs-left">{{ props.item.practical_hours }}</td>
+              <td class="text-xs-left">{{ props.item.credits }}</td>
+              <td class="text-xs-left">{{ props.item.level }}</td>
+              <td class="text-xs-left">{{ props.item.term.name }}</td>
               <td
                 class="text-xs-center"
               >{{ props.item.requeriments.map(r => " " + r.requeriment.name).toString() }}</td>
@@ -269,16 +264,16 @@ export default {
       { text: "Nombre", value: "name" },
       { text: "Área", value: "area" },
       { text: "Naturaleza", value: "nature" },
-      { text: "H.T", value: "ht" },
-      { text: "H.P", value: "hp" },
-      { text: "Créditos", value: "credit" },
+      { text: "H.T", value: "theoretical_hours" },
+      { text: "H.P", value: "practical_hours" },
+      { text: "Créditos", value: "credits" },
       { text: "Semestre", value: "level" },
       { text: "Condición", value: "term" },
       { text: "Requisitos", value: "requeriments" },
       { text: "Actions", value: "actions", sortable: false }
     ],
     headers_topic: [
-      { text: "N°", value: "" },
+      { text: "N°", value: "index", sortable: false },
       { text: "Código", value: "code" },
       { text: "Nombre", value: "name" },
       { text: "Actions", value: "actions", sortable: false }
@@ -426,7 +421,7 @@ export default {
         notify.error("Ingrese semestre");
         return;
       } else {
-        if (this.editedItem.level.length < 5) {
+        if (!this.editedItem.level) {
           notify.error("Ingrese un semestre válido");
           return;
         }
@@ -451,24 +446,24 @@ export default {
         this.editedItem.level.length - 1
       );
 
-      console.log(level_year);
-      console.log(level_age);
-      const level = level_year + "-" + level_age;
+      // console.log(level_year);
+      // console.log(level_age);
+      // const level = level_year + "-" + level_age;
 
       if (this.editedIndex > -1) {
         const requeriments = this.editedItem.requeriments;
         const editedData = {
           code: this.editedItem.code,
           name: this.editedItem.name,
-          area: this.editedItem.area.id,
-          nature: this.editedItem.nature.id,
+          area: this.editedItem.area,
+          nature: this.editedItem.nature,
           main_objective: this.editedItem.main_objective,
           secondary_objective: this.editedItem.secondary_objective,
           theoretical_hours: this.editedItem.theoretical_hours,
           practical_hours: this.editedItem.practical_hours,
           credits: this.editedItem.credits,
-          level: level,
-          term: this.editedItem.term.id,
+          level: this.editedItem.level,
+          term: this.editedItem.term,
           topics: topics,
           requeriments: requeriments
         };
@@ -496,7 +491,7 @@ export default {
           theoretical_hours: this.editedItem.theoretical_hours,
           practical_hours: this.editedItem.practical_hours,
           credits: this.editedItem.credits,
-          level: level,
+          level: this.editedItem.level,
           term: this.editedItem.term,
           topics: topics,
           requeriments: this.editedItem.requeriments
@@ -523,7 +518,7 @@ export default {
       this.editedItem.requeriments = item.requeriments.map(
         r => r.course_id_requeriment
       );
-      console.log(this.editedItem);
+      console.log("Este Item voy a editar", this.editedItem);
       this.dialog = true;
     },
 

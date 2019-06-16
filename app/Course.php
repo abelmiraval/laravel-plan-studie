@@ -38,9 +38,6 @@ class Course extends Model
     {
         return $this->hasMany(RequerimentCourse::class);
     }
-    public function courses()
-    {
-        return $this->hasMany(RequerimentCourse::class,'course_id_requeriment','id');
-    }
+
 
 }

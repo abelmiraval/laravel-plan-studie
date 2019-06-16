@@ -25,5 +25,12 @@ class NatureTableSeeder extends Seeder
             'created_at' => NOW(),
             'updated_at' => NOW()
         ]);
+        \DB::table('natures')->insert([
+            'code' => 'N03',
+            'name' =>  'Téorico-Práctico',
+            'state' => 1,
+            'created_at' => NOW(),
+            'updated_at' => NOW()
+        ]);
     }
 }
