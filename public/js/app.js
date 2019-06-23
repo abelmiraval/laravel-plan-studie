@@ -2451,6 +2451,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -2508,6 +2515,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       text: "Nombre",
       value: "name"
     }, {
+      text: "Contenido",
+      value: "content"
+    }, {
       text: "Actions",
       value: "actions",
       sortable: false
@@ -2516,11 +2526,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       value: "",
       sortable: false
     }, {
-      text: "N°",
-      value: "name"
+      text: "Código",
+      value: "code"
     }, {
       text: "Nombre",
-      value: "fat"
+      value: "name"
+    }, {
+      text: "Contenido",
+      value: "content"
     }]), _defineProperty(_ref, "courses", []), _defineProperty(_ref, "topics_all", []), _defineProperty(_ref, "areas", []), _defineProperty(_ref, "natures", []), _defineProperty(_ref, "terms", []), _defineProperty(_ref, "requeriments_all", []), _defineProperty(_ref, "editedItem", {
       code: "",
       name: "",
@@ -2606,6 +2619,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     deleteItemtopics: function deleteItemtopics(item) {
       var index = this.editedItem.topics.indexOf(item);
       confirm("Esta seguro de querer eliminar?") && this.editedItem.topics.splice(index, 1);
+    },
+    verifyTopicInCourse: function verifyTopicInCourse(id) {
+      console.log("Llego el id", id);
+      axios.get("/api/course/verifyTopic/" + id).then(function (_ref11) {
+        var data = _ref11.data;
+        notify.showCool(data.message);
+      }).catch(function (error) {
+        notify.error(error.response.data.message);
+      });
     },
     close: function close() {
       var _this5 = this;
@@ -2708,8 +2730,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           requeriments: requeriments
         };
         console.log(editedData);
-        axios.put("/api/course/update/" + this.editedItem.id, editedData).then(function (_ref11) {
-          var data = _ref11.data;
+        axios.put("/api/course/update/" + this.editedItem.id, editedData).then(function (_ref12) {
+          var data = _ref12.data;
           notify.showCool(data.message);
 
           _this6.close();
@@ -2737,8 +2759,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           topics: topics,
           requeriments: this.editedItem.requeriments
         };
-        axios.post("/api/course/create", data).then(function (_ref12) {
-          var data = _ref12.data;
+        axios.post("/api/course/create", data).then(function (_ref13) {
+          var data = _ref13.data;
           notify.showCool(data.message);
 
           _this6.close();
@@ -24492,7 +24514,7 @@ var render = function() {
                                                 },
                                                 [
                                                   _c("v-toolbar-title", [
-                                                    _vm._v("Tema")
+                                                    _vm._v("Temas")
                                                   ]),
                                                   _vm._v(" "),
                                                   _c("v-divider", {
@@ -24509,7 +24531,7 @@ var render = function() {
                                                     "v-dialog",
                                                     {
                                                       attrs: {
-                                                        "max-width": "600px"
+                                                        "max-width": "900px"
                                                       },
                                                       scopedSlots: _vm._u([
                                                         {
@@ -24622,6 +24644,17 @@ var render = function() {
                                                                                           "hide-details":
                                                                                             ""
                                                                                         },
+                                                                                        on: {
+                                                                                          change: function(
+                                                                                            $event
+                                                                                          ) {
+                                                                                            return _vm.verifyTopicInCourse(
+                                                                                              props
+                                                                                                .item
+                                                                                                .id
+                                                                                            )
+                                                                                          }
+                                                                                        },
                                                                                         model: {
                                                                                           value:
                                                                                             props.selected,
@@ -24654,8 +24687,9 @@ var render = function() {
                                                                                   [
                                                                                     _vm._v(
                                                                                       _vm._s(
-                                                                                        props.index +
-                                                                                          1
+                                                                                        props
+                                                                                          .item
+                                                                                          .name
                                                                                       )
                                                                                     )
                                                                                   ]
@@ -24674,7 +24708,26 @@ var render = function() {
                                                                                       _vm._s(
                                                                                         props
                                                                                           .item
-                                                                                          .name
+                                                                                          .code
+                                                                                      )
+                                                                                    )
+                                                                                  ]
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "td",
+                                                                                  {
+                                                                                    staticClass:
+                                                                                      "text-xs-left"
+                                                                                  },
+                                                                                  [
+                                                                                    _vm._v(
+                                                                                      _vm._s(
+                                                                                        props
+                                                                                          .item
+                                                                                          .content
                                                                                       )
                                                                                     )
                                                                                   ]
@@ -24788,6 +24841,22 @@ var render = function() {
                                                               _vm._v(
                                                                 _vm._s(
                                                                   props.item
+                                                                    .name
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "text-xs-left"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
                                                                     .code
                                                                 )
                                                               )
@@ -24804,7 +24873,7 @@ var render = function() {
                                                               _vm._v(
                                                                 _vm._s(
                                                                   props.item
-                                                                    .name
+                                                                    .content
                                                                 )
                                                               )
                                                             ]

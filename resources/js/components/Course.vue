@@ -128,10 +128,10 @@
                     <v-layout wrap>
                       <v-flex xs12 md12>
                         <v-toolbar flat color="white">
-                          <v-toolbar-title>Tema</v-toolbar-title>
+                          <v-toolbar-title>Temas</v-toolbar-title>
                           <v-divider class="mx-2" inset vertical></v-divider>
                           <v-spacer></v-spacer>
-                          <v-dialog v-model="dialog_topic" max-width="600px">
+                          <v-dialog v-model="dialog_topic" max-width="900px">
                             <template v-slot:activator="{ on }">
                               <v-btn
                                 color="primary"
@@ -156,10 +156,16 @@
                                   >
                                     <template v-slot:items="props">
                                       <td>
-                                        <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
+                                        <v-checkbox
+                                          v-model="props.selected"
+                                          primary
+                                          hide-details
+                                          @change="verifyTopicInCourse(props.item.id)"
+                                        ></v-checkbox>
                                       </td>
-                                      <td class="text-xs-left">{{props.index + 1}}</td>
                                       <td class="text-xs-left">{{ props.item.name }}</td>
+                                      <td class="text-xs-left">{{ props.item.code }}</td>
+                                      <td class="text-xs-left">{{ props.item.content }}</td>
                                     </template>
                                   </v-data-table>
                                 </v-container>
@@ -185,8 +191,9 @@
                         >
                           <template v-slot:items="props">
                             <td class="text-xs-left">{{ props.index + 1}}</td>
-                            <td class="text-xs-left">{{ props.item.code }}</td>
                             <td class="text-xs-left">{{ props.item.name }}</td>
+                            <td class="text-xs-left">{{ props.item.code }}</td>
+                            <td class="text-xs-left">{{ props.item.content }}</td>
                             <td class="justify-center layout px-0">
                               <v-icon small @click="deleteItemtopics(props.item)">delete</v-icon>
                             </td>
@@ -276,12 +283,14 @@ export default {
       { text: "N°", value: "index", sortable: false },
       { text: "Código", value: "code" },
       { text: "Nombre", value: "name" },
+      { text: "Contenido", value: "content" },
       { text: "Actions", value: "actions", sortable: false }
     ],
     headers_modal: [
       { text: "#", value: "", sortable: false },
-      { text: "N°", value: "name" },
-      { text: "Nombre", value: "fat" }
+      { text: "Código", value: "code" },
+      { text: "Nombre", value: "name" },
+      { text: "Contenido", value: "content" }
     ],
     courses: [],
     topics_all: [],
@@ -371,6 +380,17 @@ export default {
       const index = this.editedItem.topics.indexOf(item);
       confirm("Esta seguro de querer eliminar?") &&
         this.editedItem.topics.splice(index, 1);
+    },
+    verifyTopicInCourse(id) {
+      console.log("Llego el id", id);
+      axios
+        .get("/api/course/verifyTopic/" + id)
+        .then(({ data }) => {
+          notify.showCool(data.message);
+        })
+        .catch(error => {
+          notify.error(error.response.data.message);
+        });
     },
     close() {
       this.dialog = false;
