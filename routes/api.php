@@ -30,6 +30,8 @@ Route::get('courses', 'CourseController@index');
 Route::get('requeriments', 'CourseController@requeriments');
 Route::post('course/create', 'CourseController@create');
 Route::put('course/update/{course}', 'CourseController@update');
+Route::get('course/verifyTopic/{idTopic}', 'CourseController@verifyTopic');
+
 Route::get('natures', 'NatureController@index');
 Route::get('areas', 'AreaController@index');
 Route::get('terms', 'TermController@index');
