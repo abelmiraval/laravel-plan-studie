@@ -15,8 +15,8 @@ class AppSeeder extends Seeder
         // factory(App\Area::class, 10)->create();
         // factory(App\Nature::class, 10)->create();
         // factory(App\Term::class, 10)->create();
-        factory(App\Capacity::class, 10)->create();
-        factory(App\Content::class, 10)->create();
+        // factory(App\Capacity::class, 10)->create();
+        // factory(App\Content::class, 10)->create();
 
 
     }
