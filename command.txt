@@ -63,3 +63,8 @@ $store->libraries() or $library->store().
 9. git commit -am "First commit"
 10. git push heroku master
 11. heroku run php artisan migrate
+
+=> Trabajando con repositorios
+
+1. git pull heroku plan-studies-v2
+2. git push heroku plan-studies-v2
