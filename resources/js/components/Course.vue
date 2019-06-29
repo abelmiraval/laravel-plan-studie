@@ -160,19 +160,11 @@
                                           v-model="props.selected"
                                           primary
                                           hide-details
-<<<<<<< HEAD
                                           @change="verifyTopicInCourse(props.selected)"
                                         ></v-checkbox>
                                       </td>
                                       <td class="text-xs-left">{{ props.item.code }}</td>
                                       <td class="text-xs-left">{{ props.item.name }}</td>
-=======
-                                          @change="verifyTopicInCourse(props.item.id)"
-                                        ></v-checkbox>
-                                      </td>
-                                      <td class="text-xs-left">{{ props.item.name }}</td>
-                                      <td class="text-xs-left">{{ props.item.code }}</td>
->>>>>>> b72282011d0c23cbdde8f860d26489db66ad9ead
                                       <td class="text-xs-left">{{ props.item.content }}</td>
                                     </template>
                                   </v-data-table>
@@ -392,7 +384,6 @@ export default {
       confirm("Esta seguro de querer eliminar?") &&
         this.editedItem.topics.splice(index, 1);
     },
-<<<<<<< HEAD
 
     
    async verifyTopicInCourse(selected) {
@@ -419,19 +410,6 @@ export default {
       }
     },
     
-=======
-    verifyTopicInCourse(id) {
-      console.log("Llego el id", id);
-      axios
-        .get("/api/course/verifyTopic/" + id)
-        .then(({ data }) => {
-          notify.showCool(data.message);
-        })
-        .catch(error => {
-          notify.error(error.response.data.message);
-        });
-    },
->>>>>>> b72282011d0c23cbdde8f860d26489db66ad9ead
     close() {
       this.dialog = false;
       setTimeout(() => {

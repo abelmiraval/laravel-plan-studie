@@ -86,6 +86,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@babel/runtime/regenerator/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -2128,10 +2140,664 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Course.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /home/abelsaul/Programming/work/plan-studies/resources/js/components/Course.vue: Unexpected token (395:0)\n\n\u001b[0m \u001b[90m 393 | \u001b[39m        \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39meditedItem\u001b[33m.\u001b[39mtopics\u001b[33m.\u001b[39msplice(index\u001b[33m,\u001b[39m \u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 394 | \u001b[39m    }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 395 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 396 | \u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 397 | \u001b[39m    \u001b[0m\n\u001b[0m \u001b[90m 398 | \u001b[39m   async verifyTopicInCourse(selected) {\u001b[0m\n    at Parser.raise (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:6344:17)\n    at Parser.unexpected (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:7659:16)\n    at Parser.parseIdentifierName (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9505:18)\n    at Parser.parseIdentifier (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9483:23)\n    at Parser.parseMaybePrivateName (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8850:19)\n    at Parser.parsePropertyName (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9303:98)\n    at Parser.parseObjectMember (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9204:10)\n    at Parser.parseObj (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9138:25)\n    at Parser.parseExprAtom (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8774:21)\n    at Parser.parseExprSubscripts (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8413:23)\n    at Parser.parseMaybeUnary (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8393:21)\n    at Parser.parseExprOps (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8280:23)\n    at Parser.parseMaybeConditional (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8253:23)\n    at Parser.parseMaybeAssign (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8200:21)\n    at Parser.parseObjectProperty (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9265:101)\n    at Parser.parseObjPropValue (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9290:101)\n    at Parser.parseObjectMember (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9214:10)\n    at Parser.parseObj (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9138:25)\n    at Parser.parseExprAtom (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8774:21)\n    at Parser.parseExprSubscripts (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8413:23)\n    at Parser.parseMaybeUnary (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8393:21)\n    at Parser.parseExprOps (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8280:23)\n    at Parser.parseMaybeConditional (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8253:23)\n    at Parser.parseMaybeAssign (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8200:21)\n    at Parser.parseExportDefaultExpression (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:10973:24)\n    at Parser.parseExport (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:10868:31)\n    at Parser.parseStatementContent (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9892:27)\n    at Parser.parseStatement (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9788:17)\n    at Parser.parseBlockOrModuleBlockBody (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:10364:25)\n    at Parser.parseBlockBody (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:10351:10)\n    at Parser.parseTopLevel (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9717:10)\n    at Parser.parse (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:11233:17)\n    at parse (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:11269:38)\n    at parser (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/core/lib/transformation/normalize-file.js:170:34)\n    at normalizeFile (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/core/lib/transformation/normalize-file.js:138:11)\n    at runSync (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/core/lib/transformation/index.js:44:43)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    var _ref;
+
+    return _ref = {
+      search: "",
+      dialog: false,
+      dialog_topic: false,
+      mask_theoretical_hours: "##",
+      mask_practical_hours: "##",
+      mask_credit: "##",
+      mask_level: "####-#"
+    }, _defineProperty(_ref, "search", ""), _defineProperty(_ref, "headers", [{
+      text: "Código",
+      value: "code"
+    }, {
+      text: "Nombre",
+      value: "name"
+    }, {
+      text: "Área",
+      value: "area"
+    }, {
+      text: "Naturaleza",
+      value: "nature"
+    }, {
+      text: "H.T",
+      value: "theoretical_hours"
+    }, {
+      text: "H.P",
+      value: "practical_hours"
+    }, {
+      text: "Créditos",
+      value: "credits"
+    }, {
+      text: "Semestre",
+      value: "level"
+    }, {
+      text: "Condición",
+      value: "term"
+    }, {
+      text: "Requisitos",
+      value: "requeriments"
+    }, {
+      text: "Actions",
+      value: "actions",
+      sortable: false
+    }]), _defineProperty(_ref, "headers_topic", [{
+      text: "N°",
+      value: "index",
+      sortable: false
+    }, {
+      text: "Código",
+      value: "code"
+    }, {
+      text: "Nombre",
+      value: "name"
+    }, {
+      text: "Contenido",
+      value: "content"
+    }, {
+      text: "Actions",
+      value: "actions",
+      sortable: false
+    }]), _defineProperty(_ref, "headers_modal", [{
+      text: "#",
+      value: "",
+      sortable: false
+    }, {
+      text: "Código",
+      value: "code"
+    }, {
+      text: "Nombre",
+      value: "name"
+    }, {
+      text: "Contenido",
+      value: "content"
+    }]), _defineProperty(_ref, "courses", []), _defineProperty(_ref, "topics_all", []), _defineProperty(_ref, "areas", []), _defineProperty(_ref, "natures", []), _defineProperty(_ref, "terms", []), _defineProperty(_ref, "requeriments_all", []), _defineProperty(_ref, "editedItem", {
+      code: "",
+      name: "",
+      area: {},
+      nature: {},
+      term: {},
+      main_objective: "",
+      secondary_objective: "",
+      theoretical_hours: "",
+      practical_hours: "",
+      credits: "",
+      level: "",
+      requeriments: [],
+      topics: []
+    }), _defineProperty(_ref, "editedIndex", -1), _defineProperty(_ref, "cursos", ""), _ref;
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? "Nuevo Curso" : "Editar Curso";
+    }
+  },
+  watch: {},
+  created: function created() {
+    this.initialize();
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("/api/requeriments").then(function (_ref2) {
+      var data = _ref2.data;
+      _this.requeriments_all = data;
+    });
+    axios.get("/api/courses").then(function (_ref3) {
+      var data = _ref3.data;
+      _this.courses = data;
+    });
+    axios.get("/api/topics").then(function (_ref4) {
+      var data = _ref4.data;
+      _this.topics_all = data;
+    });
+    axios.get("/api/terms").then(function (_ref5) {
+      var data = _ref5.data;
+      _this.terms = data;
+    });
+    axios.get("/api/natures").then(function (_ref6) {
+      var data = _ref6.data;
+      _this.natures = data;
+    });
+    axios.get("/api/areas").then(function (_ref7) {
+      var data = _ref7.data;
+      _this.areas = data;
+    });
+  },
+  methods: {
+    initialize: function initialize() {
+      this.getCourses();
+      this.reset();
+    },
+    getTopics: function getTopics() {
+      var _this2 = this;
+
+      axios.get("/api/topics").then(function (_ref8) {
+        var data = _ref8.data;
+        _this2.topics_all = data;
+      });
+    },
+    getCourses: function getCourses() {
+      var _this3 = this;
+
+      axios.get("/api/courses").then(function (_ref9) {
+        var data = _ref9.data;
+        _this3.courses = data;
+      });
+    },
+    getRequerimentsAll: function getRequerimentsAll() {
+      var _this4 = this;
+
+      axios.get("/api/requeriments").then(function (_ref10) {
+        var data = _ref10.data;
+        _this4.requeriments_all = data;
+      });
+    },
+    deleteItemtopics: function deleteItemtopics(item) {
+      var index = this.editedItem.topics.indexOf(item);
+      confirm("Esta seguro de querer eliminar?") && this.editedItem.topics.splice(index, 1);
+    },
+    verifyTopicInCourse: function () {
+      var _verifyTopicInCourse = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(selected) {
+        var lengthTopicsSelected, id, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log('Se selecciono lo siguiente', selected);
+                lengthTopicsSelected = this.editedItem.topics.length;
+
+                if (!(selected === undefined)) {
+                  _context.next = 17;
+                  break;
+                }
+
+                if (!(lengthTopicsSelected > 0)) {
+                  _context.next = 17;
+                  break;
+                }
+
+                id = this.editedItem.topics[lengthTopicsSelected - 1].id;
+                _context.prev = 5;
+                _context.next = 8;
+                return axios.get("/api/course/verifyTopic/" + id);
+
+              case 8:
+                response = _context.sent;
+                this.cursos = response.data;
+                _context.next = 15;
+                break;
+
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](5);
+                console.log(_context.t0);
+
+              case 15:
+                console.log("Estos son los cursos", this.cursos);
+
+                if (this.cursos) {
+                  notify.show({
+                    text: 'Este tema fue asignado a los siguientes cursos:' + this.cursos,
+                    color: 'warning',
+                    timeout: 5000,
+                    dismissible: false
+                  });
+                }
+
+              case 17:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[5, 12]]);
+      }));
+
+      function verifyTopicInCourse(_x) {
+        return _verifyTopicInCourse.apply(this, arguments);
+      }
+
+      return verifyTopicInCourse;
+    }(),
+    close: function close() {
+      var _this5 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this5.editedItem = Object.assign({}, _this5.defaultItem);
+        _this5.editedIndex = -1;
+      }, 300);
+    },
+    close_dialog_course: function close_dialog_course() {
+      this.dialog_topic = false;
+    },
+    save: function save() {
+      var _this6 = this;
+
+      if (!this.editedItem.code) {
+        notify.error("Ingrese el codigo del curso");
+        return;
+      }
+
+      if (!this.editedItem.name) {
+        notify.error("Ingrese el nombre del curso");
+        return;
+      }
+
+      if (!this.editedItem.nature) {
+        notify.error("Ingrese la naturaleza");
+        return;
+      }
+
+      if (!this.editedItem.main_objective) {
+        notify.error("Ingrese el objetivo principal");
+        return;
+      }
+
+      if (!this.editedItem.secondary_objective) {
+        notify.error("Ingrese el objetivo secundario");
+        return;
+      }
+
+      if (!this.editedItem.theoretical_hours) {
+        notify.error("Ingrese horas teóricas");
+        return;
+      }
+
+      if (!this.editedItem.practical_hours) {
+        notify.error("Ingrese horas prácticas");
+        return;
+      }
+
+      if (!this.editedItem.credits) {
+        notify.error("Ingrese créditos");
+        return;
+      }
+
+      if (!this.editedItem.level) {
+        notify.error("Ingrese semestre");
+        return;
+      } else {
+        if (!this.editedItem.level) {
+          notify.error("Ingrese un semestre válido");
+          return;
+        }
+      }
+
+      if (!this.editedItem.term) {
+        notify.error("Ingrese condición");
+        return;
+      }
+
+      if (!this.editedItem.topics.length === 0) {
+        notify.error("Agregue al menos un tema");
+        return;
+      }
+
+      var topics = this.editedItem.topics.map(function (c) {
+        return c.id;
+      });
+      var level_year = this.editedItem.level.substring(0, this.editedItem.level.length - 1);
+      var level_age = this.editedItem.level.charAt(this.editedItem.level.length - 1); // console.log(level_year);
+      // console.log(level_age);
+      // const level = level_year + "-" + level_age;
+
+      if (this.editedIndex > -1) {
+        var requeriments = this.editedItem.requeriments;
+        var editedData = {
+          code: this.editedItem.code,
+          name: this.editedItem.name,
+          area: this.editedItem.area,
+          nature: this.editedItem.nature,
+          main_objective: this.editedItem.main_objective,
+          secondary_objective: this.editedItem.secondary_objective,
+          theoretical_hours: this.editedItem.theoretical_hours,
+          practical_hours: this.editedItem.practical_hours,
+          credits: this.editedItem.credits,
+          level: this.editedItem.level,
+          term: this.editedItem.term,
+          topics: topics,
+          requeriments: requeriments
+        };
+        console.log(editedData);
+        axios.put("/api/course/update/" + this.editedItem.id, editedData).then(function (_ref11) {
+          var data = _ref11.data;
+          notify.showCool(data.message);
+
+          _this6.close();
+
+          _this6.initialize();
+
+          _this6.getRequerimentsAll();
+        })["catch"](function (error) {
+          console.log(error.response.data.message);
+          notify.error(error.response.data.message);
+        });
+      } else {
+        var data = {
+          code: this.editedItem.code,
+          name: this.editedItem.name,
+          area: this.editedItem.area,
+          nature: this.editedItem.nature,
+          main_objective: this.editedItem.main_objective,
+          secondary_objective: this.editedItem.secondary_objective,
+          theoretical_hours: this.editedItem.theoretical_hours,
+          practical_hours: this.editedItem.practical_hours,
+          credits: this.editedItem.credits,
+          level: this.editedItem.level,
+          term: this.editedItem.term,
+          topics: topics,
+          requeriments: this.editedItem.requeriments
+        };
+        axios.post("/api/course/create", data).then(function (_ref12) {
+          var data = _ref12.data;
+          notify.showCool(data.message);
+
+          _this6.close();
+
+          _this6.initialize();
+
+          _this6.getRequerimentsAll();
+        })["catch"](function (response) {
+          console.log(response);
+          notify.error(response.message);
+        });
+      }
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.courses.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.editedItem.requeriments = item.requeriments.map(function (r) {
+        return r.course_id_requeriment;
+      });
+      console.log("Este Item voy a editar", this.editedItem);
+      this.dialog = true;
+    },
+    reset: function reset() {
+      this.editedItem.code = "", this.editedItem.name = "", this.editedItem.area = "", this.editedItem.nature = "", this.editedItem.main_objective = "", this.editedItem.secondary_objective = "", this.editedItem.theoretical_hours = "", this.editedItem.practical_hours = "", this.editedItem.credits = "", this.editedItem.level = "", this.editedItem.term = "", this.editedItem.topics = [], this.editedItem.requeriments = [];
+    }
+  }
+});
 
 /***/ }),
 
@@ -2594,10 +3260,493 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*!****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Topic.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /home/abelsaul/Programming/work/plan-studies/resources/js/components/Topic.vue: Unexpected token (278:0)\n\n\u001b[0m \u001b[90m 276 | \u001b[39m    headers_topics\u001b[33m:\u001b[39m [\u001b[0m\n\u001b[0m \u001b[90m 277 | \u001b[39m      { text\u001b[33m:\u001b[39m \u001b[32m\"N°\"\u001b[39m\u001b[33m,\u001b[39m value\u001b[33m:\u001b[39m \u001b[32m\"index\"\u001b[39m\u001b[33m,\u001b[39m sortable\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 278 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 279 | \u001b[39m      { text\u001b[33m:\u001b[39m \u001b[32m\"Código\"\u001b[39m\u001b[33m,\u001b[39m value\u001b[33m:\u001b[39m \u001b[32m\"code\"\u001b[39m }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 280 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 281 | \u001b[39m      { text\u001b[33m:\u001b[39m \u001b[32m\"Code\"\u001b[39m\u001b[33m,\u001b[39m value\u001b[33m:\u001b[39m \u001b[32m\"code\"\u001b[39m }\u001b[33m,\u001b[39m\u001b[0m\n    at Parser.raise (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:6344:17)\n    at Parser.unexpected (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:7659:16)\n    at Parser.parseExprAtom (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8828:20)\n    at Parser.parseExprSubscripts (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8413:23)\n    at Parser.parseMaybeUnary (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8393:21)\n    at Parser.parseExprOps (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8280:23)\n    at Parser.parseMaybeConditional (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8253:23)\n    at Parser.parseMaybeAssign (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8200:21)\n    at Parser.parseExprListItem (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9475:18)\n    at Parser.parseExprList (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9449:22)\n    at Parser.parseExprAtom (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8765:30)\n    at Parser.parseExprSubscripts (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8413:23)\n    at Parser.parseMaybeUnary (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8393:21)\n    at Parser.parseExprOps (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8280:23)\n    at Parser.parseMaybeConditional (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8253:23)\n    at Parser.parseMaybeAssign (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8200:21)\n    at Parser.parseObjectProperty (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9265:101)\n    at Parser.parseObjPropValue (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9290:101)\n    at Parser.parseObjectMember (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9214:10)\n    at Parser.parseObj (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9138:25)\n    at Parser.parseExprAtom (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8774:21)\n    at Parser.parseExprSubscripts (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8413:23)\n    at Parser.parseMaybeUnary (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8393:21)\n    at Parser.parseExprOps (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8280:23)\n    at Parser.parseMaybeConditional (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8253:23)\n    at Parser.parseMaybeAssign (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8200:21)\n    at Parser.parseParenAndDistinguishExpression (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8963:28)\n    at Parser.parseExprAtom (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8760:21)\n    at Parser.parseExprSubscripts (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8413:23)\n    at Parser.parseMaybeUnary (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8393:21)\n    at Parser.parseExprOps (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8280:23)\n    at Parser.parseMaybeConditional (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8253:23)\n    at Parser.parseMaybeAssign (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8200:21)\n    at Parser.parseFunctionBody (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9390:24)\n    at Parser.parseArrowExpression (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:9349:10)\n    at Parser.parseParenAndDistinguishExpression (/home/abelsaul/Programming/work/plan-studies/node_modules/@babel/parser/lib/index.js:8986:12)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      search: "",
+      dialog: false,
+      dialog_content: false,
+      dialog_capacity: false,
+      headers: [{
+        text: "N°",
+        value: "index",
+        sortable: false
+      }, {
+        text: "Nombre",
+        value: "name"
+      }, {
+        text: "Actions",
+        value: "actions",
+        sortable: false
+      }],
+      headers_modal: [{
+        text: "#",
+        value: "",
+        sortable: false
+      }, {
+        text: "N°",
+        value: "index",
+        sortable: false
+      }, {
+        text: "Nombre",
+        value: "name"
+      }],
+      headers_topics: [{
+        text: "N°",
+        value: "index",
+        sortable: false
+      }, {
+        text: "Código",
+        value: "code"
+      }, {
+        text: "Nombre",
+        value: "name"
+      }, {
+        text: "Área de conocimiento",
+        value: "knowledge"
+      }, {
+        text: "Área de específica",
+        value: "specific"
+      }, {
+        text: "Contenido",
+        value: "content"
+      }, {
+        text: "Actions",
+        value: "name",
+        sortable: false
+      }],
+      editedItem: {
+        code: "",
+        name: "",
+        knowledge: "",
+        specific: "",
+        contents: [],
+        capacities: []
+      },
+      topics: [],
+      capacities_all: [],
+      contents_all: [],
+      editedIndex: -1
+    };
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? "Nuevo Tema" : "Editar Tema";
+    }
+  },
+  watch: {},
+  created: function created() {
+    this.initialize();
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("/api/capacities").then(function (_ref) {
+      var data = _ref.data;
+      _this.capacities_all = data;
+    });
+    axios.get("/api/contents").then(function (_ref2) {
+      var data = _ref2.data;
+      _this.contents_all = data;
+    });
+  },
+  methods: {
+    initialize: function initialize() {
+      this.getTopics();
+      this.reset();
+    },
+    getCapacities: function getCapacities() {
+      var _this2 = this;
+
+      axios.get("/api/capacities").then(function (_ref3) {
+        var data = _ref3.data;
+        _this2.capacities_all = data;
+      });
+    },
+    getContents: function getContents() {
+      var _this3 = this;
+
+      axios.get("/api/contents").then(function (_ref4) {
+        var data = _ref4.data;
+        _this3.contents_all = data;
+      });
+    },
+    getTopics: function getTopics() {
+      var _this4 = this;
+
+      axios.get("/api/topics").then(function (_ref5) {
+        var data = _ref5.data;
+        _this4.topics = data;
+      });
+    },
+    deleteItemCapacities: function deleteItemCapacities(item) {
+      var index = this.editedItem.capacities.indexOf(item);
+      confirm("Esta seguro de querer eliminar?") && this.editedItem.capacities.splice(index, 1);
+    },
+    // deleteItemContents(item) {
+    //   const index = this.editedItem.contents.indexOf(item);
+    //   confirm("Esta seguro de querer eliminar?") &&
+    //     this.editedItem.contents.splice(index, 1);
+    // },
+    close_dialog_capacity: function close_dialog_capacity() {
+      this.dialog_capacity = false;
+    },
+    close_dialog_content: function close_dialog_content() {
+      this.dialog_content = false;
+    },
+    save: function save() {
+      var _this5 = this;
+
+      var capacities = this.editedItem.capacities.map(function (c) {
+        return c.id;
+      }); // const contents = this.editedItem.contents.map(c => c.id);
+
+      var data = {
+        code: this.editedItem.code,
+        name: this.editedItem.name,
+        knowledge: this.editedItem.knowledge,
+        specific: this.editedItem.specific,
+        capacities: capacities,
+        content: this.editedItem.content
+      };
+
+      if (!this.editedItem.code) {
+        notify.error("Ingrese el codigo de tema");
+        return;
+      }
+
+      if (!this.editedItem.name) {
+        notify.error("Ingrese el nombre del tema");
+        return;
+      }
+
+      if (!this.editedItem.knowledge) {
+        notify.error("Ingrese el área de conocimiento");
+        return;
+      }
+
+      if (!this.editedItem.specific) {
+        notify.error("Ingrese el área específica");
+        return;
+      }
+
+      if (this.editedItem.capacities.length === 0) {
+        notify.error("Agregue al menos una capacidad");
+        return;
+      }
+
+      if (!this.editedItem.content) {
+        notify.error("Agregue contenido");
+        return;
+      }
+
+      if (this.editedIndex > -1) {
+        axios.put("/api/topic/update/" + this.editedItem.id, data).then(function (_ref6) {
+          var data = _ref6.data;
+          notify.showCool(data.message);
+
+          _this5.initialize();
+
+          _this5.close();
+        })["catch"](function (error) {
+          console.log(error.response.data.message);
+          notify.error(error.response.data.message);
+        });
+      } else {
+        axios.post("/api/topic/create", data).then(function (_ref7) {
+          var data = _ref7.data;
+          notify.showCool(data.message);
+
+          _this5.initialize();
+
+          _this5.close();
+        })["catch"](function (response) {
+          notify.error("Ocurrio un error");
+        });
+      }
+    },
+    reset: function reset() {
+      this.editedItem.code = "", this.editedItem.name = "", this.editedItem.knowledge = "", this.editedItem.specific = "", this.editedItem.capacities = [], this.editedItem.content = "";
+    },
+    close: function close() {
+      var _this6 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this6.editedIndex = -1;
+      }, 300);
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.topics.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      console.log(this.editedItem);
+      this.dialog = true;
+    }
+  }
+});
 
 /***/ }),
 
@@ -21312,6 +22461,743 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var runtime = (function (exports) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  exports.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return Promise.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new Promise(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList) {
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList)
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        // Note: ["return"] must be used for ES3 parsing compatibility.
+        if (delegate.iterator["return"]) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+   true ? module.exports : undefined
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  Function("r", "regeneratorRuntime = r")(runtime);
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/setimmediate/setImmediate.js":
 /*!***************************************************!*\
   !*** ./node_modules/setimmediate/setImmediate.js ***!
@@ -23477,10 +25363,43 @@ var render = function() {
                                                                                 _c(
                                                                                   "td",
                                                                                   [
-                                                                                    _vm._v(
-                                                                                      '\n<<<<<<< HEAD\n                                          @change="verifyTopicInCourse(props.selected)"\n                                        >'
+                                                                                    _c(
+                                                                                      "v-checkbox",
+                                                                                      {
+                                                                                        attrs: {
+                                                                                          primary:
+                                                                                            "",
+                                                                                          "hide-details":
+                                                                                            ""
+                                                                                        },
+                                                                                        on: {
+                                                                                          change: function(
+                                                                                            $event
+                                                                                          ) {
+                                                                                            return _vm.verifyTopicInCourse(
+                                                                                              props.selected
+                                                                                            )
+                                                                                          }
+                                                                                        },
+                                                                                        model: {
+                                                                                          value:
+                                                                                            props.selected,
+                                                                                          callback: function(
+                                                                                            $$v
+                                                                                          ) {
+                                                                                            _vm.$set(
+                                                                                              props,
+                                                                                              "selected",
+                                                                                              $$v
+                                                                                            )
+                                                                                          },
+                                                                                          expression:
+                                                                                            "props.selected"
+                                                                                        }
+                                                                                      }
                                                                                     )
-                                                                                  ]
+                                                                                  ],
+                                                                                  1
                                                                                 ),
                                                                                 _vm._v(
                                                                                   " "
@@ -23521,48 +25440,7 @@ var render = function() {
                                                                                   ]
                                                                                 ),
                                                                                 _vm._v(
-                                                                                  '\n=======\n                                          @change="verifyTopicInCourse(props.item.id)"\n                                        >'
-                                                                                ),
-                                                                                _vm._v(
                                                                                   " "
-                                                                                ),
-                                                                                _c(
-                                                                                  "td",
-                                                                                  {
-                                                                                    staticClass:
-                                                                                      "text-xs-left"
-                                                                                  },
-                                                                                  [
-                                                                                    _vm._v(
-                                                                                      _vm._s(
-                                                                                        props
-                                                                                          .item
-                                                                                          .name
-                                                                                      )
-                                                                                    )
-                                                                                  ]
-                                                                                ),
-                                                                                _vm._v(
-                                                                                  " "
-                                                                                ),
-                                                                                _c(
-                                                                                  "td",
-                                                                                  {
-                                                                                    staticClass:
-                                                                                      "text-xs-left"
-                                                                                  },
-                                                                                  [
-                                                                                    _vm._v(
-                                                                                      _vm._s(
-                                                                                        props
-                                                                                          .item
-                                                                                          .code
-                                                                                      )
-                                                                                    )
-                                                                                  ]
-                                                                                ),
-                                                                                _vm._v(
-                                                                                  "\n>>>>>>> b72282011d0c23cbdde8f860d26489db66ad9ead\n                                      "
                                                                                 ),
                                                                                 _c(
                                                                                   "td",
@@ -67567,9 +69445,7 @@ component.options.__file = "resources/js/components/Course.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Course_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Course.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Course.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Course_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Course_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Course_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Course_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Course_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Course_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -67992,15 +69868,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./resources/js/components/Topic.vue ***!
   \*******************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Topic_vue_vue_type_template_id_2d05d358___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Topic.vue?vue&type=template&id=2d05d358& */ "./resources/js/components/Topic.vue?vue&type=template&id=2d05d358&");
 /* harmony import */ var _Topic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Topic.vue?vue&type=script&lang=js& */ "./resources/js/components/Topic.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Topic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Topic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _Topic_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Topic.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/Topic.vue?vue&type=style&index=0&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Topic_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Topic.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/Topic.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -68032,15 +69907,13 @@ component.options.__file = "resources/js/components/Topic.vue"
 /*!********************************************************************!*\
   !*** ./resources/js/components/Topic.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Topic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Topic.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Topic.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Topic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Topic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Topic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Topic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Topic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Topic_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

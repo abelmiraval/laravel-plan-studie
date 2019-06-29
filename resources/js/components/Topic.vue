@@ -275,11 +275,7 @@ export default {
     ],
     headers_topics: [
       { text: "N°", value: "index", sortable: false },
-<<<<<<< HEAD
       { text: "Código", value: "code" },
-=======
-      { text: "Code", value: "code" },
->>>>>>> b72282011d0c23cbdde8f860d26489db66ad9ead
       { text: "Nombre", value: "name" },
       { text: "Área de conocimiento", value: "knowledge" },
       { text: "Área de específica", value: "specific" },
