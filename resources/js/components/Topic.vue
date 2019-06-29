@@ -275,7 +275,7 @@ export default {
     ],
     headers_topics: [
       { text: "N°", value: "index", sortable: false },
-      { text: "Code", value: "code" },
+      { text: "Código", value: "code" },
       { text: "Nombre", value: "name" },
       { text: "Área de conocimiento", value: "knowledge" },
       { text: "Área de específica", value: "specific" },

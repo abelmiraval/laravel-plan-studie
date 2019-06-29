@@ -9,6 +9,7 @@ use App\Term;
 use App\Topic;
 use App\TopicCourse;
 use App\RequerimentCourse;
+use App\CourseTopic;
 use Illuminate\Http\Request;
 use DB;
 use App\Http\Controllers\PlanControler;
@@ -222,7 +223,7 @@ class CourseController extends Controller
 
 
             return response()->json([
-                'message' => 'Curso Actualizadp!'
+                'message' => 'Curso Actualizado!'
             ], 200);
 
     }
@@ -237,6 +238,22 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+    }
+
+    public function verifyTopic($id_topic)
+    {
+        $course_topics = CourseTopic::where('topic_id', $id_topic)->get();
+        $list_course = "";
+    
+        if(!$course_topics->isEmpty()){
+            foreach ($course_topics as $course_topic) {
+                $course = Course::find($course_topic['course_id']);
+                $list_course .= " - ".$course->name." ";
+            }
+        }
+
+        return $list_course;
+
     }
 
 

@@ -160,11 +160,11 @@
                                           v-model="props.selected"
                                           primary
                                           hide-details
-                                          @change="verifyTopicInCourse(props.item.id)"
+                                          @change="verifyTopicInCourse(props.selected)"
                                         ></v-checkbox>
                                       </td>
-                                      <td class="text-xs-left">{{ props.item.name }}</td>
                                       <td class="text-xs-left">{{ props.item.code }}</td>
+                                      <td class="text-xs-left">{{ props.item.name }}</td>
                                       <td class="text-xs-left">{{ props.item.content }}</td>
                                     </template>
                                   </v-data-table>
@@ -239,6 +239,7 @@
               <td class="justify-center layout px-0">
                 <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
               </td>
+          
             </template>
             <template slot="no-data">
               <v-alert
@@ -313,7 +314,8 @@ export default {
       requeriments: [],
       topics: []
     },
-    editedIndex: -1
+    editedIndex: -1,
+    cursos: ""
   }),
 
   computed: {
@@ -376,22 +378,38 @@ export default {
         this.requeriments_all = data;
       });
     },
+
     deleteItemtopics(item) {
       const index = this.editedItem.topics.indexOf(item);
       confirm("Esta seguro de querer eliminar?") &&
         this.editedItem.topics.splice(index, 1);
     },
-    verifyTopicInCourse(id) {
-      console.log("Llego el id", id);
-      axios
-        .get("/api/course/verifyTopic/" + id)
-        .then(({ data }) => {
-          notify.showCool(data.message);
-        })
-        .catch(error => {
-          notify.error(error.response.data.message);
-        });
+
+    
+   async verifyTopicInCourse(selected) {
+      console.log('Se selecciono lo siguiente',selected);
+      let  lengthTopicsSelected = this.editedItem.topics.length;
+      if(selected === undefined){
+        if(lengthTopicsSelected > 0){ 
+            const id = this.editedItem.topics[lengthTopicsSelected - 1].id;
+            try{
+              let response = await  axios.get("/api/course/verifyTopic/" + id);
+              this.cursos = response.data;
+            }catch(err){
+              console.log(err)
+            }
+            console.log("Estos son los cursos",this.cursos);
+            if(this.cursos){
+              notify.show({text: 'Este tema fue asignado a los siguientes cursos:' + this.cursos,
+                          color: 'warning',
+                          timeout: 5000,
+                          dismissible: false}
+                          );
+            }
+        }
+      }
     },
+    
     close() {
       this.dialog = false;
       setTimeout(() => {

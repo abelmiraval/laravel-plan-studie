@@ -18,14 +18,14 @@ class TopicController extends Controller
 
     public function index()
     {
-        $topics = Topic::where('state','=','1')->with(['capacities','contents'])->orderBy('name')->get();
+        $topics = Topic::where('state','=','1')->with(['capacities','contents'])->orderBy('code')->get();
 
         return  $topics;
     }
 
     public function topics()
     {
-        $topics = DB::table('topics')->select('id', 'name')->orderBy('name')->get();
+        $topics = DB::table('topics')->select('id', 'name')->orderBy('code')->get();
 
         return  $topics;
     }
