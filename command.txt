@@ -67,6 +67,8 @@ $store->libraries() or $library->store().
 => Trabajando con repositorios
 
 1. git pull heroku plan-studies-v2
-2. git push heroku plan-studies-v2
-3. git rebase master
-4. git push heroku plan-studies-v2:master
+2. git add .
+3. git push heroku plan-studies-v2 (Send to Heroku)
+4. git push origin plan-studies-v2 (Send to GitHub)
+-. git rebase master
+5. git push heroku plan-studies-v2:master (Deploy code to Heroku from a non-master branch )

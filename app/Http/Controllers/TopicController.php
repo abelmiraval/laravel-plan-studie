@@ -25,7 +25,7 @@ class TopicController extends Controller
 
     public function topics()
     {
-        $topics = DB::table('topics')->select('id', 'name')->orderBy('code')->get();
+        $topics = DB::table('topics')->where('state','=','1')->select('id', 'name')->orderBy('code')->get();
 
         return  $topics;
     }
@@ -146,5 +146,10 @@ class TopicController extends Controller
     public function destroy(Topic $topic)
     {
         //
+        $topic->state = 0;
+        $topic->update();
+        return response()->json([
+            'message' => 'Tema eliminado!'
+        ]);
     }
 }

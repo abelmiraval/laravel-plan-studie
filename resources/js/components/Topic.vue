@@ -248,6 +248,7 @@
               <td class="text-xs-left">{{ props.item.content }}</td>
               <td class="justify-center layout px-0">
                 <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
+                <v-icon small @click="deleteItemTopic(props.item)">delete</v-icon>
               </td>
             </template>
             <template slot="no-data">
@@ -431,6 +432,21 @@ export default {
           })
           .catch(response => {
             notify.error("Ocurrio un error");
+          });
+      }
+    },
+    deleteItemTopic(item) {
+      const index = this.topics.indexOf(item);
+      const result = confirm("Estas seguro de querer eliminar este item?");
+      if (result) {
+        axios
+          .delete("/api/topic/delete/" + item.id, {})
+          .then(({ data }) => {
+            notify.showCool(data.message);
+            this.initialize();
+          })
+          .catch(({ error }) => {
+            notify.error(error.message);
           });
       }
     },

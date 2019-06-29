@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('topic/create', 'TopicController@create');
 Route::get('topics', 'TopicController@index');
 Route::put('topic/update/{topic}', 'TopicController@update');
+Route::delete('topic/delete/{topic}', 'TopicController@destroy');
 
 Route::get('capacities', 'CapacityController@index');
 Route::get('contents', 'ContentController@index');
