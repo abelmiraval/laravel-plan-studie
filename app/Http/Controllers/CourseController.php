@@ -240,6 +240,7 @@ class CourseController extends Controller
         //
     }
 
+<<<<<<< HEAD
     public function verifyTopic($id_topic)
     {
         $course_topics = CourseTopic::where('topic_id', $id_topic)->get();
@@ -256,5 +257,7 @@ class CourseController extends Controller
 
     }
 
+=======
+>>>>>>> b72282011d0c23cbdde8f860d26489db66ad9ead
 
 }

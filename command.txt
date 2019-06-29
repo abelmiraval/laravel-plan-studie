@@ -68,3 +68,5 @@ $store->libraries() or $library->store().
 
 1. git pull heroku plan-studies-v2
 2. git push heroku plan-studies-v2
+3. git rebase master
+4. git push heroku plan-studies-v2:master
