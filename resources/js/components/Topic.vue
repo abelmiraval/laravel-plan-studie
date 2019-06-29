@@ -415,8 +415,8 @@ export default {
           .put("/api/topic/update/" + this.editedItem.id, data)
           .then(({ data }) => {
             notify.showCool(data.message);
-            this.initialize();
             this.close();
+            this.initialize();
           })
           .catch(error => {
             console.log(error.response.data.message);

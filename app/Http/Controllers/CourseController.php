@@ -138,7 +138,6 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course)
     {
-
             $course->code = $request->code;
             $course->name = $request->name;
             $area = Area::find($request->area);
@@ -164,68 +163,48 @@ class CourseController extends Controller
                 $topic = Topic::find($value);
                 $course->topics()->sync($topic->id);
             }
-
-            // $requerimentIdFunc = function($requeriment){
-            //     return $requeriment->id;
-            // };
-            // $ids_requeriments = array_map($requerimentIdFunc,$requeriments);
-
-            //Por una parte tengo requerimientos que son iguales, que se han quitado, o que se agregaron
-
-
-
-                $requeriments = RequerimentCourse::where('course_id','=',$course->id)->get();
-
-                //Traer ids_course_requeriment_id bd
-                $ids_course_requeriment_bd  = array();
-                $ids_course_requeriment_upd = array();
-
-                $ids_course_requeriment_bd = array_map(function ($requeriment) {
-                    return $requeriment['course_id_requeriment'];
-                }, $requeriments->toArray());
-
-                //Traer ids_course_id_requeriment upda
-                $ids_course_requeriment_upd = $request->requeriments;
-                $ids_course_requeriment_remove = array();
-                //Verificar cual han sido retirados
-                foreach ($ids_course_requeriment_bd as $course_id_requeriment) {
-                    if (!(in_array($course_id_requeriment, $ids_course_requeriment_upd))) {
-                        array_push($ids_course_requeriment_remove,$course_id_requeriment);
-                    };
+            //Pr una parte tengo requerimientos que son iguales, que se han quitado, o que se agregaron
+            $requeriments = RequerimentCourse::where('course_id','=',$course->id)->get();
+            //Traer ids_course_requeriment_id bd
+            $ids_course_requeriment_bd  = array();
+            $ids_course_requeriment_upd = array();
+            $ids_course_requeriment_bd = array_map(function ($requeriment) {
+                return $requeriment['course_id_requeriment'];
+            }, $requeriments->toArray());
+            //Traer ids_course_id_requeriment upda
+            $ids_course_requeriment_upd = $request->requeriments;
+            $ids_course_requeriment_remove = array();
+            //Verificar cual han sido retirados
+            foreach ($ids_course_requeriment_bd as $course_id_requeriment) {
+                if (!(in_array($course_id_requeriment, $ids_course_requeriment_upd))) {
+                    array_push($ids_course_requeriment_remove,$course_id_requeriment);
+                };
+            }
+            foreach ($ids_course_requeriment_remove  as $course_id_requeriment) {
+                if(!(array_search($course_id_requeriment,$ids_course_requeriment_upd))){
+                    $requeriment = $requeriments->where('course_id_requeriment','=',$course_id_requeriment)->first();
+                    $requriment_course= RequerimentCourse::find($requeriment->id);
+                    $requriment_course->delete();
                 }
-
-                foreach ($ids_course_requeriment_remove  as $course_id_requeriment) {
-                    if(!(array_search($course_id_requeriment,$ids_course_requeriment_upd))){
-                        $requeriment = $requeriments->where('course_id_requeriment','=',$course_id_requeriment)->first();
-
-                        $requriment_course= RequerimentCourse::find($requeriment->id);
-                        $requriment_course->delete();
-
-                    }
-                }
-
-                //Recien ingresados
-                $ids_course_requeriment_new = array_diff($ids_course_requeriment_upd,$ids_course_requeriment_bd);
-
-                //Agregar los que se han agregado
-                foreach ($ids_course_requeriment_new as $course_id_requeriment) {
-
-                    $requeriment_course = new RequerimentCourse;
-                    $requeriment_course->course_id = $course->id;
-                    $requeriment_course->course_id_requeriment = $course_id_requeriment;
-                    $requeriment_course->save();
-                }
-
-
-            $course->save();
-            // $plan_controller = new PlanController();
-            // $plan_controller->storePlan($course->id,$course->name,$course->level);
-
+            }
+            //Recien ingresados
+            $ids_course_requeriment_new = array_diff($ids_course_requeriment_upd,$ids_course_requeriment_bd);
+            //Agregar los que se han agregado
+            foreach ($ids_course_requeriment_new as $course_id_requeriment) {
+                $requeriment_course = new RequerimentCourse;
+                $requeriment_course->course_id = $course->id;
+                $requeriment_course->course_id_requeriment = $course_id_requeriment;
+                $requeriment_course->save();
+            }
+            $corse->save();
+            
+            // plan_controller = new PlanController();
+            // plan_controller->storePlan($course->id,$course->name,$course->level);
 
             return response()->json([
                 'message' => 'Curso Actualizado!'
             ], 200);
-
+        
     }
 
 

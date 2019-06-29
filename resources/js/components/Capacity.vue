@@ -114,8 +114,8 @@ export default {
   },
   methods: {
     initialize() {
-      this.reset();
       this.close();
+      this.reset();
       this.getCapacities();
     },
 
