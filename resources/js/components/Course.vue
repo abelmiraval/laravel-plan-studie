@@ -144,6 +144,14 @@
                             <v-card>
                               <v-card-title>
                                 <span class="headline">Seleccionar Tema</span>
+                                <v-spacer></v-spacer>
+                                <v-text-field
+                                  v-model="search_topic"
+                                  append-icon="search"
+                                  label="Search"
+                                  single-line
+                                  hide-details
+                                ></v-text-field>
                               </v-card-title>
                               <v-card-text>
                                 <v-container grid-list-md>
@@ -151,6 +159,7 @@
                                     v-model="editedItem.topics"
                                     :headers="headers_modal"
                                     :items="topics_all"
+                                    :search="search_topic"
                                     item-key="name"
                                     class="elevation-1"
                                   >
@@ -239,7 +248,6 @@
               <td class="justify-center layout px-0">
                 <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
               </td>
-          
             </template>
             <template slot="no-data">
               <v-alert
@@ -260,6 +268,7 @@
 export default {
   data: () => ({
     search: "",
+    search_topic: "",
     dialog: false,
     dialog_topic: false,
     mask_theoretical_hours: "##",
@@ -363,6 +372,7 @@ export default {
     },
 
     getTopics() {
+      this.search_topic = "";
       axios.get("/api/topics").then(({ data }) => {
         this.topics_all = data;
       });
@@ -385,31 +395,32 @@ export default {
         this.editedItem.topics.splice(index, 1);
     },
 
-    
-   async verifyTopicInCourse(selected) {
-      console.log('Se selecciono lo siguiente',selected);
-      let  lengthTopicsSelected = this.editedItem.topics.length;
-      if(selected === undefined){
-        if(lengthTopicsSelected > 0){ 
-            const id = this.editedItem.topics[lengthTopicsSelected - 1].id;
-            try{
-              let response = await  axios.get("/api/course/verifyTopic/" + id);
-              this.cursos = response.data;
-            }catch(err){
-              console.log(err)
-            }
-            console.log("Estos son los cursos",this.cursos);
-            if(this.cursos){
-              notify.show({text: 'Este tema fue asignado a los siguientes cursos:' + this.cursos,
-                          color: 'warning',
-                          timeout: 5000,
-                          dismissible: false}
-                          );
-            }
+    async verifyTopicInCourse(selected) {
+      console.log("Se selecciono lo siguiente", selected);
+      let lengthTopicsSelected = this.editedItem.topics.length;
+      if (selected === undefined) {
+        if (lengthTopicsSelected > 0) {
+          const id = this.editedItem.topics[lengthTopicsSelected - 1].id;
+          try {
+            let response = await axios.get("/api/course/verifyTopic/" + id);
+            this.cursos = response.data;
+          } catch (err) {
+            console.log(err);
+          }
+          console.log("Estos son los cursos", this.cursos);
+          if (this.cursos) {
+            notify.show({
+              text:
+                "Este tema fue asignado a los siguientes cursos:" + this.cursos,
+              color: "warning",
+              timeout: 5000,
+              dismissible: false
+            });
+          }
         }
       }
     },
-    
+
     close() {
       this.dialog = false;
       setTimeout(() => {

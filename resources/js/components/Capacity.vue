@@ -7,6 +7,14 @@
             <v-toolbar-title>CAPACIDADES</v-toolbar-title>
             <v-divider class="mx-2" inset vertical></v-divider>
             <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Buscar"
+              single-line
+              hide-details
+            ></v-text-field>
+            <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="800px">
               <template v-slot:activator="{ on }">
                 <v-btn color="primary" dark class="mb-2" v-on="on">Nueva Capacidad</v-btn>
@@ -37,7 +45,7 @@
               </v-card>
             </v-dialog>
           </v-toolbar>
-          <v-data-table :headers="headers" :items="capacities" class="elevation-1">
+          <v-data-table :headers="headers" :items="capacities" :search="search" class="elevation-1">
             <template v-slot:items="props">
               <td class="text-xs-left">{{ props.item.code }}</td>
               <td class="text-xs-left">{{ props.item.name }}</td>
@@ -64,6 +72,7 @@
 <script>
 export default {
   data: () => ({
+    search: "",
     dialog: false,
     headers: [
       { text: "Código", value: "code" },

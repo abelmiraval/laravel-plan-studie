@@ -1772,9 +1772,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      search: "",
       dialog: false,
       headers: [{
         text: "Código",
@@ -2413,12 +2422,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
 
     return _ref = {
       search: "",
+      search_topic: "",
       dialog: false,
       dialog_topic: false,
       mask_theoretical_hours: "##",
@@ -2550,6 +2568,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getTopics: function getTopics() {
       var _this2 = this;
 
+      this.search_topic = "";
       axios.get("/api/topics").then(function (_ref8) {
         var data = _ref8.data;
         _this2.topics_all = data;
@@ -2584,7 +2603,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log('Se selecciono lo siguiente', selected);
+                console.log("Se selecciono lo siguiente", selected);
                 lengthTopicsSelected = this.editedItem.topics.length;
 
                 if (!(selected === undefined)) {
@@ -2618,8 +2637,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                 if (this.cursos) {
                   notify.show({
-                    text: 'Este tema fue asignado a los siguientes cursos:' + this.cursos,
-                    color: 'warning',
+                    text: "Este tema fue asignado a los siguientes cursos:" + this.cursos,
+                    color: "warning",
                     timeout: 5000,
                     dismissible: false
                   });
@@ -3523,10 +3542,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       search: "",
+      search_capacity: "",
       dialog: false,
       dialog_content: false,
       dialog_capacity: false,
@@ -3534,6 +3563,9 @@ __webpack_require__.r(__webpack_exports__);
         text: "N°",
         value: "index",
         sortable: false
+      }, {
+        text: "Código",
+        value: "code"
       }, {
         text: "Nombre",
         value: "name"
@@ -3547,18 +3579,13 @@ __webpack_require__.r(__webpack_exports__);
         value: "",
         sortable: false
       }, {
-        text: "N°",
-        value: "index",
-        sortable: false
+        text: "Código",
+        value: "code"
       }, {
         text: "Nombre",
         value: "name"
       }],
       headers_topics: [{
-        text: "N°",
-        value: "index",
-        sortable: false
-      }, {
         text: "Código",
         value: "code"
       }, {
@@ -3621,6 +3648,7 @@ __webpack_require__.r(__webpack_exports__);
     getCapacities: function getCapacities() {
       var _this2 = this;
 
+      this.search_capacity = "";
       axios.get("/api/capacities").then(function (_ref3) {
         var data = _ref3.data;
         _this2.capacities_all = data;
@@ -24143,6 +24171,24 @@ var render = function() {
                       _vm._v(" "),
                       _c("v-spacer"),
                       _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          "append-icon": "search",
+                          label: "Buscar",
+                          "single-line": "",
+                          "hide-details": ""
+                        },
+                        model: {
+                          value: _vm.search,
+                          callback: function($$v) {
+                            _vm.search = $$v
+                          },
+                          expression: "search"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
                       _c(
                         "v-dialog",
                         {
@@ -24312,7 +24358,11 @@ var render = function() {
                     "v-data-table",
                     {
                       staticClass: "elevation-1",
-                      attrs: { headers: _vm.headers, items: _vm.capacities },
+                      attrs: {
+                        headers: _vm.headers,
+                        items: _vm.capacities,
+                        search: _vm.search
+                      },
                       scopedSlots: _vm._u([
                         {
                           key: "items",
@@ -25311,20 +25361,53 @@ var render = function() {
                                                       _c(
                                                         "v-card",
                                                         [
-                                                          _c("v-card-title", [
-                                                            _c(
-                                                              "span",
-                                                              {
-                                                                staticClass:
-                                                                  "headline"
-                                                              },
-                                                              [
-                                                                _vm._v(
-                                                                  "Seleccionar Tema"
-                                                                )
-                                                              ]
-                                                            )
-                                                          ]),
+                                                          _c(
+                                                            "v-card-title",
+                                                            [
+                                                              _c(
+                                                                "span",
+                                                                {
+                                                                  staticClass:
+                                                                    "headline"
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "Seleccionar Tema"
+                                                                  )
+                                                                ]
+                                                              ),
+                                                              _vm._v(" "),
+                                                              _c("v-spacer"),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "v-text-field",
+                                                                {
+                                                                  attrs: {
+                                                                    "append-icon":
+                                                                      "search",
+                                                                    label:
+                                                                      "Search",
+                                                                    "single-line":
+                                                                      "",
+                                                                    "hide-details":
+                                                                      ""
+                                                                  },
+                                                                  model: {
+                                                                    value:
+                                                                      _vm.search_topic,
+                                                                    callback: function(
+                                                                      $$v
+                                                                    ) {
+                                                                      _vm.search_topic = $$v
+                                                                    },
+                                                                    expression:
+                                                                      "search_topic"
+                                                                  }
+                                                                }
+                                                              )
+                                                            ],
+                                                            1
+                                                          ),
                                                           _vm._v(" "),
                                                           _c(
                                                             "v-card-text",
@@ -25348,6 +25431,8 @@ var render = function() {
                                                                           _vm.headers_modal,
                                                                         items:
                                                                           _vm.topics_all,
+                                                                        search:
+                                                                          _vm.search_topic,
                                                                         "item-key":
                                                                           "name"
                                                                       },
@@ -26686,20 +26771,53 @@ var render = function() {
                                                       _c(
                                                         "v-card",
                                                         [
-                                                          _c("v-card-title", [
-                                                            _c(
-                                                              "span",
-                                                              {
-                                                                staticClass:
-                                                                  "headline"
-                                                              },
-                                                              [
-                                                                _vm._v(
-                                                                  "Seleccionar Capacidad"
-                                                                )
-                                                              ]
-                                                            )
-                                                          ]),
+                                                          _c(
+                                                            "v-card-title",
+                                                            [
+                                                              _c(
+                                                                "span",
+                                                                {
+                                                                  staticClass:
+                                                                    "headline"
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "Seleccionar Capacidad"
+                                                                  )
+                                                                ]
+                                                              ),
+                                                              _vm._v(" "),
+                                                              _c("v-spacer"),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "v-text-field",
+                                                                {
+                                                                  attrs: {
+                                                                    "append-icon":
+                                                                      "search",
+                                                                    label:
+                                                                      "Search",
+                                                                    "single-line":
+                                                                      "",
+                                                                    "hide-details":
+                                                                      ""
+                                                                  },
+                                                                  model: {
+                                                                    value:
+                                                                      _vm.search_capacity,
+                                                                    callback: function(
+                                                                      $$v
+                                                                    ) {
+                                                                      _vm.search_capacity = $$v
+                                                                    },
+                                                                    expression:
+                                                                      "search_capacity"
+                                                                  }
+                                                                }
+                                                              )
+                                                            ],
+                                                            1
+                                                          ),
                                                           _vm._v(" "),
                                                           _c(
                                                             "v-card-text",
@@ -26723,6 +26841,8 @@ var render = function() {
                                                                           _vm.headers_modal,
                                                                         items:
                                                                           _vm.capacities_all,
+                                                                        search:
+                                                                          _vm.search_capacity,
                                                                         "item-key":
                                                                           "name"
                                                                       },
@@ -26779,8 +26899,9 @@ var render = function() {
                                                                                   [
                                                                                     _vm._v(
                                                                                       _vm._s(
-                                                                                        props.index +
-                                                                                          1
+                                                                                        props
+                                                                                          .item
+                                                                                          .code
                                                                                       )
                                                                                     )
                                                                                   ]
@@ -26898,6 +27019,22 @@ var render = function() {
                                                                 _vm._s(
                                                                   props.index +
                                                                     1
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "td",
+                                                            {
+                                                              staticClass:
+                                                                "text-md-left"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .code
                                                                 )
                                                               )
                                                             ]
@@ -27054,10 +27191,6 @@ var render = function() {
                           key: "items",
                           fn: function(props) {
                             return [
-                              _c("td", { staticClass: "text-xs-left" }, [
-                                _vm._v(_vm._s(props.index + 1))
-                              ]),
-                              _vm._v(" "),
                               _c("td", { staticClass: "text-xs-left" }, [
                                 _vm._v(_vm._s(props.item.code))
                               ]),
@@ -69399,15 +69532,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************!*\
   !*** ./resources/js/components/Course.vue ***!
   \********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Course_vue_vue_type_template_id_0ef708c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Course.vue?vue&type=template&id=0ef708c6& */ "./resources/js/components/Course.vue?vue&type=template&id=0ef708c6&");
 /* harmony import */ var _Course_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Course.vue?vue&type=script&lang=js& */ "./resources/js/components/Course.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Course_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Course_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _Course_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Course.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/Course.vue?vue&type=style&index=0&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Course_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Course.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/Course.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -69439,7 +69571,7 @@ component.options.__file = "resources/js/components/Course.vue"
 /*!*********************************************************************!*\
   !*** ./resources/js/components/Course.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

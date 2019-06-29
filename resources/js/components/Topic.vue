@@ -81,6 +81,14 @@
                             <v-card>
                               <v-card-title>
                                 <span class="headline">Seleccionar Capacidad</span>
+                                <v-spacer></v-spacer>
+                                <v-text-field
+                                  v-model="search_capacity"
+                                  append-icon="search"
+                                  label="Search"
+                                  single-line
+                                  hide-details
+                                ></v-text-field>
                               </v-card-title>
                               <v-card-text>
                                 <v-container grid-list-md>
@@ -88,6 +96,7 @@
                                     v-model="editedItem.capacities"
                                     :headers="headers_modal"
                                     :items="capacities_all"
+                                    :search="search_capacity"
                                     item-key="name"
                                     class="elevation-1"
                                   >
@@ -95,7 +104,7 @@
                                       <td>
                                         <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
                                       </td>
-                                      <td class="text-xs-left">{{ props.index + 1}}</td>
+                                      <td class="text-xs-left">{{ props.item.code}}</td>
                                       <td class="text-xs-left">{{ props.item.name }}</td>
                                     </template>
                                   </v-data-table>
@@ -122,6 +131,7 @@
                         >
                           <template v-slot:items="props">
                             <td class="text-md-left">{{ props.index + 1}}</td>
+                            <td class="text-md-left">{{ props.item.code }}</td>
                             <td class="text-md-left">{{ props.item.name }}</td>
                             <td class="justify-center layout px-0">
                               <v-icon small @click="deleteItemCapacities(props.item)">delete</v-icon>
@@ -231,7 +241,6 @@
             class="elevation-1"
           >
             <template v-slot:items="props">
-              <td class="text-xs-left">{{ props.index + 1 }}</td>
               <td class="text-xs-left">{{ props.item.code }}</td>
               <td class="text-xs-left">{{ props.item.name }}</td>
               <td class="text-xs-left">{{ props.item.knowledge }}</td>
@@ -260,21 +269,22 @@
 export default {
   data: () => ({
     search: "",
+    search_capacity: "",
     dialog: false,
     dialog_content: false,
     dialog_capacity: false,
     headers: [
       { text: "N°", value: "index", sortable: false },
+      { text: "Código", value: "code" },
       { text: "Nombre", value: "name" },
       { text: "Actions", value: "actions", sortable: false }
     ],
     headers_modal: [
       { text: "#", value: "", sortable: false },
-      { text: "N°", value: "index", sortable: false },
+      { text: "Código", value: "code" },
       { text: "Nombre", value: "name" }
     ],
     headers_topics: [
-      { text: "N°", value: "index", sortable: false },
       { text: "Código", value: "code" },
       { text: "Nombre", value: "name" },
       { text: "Área de conocimiento", value: "knowledge" },
@@ -324,6 +334,7 @@ export default {
     },
 
     getCapacities() {
+      this.search_capacity = "";
       axios.get("/api/capacities").then(({ data }) => {
         this.capacities_all = data;
       });
