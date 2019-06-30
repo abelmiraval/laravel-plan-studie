@@ -414,8 +414,8 @@ export default {
         axios
           .put("/api/topic/update/" + this.editedItem.id, data)
           .then(({ data }) => {
-            notify.showCool(data.message);
             this.close();
+            notify.showCool(data.message);
             this.initialize();
           })
           .catch(error => {
@@ -426,12 +426,12 @@ export default {
         axios
           .post("/api/topic/create", data)
           .then(({ data }) => {
+            this.close();
             notify.showCool(data.message);
             this.initialize();
-            this.close();
           })
-          .catch(response => {
-            notify.error("Ocurrio un error");
+          .catch(error => {
+            notify.error(error.response.data.message);
           });
       }
     },
@@ -445,8 +445,13 @@ export default {
             notify.showCool(data.message);
             this.initialize();
           })
-          .catch(({ error }) => {
-            notify.error(error.message);
+          .catch(error => {
+            notify.show({
+              text: error.response.data.message,
+              timeout: 5000,
+              color: "error",
+              dismissible: false
+            });
           });
       }
     },

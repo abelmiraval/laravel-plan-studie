@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Topic;
 use App\Capacity;
 use App\Content;
+use App\Course;
+use App\CourseTopic;
 use DB;
+use Exception;
+
 use Illuminate\Http\Request;
 
 class TopicController extends Controller
@@ -38,6 +42,13 @@ class TopicController extends Controller
     public function create(Request $request)
     {
 
+
+        $topics = Topic::where('code',$request->code)->where('state','1')->get();
+        //No es vacio, entonces quiere decir que hay registro con el mismo codigo
+        if(!$topics->isEmpty()){
+            throw new Exception("El código ingresado ya existe !");
+        }
+
         $topic = new Topic;
         $topic->code = $request->code;
         $topic->name = $request->name;
@@ -52,7 +63,7 @@ class TopicController extends Controller
 
         foreach ($capacities as $key => $value) {
             $capacity = Capacity::find($value);
-            $topic->capacities()->attach($capacity);
+            $topic->capacities()->sync($capacity);
         }
 
         // foreach ($contents as $key => $value) {
@@ -105,6 +116,15 @@ class TopicController extends Controller
      */
     public function update(Request $request, Topic $topic)
     {
+
+        $topics = Topic::where([ ['code', '=', $request->code], ['state', '=', '1'],['id','<>',$topic->id] ])->get();
+    
+        //No es vacio, entonces quiere decir que hay registro con el mismo codigo
+        if(!$topics->isEmpty()){
+            throw new Exception("El código ingresado ya existe !");
+        }
+
+
         $this->validate($request,[
             'code' => 'required',
             'name' => 'required'
@@ -118,13 +138,13 @@ class TopicController extends Controller
 
 
         $capacities = $request->capacities;
-        // $contents = $request->contents;
+        // $contents = $request->contents;  
 
 
-        foreach ($capacities as $key => $value) {
-            $capacity = Capacity::find($value);
-            $topic->capacities()->sync($capacity,false);
-        }
+        // foreach ($capacities as $key => $value) {
+        //     $capacity = Capacity::find($value);
+        $topic->capacities()->sync($capacities);
+        // }
 
         // foreach ($contents as $key => $value) {
         //     $content = Content::find($value);
@@ -133,7 +153,7 @@ class TopicController extends Controller
 
         $topic->save();
         return response()->json([
-            'message' => 'Tema Actualizadp!'
+            'message' => 'Tema Actualizado!'
         ], 200);
     }
 
@@ -146,6 +166,19 @@ class TopicController extends Controller
     public function destroy(Topic $topic)
     {
         //
+
+        $courses_topic = CourseTopic::where('topic_id', $topic->id)->get();
+    
+        if(!$courses_topic->isEmpty()){
+            $list_course = "";
+            foreach ($courses_topic as $course_topic) {
+                $course = Course::find($course_topic['course_id']);
+                $list_course .= " - ".$course->name." ";
+            }
+            throw new Exception("No se pudo eliminar el tema,
+            porque fue asignado a los siguientes cursos: ".$list_course);
+        }
+
         $topic->state = 0;
         $topic->update();
         return response()->json([

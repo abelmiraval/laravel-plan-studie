@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Capacity;
+use App\Topic;
+use App\CapacityTopic;
 use Illuminate\Http\Request;
 use DB;
+use Exception;
+
 class CapacityController extends Controller
 {
     /**
@@ -14,7 +18,7 @@ class CapacityController extends Controller
      */
     public function index()
     {
-        $capacities = DB::table('capacities')->where('state','<>', 0)->orderBy('name')->select('id','code', 'name')->get();
+        $capacities = DB::table('capacities')->where('state','=', '1')->orderBy('code')->select('id','code', 'name')->get();
 
         return  $capacities;
     }
@@ -27,6 +31,11 @@ class CapacityController extends Controller
     public function create(Request $request)
     {
         //
+        $capacities = Capacity::where('code',$request->code)->where('state','1')->get();
+        //No es vacio, entonces quiere decir que hay registro con el mismo codigo
+        if(!$capacities->isEmpty()){
+            throw new Exception("El código ingresado ya existe !");
+        }
         $this->validate($request,[
             'code' => 'required',
             'name' => 'required'
@@ -82,6 +91,18 @@ class CapacityController extends Controller
     public function update(Request $request, Capacity $capacity)
     {
         //
+
+        // $capacities = Capacity::where('code',$request->code)->where('state','1')->where('id','<>',$capacity->id)->get();
+
+
+        $capacities = Capacity::where([ ['code', '=', $request->code], ['state', '=', '1'],['id','<>',$capacity->id] ])->get();
+    
+        //No es vacio, entonces quiere decir que hay registro con el mismo codigo
+        if(!$capacities->isEmpty()){
+            throw new Exception("El código ingresado ya existe !");
+        }
+
+
         $this->validate($request,[
             'code' => 'required',
             'name' => 'required'
@@ -104,6 +125,21 @@ class CapacityController extends Controller
     public function destroy(Capacity $capacity)
     {
         //
+
+        $capacitie_topics = CapacityTopic::where('capacity_id',$capacity->id)->get();
+            
+        if(!$capacitie_topics->isEmpty()){
+            $list_topic = "";
+            foreach ($capacitie_topics as $capacity_topic) {
+                $topic = Topic::find($capacity_topic['topic_id']);
+                $list_topic .= " - ".$topic->name." ";
+            }
+
+            throw new Exception("No se pudo eliminar la capacidad,
+            porque fue asignado a los siguientes temas: ".$list_topic);
+
+        }
+
         $capacity->state = 0;
         $capacity->update();
         return response()->json([

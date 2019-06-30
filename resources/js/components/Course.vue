@@ -469,11 +469,6 @@ export default {
       if (!this.editedItem.level) {
         notify.error("Ingrese semestre");
         return;
-      } else {
-        if (!this.editedItem.level) {
-          notify.error("Ingrese un semestre válido");
-          return;
-        }
       }
 
       if (!this.editedItem.term) {
@@ -495,10 +490,6 @@ export default {
         this.editedItem.level.length - 1
       );
 
-      // console.log(level_year);
-      // console.log(level_age);
-      // const level = level_year + "-" + level_age;
-
       if (this.editedIndex > -1) {
         const requeriments = this.editedItem.requeriments;
         const editedData = {
@@ -516,7 +507,7 @@ export default {
           topics: topics,
           requeriments: requeriments
         };
-        console.log(editedData);
+        console.log("Esto es el curso con nuevos valores", editedData);
         axios
           .put("/api/course/update/" + this.editedItem.id, editedData)
           .then(({ data }) => {
@@ -564,6 +555,9 @@ export default {
     editItem(item) {
       this.editedIndex = this.courses.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      this.editedItem.area = item.area.id;
+      this.editedItem.term = item.term.id;
+      this.editedItem.nature = item.nature.id;
       this.editedItem.requeriments = item.requeriments.map(
         r => r.course_id_requeriment
       );

@@ -114,7 +114,6 @@ export default {
   },
   methods: {
     initialize() {
-      this.close();
       this.reset();
       this.getCapacities();
     },
@@ -140,8 +139,13 @@ export default {
             notify.showCool(data.message);
             this.initialize();
           })
-          .catch(({ error }) => {
-            notify.error(error.message);
+          .catch(error => {
+            notify.show({
+              text: error.response.data.message,
+              timeout: 5000,
+              color: "error",
+              dismissible: false
+            });
           });
       }
     },
@@ -176,6 +180,7 @@ export default {
             name: this.editedItem.name
           })
           .then(({ data }) => {
+            this.close();
             notify.showCool(data.message);
             this.initialize();
           })
@@ -191,13 +196,13 @@ export default {
         axios
           .post("/api/capacity/create", data)
           .then(({ data }) => {
+            this.close();
             notify.showCool(data.message);
             this.initialize();
           })
           .catch(error => {
             console.log("Entro aqui");
             notify.error(error.response.data.message);
-            // notify.error("Ocurrio un problema");
           });
       }
     }

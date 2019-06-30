@@ -135,20 +135,28 @@ class CourseController extends Controller
 
 
 
-
     public function update(Request $request, Course $course)
     {
+
+
+        $courses = Course::where([ ['code', '=', $request->code], ['state', '=', '1'],['id','<>',$course->id] ])->get();
+    
+        //No es vacio, entonces quiere decir que hay registro con el mismo codigo
+        if(!$courses->isEmpty()){
+            throw new Exception("El código ingresado ya existe !");
+        }
+
             $course->code = $request->code;
             $course->name = $request->name;
+            
+            //Get Models
             $area = Area::find($request->area);
             $nature = Nature::find($request->nature);
             $term = Term::find($request->term);
-            $area_first = $area->first();
-            $course->area_id = $area_first->id;
-            $nature_first = $area->first();
-            $course->nature_id = $nature_first->id;
-            $term_first = $term->first();
-            $course->term_id = $term_first->id;
+
+            $course->area_id = $area->id;
+            $course->nature_id = $nature->id;
+            $course->term_id = $term->id;
 
             $course->main_objective = $request->main_objective;
             $course->secondary_objective = $request->secondary_objective;
@@ -157,13 +165,16 @@ class CourseController extends Controller
             $course->credits = $request->credits;
             $course->level = $request->level;
 
-
             $topics = $request->topics;
-            foreach ($topics as $value) {
-                $topic = Topic::find($value);
-                $course->topics()->sync($topic->id);
-            }
-            //Pr una parte tengo requerimientos que son iguales, que se han quitado, o que se agregaron
+
+            // foreach ($topics as $value) {
+            //     $topic = Topic::find($value);
+            $course->topics()->sync($topics);
+            // }
+
+
+            //Por una parte tengo requerimientos que son iguales, que se han quitado, o que se agregaron
+
             $requeriments = RequerimentCourse::where('course_id','=',$course->id)->get();
             //Traer ids_course_requeriment_id bd
             $ids_course_requeriment_bd  = array();
@@ -187,6 +198,7 @@ class CourseController extends Controller
                     $requriment_course->delete();
                 }
             }
+
             //Recien ingresados
             $ids_course_requeriment_new = array_diff($ids_course_requeriment_upd,$ids_course_requeriment_bd);
             //Agregar los que se han agregado
@@ -196,15 +208,15 @@ class CourseController extends Controller
                 $requeriment_course->course_id_requeriment = $course_id_requeriment;
                 $requeriment_course->save();
             }
-            $corse->save();
             
-            // plan_controller = new PlanController();
-            // plan_controller->storePlan($course->id,$course->name,$course->level);
+            $course->save();
+            // $plan_controller = new PlanController();
+            // $plan_controller->storePlan($course->id,$course->name,$course->level);
 
             return response()->json([
                 'message' => 'Curso Actualizado!'
             ], 200);
-        
+
     }
 
 

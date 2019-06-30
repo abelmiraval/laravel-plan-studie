@@ -1832,7 +1832,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     initialize: function initialize() {
       this.reset();
-      this.close();
       this.getCapacities();
     },
     getCapacities: function getCapacities() {
@@ -1860,9 +1859,13 @@ __webpack_require__.r(__webpack_exports__);
           notify.showCool(data.message);
 
           _this3.initialize();
-        })["catch"](function (_ref4) {
-          var error = _ref4.error;
-          notify.error(error.message);
+        })["catch"](function (error) {
+          notify.show({
+            text: error.response.data.message,
+            timeout: 5000,
+            color: "error",
+            dismissible: false
+          });
         });
       }
     },
@@ -1897,8 +1900,11 @@ __webpack_require__.r(__webpack_exports__);
         axios.put("/api/capacity/update/" + this.editedItem.id, {
           code: this.editedItem.code,
           name: this.editedItem.name
-        }).then(function (_ref5) {
-          var data = _ref5.data;
+        }).then(function (_ref4) {
+          var data = _ref4.data;
+
+          _this5.close();
+
           notify.showCool(data.message);
 
           _this5.initialize();
@@ -1911,14 +1917,17 @@ __webpack_require__.r(__webpack_exports__);
           code: this.editedItem.code,
           name: this.editedItem.name
         };
-        axios.post("/api/capacity/create", data).then(function (_ref6) {
-          var data = _ref6.data;
+        axios.post("/api/capacity/create", data).then(function (_ref5) {
+          var data = _ref5.data;
+
+          _this5.close();
+
           notify.showCool(data.message);
 
           _this5.initialize();
         })["catch"](function (error) {
           console.log("Entro aqui");
-          notify.error(error.response.data.message); // notify.error("Ocurrio un problema");
+          notify.error(error.response.data.message);
         });
       }
     }
@@ -2716,11 +2725,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (!this.editedItem.level) {
         notify.error("Ingrese semestre");
         return;
-      } else {
-        if (!this.editedItem.level) {
-          notify.error("Ingrese un semestre válido");
-          return;
-        }
       }
 
       if (!this.editedItem.term) {
@@ -2737,9 +2741,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return c.id;
       });
       var level_year = this.editedItem.level.substring(0, this.editedItem.level.length - 1);
-      var level_age = this.editedItem.level.charAt(this.editedItem.level.length - 1); // console.log(level_year);
-      // console.log(level_age);
-      // const level = level_year + "-" + level_age;
+      var level_age = this.editedItem.level.charAt(this.editedItem.level.length - 1);
 
       if (this.editedIndex > -1) {
         var requeriments = this.editedItem.requeriments;
@@ -2758,7 +2760,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           topics: topics,
           requeriments: requeriments
         };
-        console.log(editedData);
+        console.log("Esto es el curso con nuevos valores", editedData);
         axios.put("/api/course/update/" + this.editedItem.id, editedData).then(function (_ref11) {
           var data = _ref11.data;
           notify.showCool(data.message);
@@ -2806,6 +2808,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     editItem: function editItem(item) {
       this.editedIndex = this.courses.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      this.editedItem.area = item.area.id;
+      this.editedItem.term = item.term.id;
+      this.editedItem.nature = item.nature.id;
       this.editedItem.requeriments = item.requeriments.map(function (r) {
         return r.course_id_requeriment;
       });
@@ -3735,11 +3740,12 @@ __webpack_require__.r(__webpack_exports__);
       if (this.editedIndex > -1) {
         axios.put("/api/topic/update/" + this.editedItem.id, data).then(function (_ref6) {
           var data = _ref6.data;
+
+          _this5.close();
+
           notify.showCool(data.message);
 
           _this5.initialize();
-
-          _this5.close();
         })["catch"](function (error) {
           console.log(error.response.data.message);
           notify.error(error.response.data.message);
@@ -3747,13 +3753,14 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         axios.post("/api/topic/create", data).then(function (_ref7) {
           var data = _ref7.data;
+
+          _this5.close();
+
           notify.showCool(data.message);
 
           _this5.initialize();
-
-          _this5.close();
-        })["catch"](function (response) {
-          notify.error("Ocurrio un error");
+        })["catch"](function (error) {
+          notify.error(error.response.data.message);
         });
       }
     },
@@ -3769,9 +3776,13 @@ __webpack_require__.r(__webpack_exports__);
           notify.showCool(data.message);
 
           _this6.initialize();
-        })["catch"](function (_ref9) {
-          var error = _ref9.error;
-          notify.error(error.message);
+        })["catch"](function (error) {
+          notify.show({
+            text: error.response.data.message,
+            timeout: 5000,
+            color: "error",
+            dismissible: false
+          });
         });
       }
     },
