@@ -8,7 +8,7 @@ use App\Nature;
 use App\Term;
 use App\Topic;
 use App\TopicCourse;
-use App\RequerimentCourse;
+use App\RequirementCourse;
 use Illuminate\Http\Request;
 use DB;
 use App\Http\Controllers\PlanControler;
@@ -76,11 +76,11 @@ class CourseController extends Controller
         //     $topic_course->topic_id = $topic_id;
         //     $topic_course->save();
         // }
-        if ($request->requeriments){
-            foreach ($request->requeriments as $course_id_requeriment) {
-                $requeriment_course = new RequerimentCourse;
+        if ($request->requirements){
+            foreach ($request->requirements as $course_id_requeriment) {
+                $requeriment_course = new RequirementsCourse;
                 $requeriment_course->course_id = $course->id;
-                $requeriment_course->course_id_requeriment = $course_id_requeriment;
+                $requeriment_course->course_id_requirements = $course_id_requeriment;
                 $requeriment_course->save();
             }
         }
@@ -181,7 +181,7 @@ class CourseController extends Controller
                 }, $requeriments->toArray());
 
                 //Traer ids_course_id_requeriment upda
-                $ids_course_requeriment_upd = $request->requeriments;
+                $ids_course_requeriment_upd = $request->requirements;
                 $ids_course_requeriment_remove = array();
                 //Verificar cual han sido retirados
                 foreach ($ids_course_requeriment_bd as $course_id_requeriment) {
@@ -194,7 +194,7 @@ class CourseController extends Controller
                     if(!(array_search($course_id_requeriment,$ids_course_requeriment_upd))){
                         $requeriment = $requeriments->where('course_id_requeriment','=',$course_id_requeriment)->first();
 
-                        $requriment_course= RequerimentCourse::find($requeriment->id);
+                        $requriment_course= RequirementsCourse::find($requeriment->id);
                         $requriment_course->delete();
 
                     }
@@ -206,7 +206,7 @@ class CourseController extends Controller
                 //Agregar los que se han agregado
                 foreach ($ids_course_requeriment_new as $course_id_requeriment) {
 
-                    $requeriment_course = new RequerimentCourse;
+                    $requeriment_course = new RequirementsCourse;
                     $requeriment_course->course_id = $course->id;
                     $requeriment_course->course_id_requeriment = $course_id_requeriment;
                     $requeriment_course->save();
